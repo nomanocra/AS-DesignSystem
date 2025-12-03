@@ -1,0 +1,270 @@
+.tokens-page {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.tokens-section {
+  margin-bottom: 32px;
+}
+
+.tokens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.token-item {
+  padding: 16px;
+  border: 1px solid var(--cool-grey-20, #e0e3e9);
+  border-radius: 6px;
+  background-color: var(--white, #ffffff);
+}
+
+.token-item p {
+  margin: 0 0 8px 0;
+  color: var(--cool-grey-100, #14171d);
+}
+
+/* ============================================================================
+   TEXT STYLES LIST (Full Width)
+   ============================================================================ */
+
+.text-styles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.text-styles-list .token-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-styles-list .token-item p {
+  margin: 0;
+  flex: 1;
+  margin-bottom: 0 !important;
+  color: var(--text-corporate, var(--sea-blue-90, #00205b));
+}
+
+.text-styles-list .token-item {
+  padding: 12px 16px;
+}
+
+.text-styles-list .token-item > div {
+  flex-shrink: 0;
+  margin-left: 16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 6px;
+  background-color: var(--cool-grey-10, #eff1f4);
+  border: 1px solid var(--cool-grey-20, #e0e3e9);
+  border-radius: 3px;
+}
+
+.text-styles-list .token-code {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  color: var(--cool-grey-60, #63728a);
+}
+
+/* ============================================================================
+   COULEURS PRIMITIVES
+   ============================================================================ */
+
+.primitives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.color-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.color-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 4px;
+  min-height: 44px;
+}
+
+.color-shade {
+  font-weight: 500;
+}
+
+.color-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  /* Le background sera défini inline selon la couleur de fond */
+}
+
+/* ============================================================================
+   COULEURS SÉMANTIQUES
+   ============================================================================ */
+
+.semantics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.semantic-color-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.semantic-colors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.semantic-color-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.semantic-color-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 4px;
+  min-height: 64px;
+  text-align: center;
+}
+
+.semantic-color-name {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.semantic-color-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  color: var(--cool-grey-60, #63728a);
+  background-color: var(--cool-grey-10, #eff1f4);
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* ============================================================================
+   ICONS
+   ============================================================================ */
+
+.icons-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.icon-search {
+  padding: 8px 12px;
+  border: 1px solid var(--cool-grey-20, #e0e3e9);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main, var(--cool-grey-100, #14171d));
+  background-color: var(--background-main, var(--white, #ffffff));
+  width: 280px;
+  transition: all 0.2s;
+}
+
+.icon-search:focus {
+  outline: none;
+  border-color: var(--primary-default, var(--sea-blue-70, #063b9e));
+  box-shadow: 0 0 0 2px rgba(6, 59, 158, 0.1);
+}
+
+.icon-search::placeholder {
+  color: var(--text-tertiary, var(--cool-grey-40, #b3bbc8));
+}
+
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: var(--background-main, var(--white, #ffffff));
+  border: 1px solid var(--cool-grey-20, #e0e3e9);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.icon-item:hover {
+  border-color: var(--primary-default, var(--sea-blue-70, #063b9e));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--background-secondary, var(--warm-grey-10, #fafafa));
+  border-radius: 4px;
+}
+
+.icon-name {
+  font-size: 11px;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--text-secondary, var(--cool-grey-70, #505d74));
+  text-align: center;
+  word-break: break-word;
+}
+
+.usage-example {
+  margin-top: 16px;
+}
+
+.code-block {
+  background-color: var(--background-main, var(--white, #ffffff));
+  border: 1px solid var(--cool-grey-20, #e0e3e9);
+  border-radius: 6px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-main, var(--cool-grey-100, #14171d));
+  white-space: pre;
+}
+

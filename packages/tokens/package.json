@@ -1,0 +1,28 @@
+{
+  "name": "@as-design-system/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens du design system AS (couleurs, typographie, espacements)",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./typography.css": "./dist/typography.css",
+    "./colors.css": "./dist/colors.css"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}
+

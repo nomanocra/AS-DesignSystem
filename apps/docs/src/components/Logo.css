@@ -1,0 +1,11 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo svg {
+  height: 42px;
+  width: auto;
+}
+
