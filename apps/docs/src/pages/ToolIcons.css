@@ -1,0 +1,48 @@
+.tool-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  background-color: var(--background-main, #ffffff);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+}
+
+.tool-icons-grid--dark {
+  background-color: var(--background-dark, #1a1d23);
+}
+
+.tool-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-icon-label {
+  font-size: 12px;
+  color: var(--text-secondary, var(--cool-grey-70, #63728a));
+  text-align: center;
+  word-break: break-word;
+}
+
+.tool-icons-grid--dark .tool-icon-label {
+  color: var(--text-tertiary, #9ca3af);
+}
+
+.tool-icons-sizes {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  padding: 24px;
+  background-color: var(--background-main, #ffffff);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+}
+
+.tool-icon-size-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}

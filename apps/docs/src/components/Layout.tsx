@@ -10,7 +10,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
 
-  const isComponentRoute = location.pathname.startsWith('/components');
+
 
   return (
     <div className="layout">
@@ -25,25 +25,22 @@ export default function Layout({ children }: LayoutProps) {
             <div className="nav-section-links">
               <Link
                 to="/tokens/text-styles"
-                className={`nav-link nav-link-sub ${
-                  location.pathname === '/tokens/text-styles' ? 'active' : ''
-                }`}
+                className={`nav-link nav-link-sub ${location.pathname === '/tokens/text-styles' ? 'active' : ''
+                  }`}
               >
                 Text Styles
               </Link>
               <Link
                 to="/tokens/colors"
-                className={`nav-link nav-link-sub ${
-                  location.pathname === '/tokens/colors' ? 'active' : ''
-                }`}
+                className={`nav-link nav-link-sub ${location.pathname === '/tokens/colors' ? 'active' : ''
+                  }`}
               >
                 Colors
               </Link>
               <Link
                 to="/tokens/icons"
-                className={`nav-link nav-link-sub ${
-                  location.pathname === '/tokens/icons' ? 'active' : ''
-                }`}
+                className={`nav-link nav-link-sub ${location.pathname === '/tokens/icons' ? 'active' : ''
+                  }`}
               >
                 Icons
               </Link>
@@ -59,17 +56,15 @@ export default function Layout({ children }: LayoutProps) {
             <div className="nav-section-links">
               <Link
                 to="/components/button"
-                className={`nav-link nav-link-sub ${
-                  location.pathname === '/components/button' ? 'active' : ''
-                }`}
+                className={`nav-link nav-link-sub ${location.pathname === '/components/button' ? 'active' : ''
+                  }`}
               >
                 Button
               </Link>
               <Link
                 to="/components/tool-icons"
-                className={`nav-link nav-link-sub ${
-                  location.pathname === '/components/tool-icons' ? 'active' : ''
-                }`}
+                className={`nav-link nav-link-sub ${location.pathname === '/components/tool-icons' ? 'active' : ''
+                  }`}
               >
                 ToolIcons
               </Link>

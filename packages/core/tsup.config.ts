@@ -43,7 +43,7 @@ export default defineConfig({
         copyFileSync(srcCss, distCss);
       }
     });
-    
+
     // Copy assets directory to dist
     const srcAssets = join(process.cwd(), 'src', 'assets');
     const distAssets = join(process.cwd(), 'dist', 'assets');

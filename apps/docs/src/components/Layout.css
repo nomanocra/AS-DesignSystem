@@ -41,7 +41,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 2px;
-  padding: 0 12px;
+  padding: 0;
 }
 
 .nav-section-links {
@@ -51,7 +51,7 @@
 }
 
 .nav-link {
-  padding: 0 12px;
+  padding: 0 8px 0 11px;
   height: 32px;
   display: flex;
   align-items: center;
@@ -63,10 +63,12 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
+  border-left: 3px solid transparent;
+  margin-left: 0;
 }
 
 .nav-link-sub {
-  padding-left: 24px;
+  padding-left: 11px;
 }
 
 .nav-link:hover {
@@ -75,8 +77,10 @@
 }
 
 .nav-link.active {
-  background-color: var(--primary-default, var(--sea-blue-70, #063b9e));
-  color: var(--text-negative, var(--white, #ffffff));
+  background-color: var(--t-active, rgba(6, 59, 158, 0.08));
+  color: var(--primary-default, var(--sea-blue-70, #063b9e));
+  font-weight: 700;
+  border-left-color: var(--primary-default, var(--sea-blue-70, #063b9e));
 }
 
 .content {
@@ -90,6 +94,6 @@
 
 .content > * {
   width: 100%;
-  padding: 32px;
+  padding: 48px 64px 64px 64px;
 }
 
