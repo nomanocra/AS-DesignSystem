@@ -10,9 +10,15 @@ export default function ButtonPage() {
   const variantsCode = `import { Button } from '@as-design-system/core';
 import '@as-design-system/core/Button.css';
 
+// Enabled
 <Button label="Default" variant="Default" size="M" />
 <Button label="Outlined" variant="Outlined" size="M" />
-<Button label="Ghost" variant="Ghost" size="M" />`;
+<Button label="Ghost" variant="Ghost" size="M" />
+
+// Disabled
+<Button label="Default" variant="Default" size="M" disabled />
+<Button label="Outlined" variant="Outlined" size="M" disabled />
+<Button label="Ghost" variant="Ghost" size="M" disabled />`;
 
   const sizesCode = `import { Button } from '@as-design-system/core';
 import '@as-design-system/core/Button.css';
@@ -54,10 +60,10 @@ import '@as-design-system/core/Button.css';
           <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
             Variants
           </h2>
-          <Button 
-            label="Code" 
-            leftIcon="code" 
-            size="S" 
+          <Button
+            label="Code"
+            leftIcon="code"
+            size="S"
             variant="Outlined"
             onClick={() => setOpenModal('variants')}
           />
@@ -66,6 +72,9 @@ import '@as-design-system/core/Button.css';
           <Button label="Default" variant="Default" size="M" />
           <Button label="Outlined" variant="Outlined" size="M" />
           <Button label="Ghost" variant="Ghost" size="M" />
+          <Button label="Default Disabled" variant="Default" size="M" disabled />
+          <Button label="Outlined Disabled" variant="Outlined" size="M" disabled />
+          <Button label="Ghost Disabled" variant="Ghost" size="M" disabled />
         </div>
       </section>
 

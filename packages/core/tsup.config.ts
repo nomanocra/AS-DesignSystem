@@ -35,7 +35,7 @@ export default defineConfig({
   },
   onSuccess: () => {
     // Copy CSS files to dist
-    const cssFiles = ['Icon.css', 'Button.css', 'ToolIcons.css'];
+    const cssFiles = ['Icon.css', 'Button.css', 'ToolIcons.css', 'Tab.css'];
     cssFiles.forEach((file) => {
       const srcCss = join(process.cwd(), 'src', file);
       const distCss = join(process.cwd(), 'dist', file);

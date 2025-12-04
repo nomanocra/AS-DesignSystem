@@ -13,7 +13,8 @@
     },
     "./Button.css": "./dist/Button.css",
     "./Icon.css": "./dist/Icon.css",
-    "./ToolIcons.css": "./dist/ToolIcons.css"
+    "./ToolIcons.css": "./dist/ToolIcons.css",
+    "./Tab.css": "./dist/Tab.css"
   },
   "scripts": {
     "build": "tsup",

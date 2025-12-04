@@ -68,6 +68,13 @@ export default function Layout({ children }: LayoutProps) {
               >
                 ToolIcons
               </Link>
+              <Link
+                to="/components/tab"
+                className={`nav-link nav-link-sub ${location.pathname === '/components/tab' ? 'active' : ''
+                  }`}
+              >
+                Tab
+              </Link>
             </div>
           </div>
         </nav>

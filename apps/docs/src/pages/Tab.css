@@ -1,0 +1,24 @@
+.tab-examples {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background-color: var(--background-main, #ffffff);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+}
+
+.tab-examples--container {
+  background-color: var(--background-main, #ffffff);
+}
+
+.tab-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tab-group {
+  display: flex;
+  flex-direction: column;
+}

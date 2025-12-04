@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Button from './pages/Button';
 import ToolIcons from './pages/ToolIcons';
+import Tab from './pages/Tab';
 import TextStyles from './pages/TextStyles';
 import Colors from './pages/Colors';
 import Icons from './pages/Icons';
@@ -18,6 +19,7 @@ function App() {
           <Route path="/components" element={<Navigate to="/components/button" replace />} />
           <Route path="/components/button" element={<Button />} />
           <Route path="/components/tool-icons" element={<ToolIcons />} />
+          <Route path="/components/tab" element={<Tab />} />
         </Routes>
       </Layout>
     </BrowserRouter>
