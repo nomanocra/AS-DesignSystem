@@ -1,3 +1,5 @@
+// @ts-ignore - React import needed for JSX in non-TypeScript projects
+import React from 'react';
 import './Tab.css';
 import { Icon } from './Icon';
 
