@@ -1,32 +1,29 @@
 # AS Design System
 
-Design System basé sur Figma avec génération automatique de composants et tokens via Figma MCP.
+Design System React avec composants, tokens, et icônes générés depuis Figma.
 
 ## 🏗️ Structure du projet
 
 ```
 as-design-system/
 ├── packages/
-│   ├── core/              # Composants React
-│   ├── tokens/            # Design tokens (couleurs, typographie, etc.)
-│   └── icons/             # Bibliothèque d'icônes
+│   ├── core/              # Composants React + Tokens + Icônes
+│   └── cli/               # CLI pour installation des composants
 ├── apps/
 │   └── docs/              # Application de documentation
-├── scripts/
-│   └── sync-figma.js      # Scripts de synchronisation Figma MCP
 └── Configuration monorepo
 ```
 
 ## 📦 Packages
 
 ### `@as-design-system/core`
-Composants React réutilisables générés depuis Figma.
+Package principal contenant :
+- **Composants React** : Button, Icon, IconButton, Tab, ToolIcons
+- **Design tokens** : Couleurs, typographie
+- **39 icônes SVG** : Icônes AS + Material Icons
 
-### `@as-design-system/tokens`
-Design tokens (couleurs, typographie, espacements, ombres, breakpoints).
-
-### `@as-design-system/icons`
-Bibliothèque d'icônes SVG converties en composants React.
+### `@as-design-system/cli`
+CLI pour installer rapidement les composants dans votre projet.
 
 ## 🚀 Démarrage
 
@@ -40,15 +37,20 @@ Bibliothèque d'icônes SVG converties en composants React.
 ```bash
 # Installer les dépendances
 pnpm install
+
+# Build tous les packages
+pnpm build
 ```
 
 ### Développement
 
 ```bash
 # Lancer l'app de documentation en mode développement
+cd apps/docs
 pnpm dev
 
-# Build tous les packages
+# Build le package core
+cd packages/core
 pnpm build
 
 # Vérification TypeScript
@@ -58,27 +60,37 @@ pnpm type-check
 ## 📚 Documentation
 
 L'application de documentation est accessible via `pnpm dev` et permet de :
-- Visualiser les composants
-- Explorer les tokens
-- Consulter les exemples d'utilisation
+- Visualiser tous les composants avec exemples interactifs
+- Explorer les tokens (couleurs, typographie)
+- Consulter les 39 icônes disponibles
+- Voir les exemples d'utilisation avec code
 
-## 🔄 Synchronisation Figma
+## 🎨 Ajouter de nouvelles icônes
 
-Les scripts de synchronisation Figma MCP seront implémentés dans `scripts/sync-figma.js` pour :
-- Extraire les tokens depuis Figma
-- Générer les composants React
-- Générer les icônes SVG
+```bash
+# 1. Ajouter vos fichiers SVG dans:
+packages/core/src/assets/svg/icons/
 
-## 📝 Plan d'approche
+# 2. Générer les imports automatiquement:
+cd packages/core
+pnpm generate-icons
 
-Voir [PLAN.md](./PLAN.md) pour le plan détaillé du projet.
+# 3. Rebuild le package:
+pnpm build
+```
+
+Les icônes apparaîtront automatiquement dans la documentation!
 
 ## 🛠️ Technologies
 
 - **TypeScript** : Typage statique
-- **React 18+** : Framework UI
-- **Vite** : Build tool
-- **CSS Modules** : Styling
+- **React 18** : Framework UI
+- **Vite** : Build tool & dev server
+- **CSS Modules** : Styling avec CSS variables
 - **pnpm workspaces** : Monorepo
-- **Figma MCP** : Synchronisation Figma → Code
+- **tsup** : Build rapide TypeScript
+- **Figma MCP** : Extraction des composants depuis Figma
 
+## 📖 Plus d'infos
+
+Pour les détails techniques et conventions de développement, voir [CLAUDE.md](./CLAUDE.md).
