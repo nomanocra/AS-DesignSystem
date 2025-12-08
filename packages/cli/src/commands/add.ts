@@ -167,36 +167,57 @@ export const add = new Command()
     }
     logger.break();
 
-    // Check for conflicts
+    // Check for conflicts and build file map
     const paths = getResolvedPaths(config, cwd);
-    const conflicts: string[] = [];
+    const existingFiles = new Set<string>();
+    const newFiles = new Set<string>();
+
+    // Map each file to its target path and check existence
+    type FileWithItem = { file: RegistryFile; item: RegistryItem; targetPath: string };
+    const fileMap = new Map<string, FileWithItem>();
 
     for (const item of toInstall) {
       for (const file of item.files) {
         const targetPath = path.join(cwd, config.designSystemPath, file.target);
-        if (await fs.pathExists(targetPath)) {
-          conflicts.push(file.target);
+        const exists = await fs.pathExists(targetPath);
+
+        fileMap.set(file.target, { file, item, targetPath });
+
+        if (exists) {
+          existingFiles.add(file.target);
+        } else {
+          newFiles.add(file.target);
         }
       }
     }
 
-    if (conflicts.length > 0 && !options.overwrite) {
-      logger.warn('The following files already exist:');
-      for (const conflict of conflicts) {
-        logger.warn(`  - ${conflict}`);
+    // Determine which files to install
+    let filesToInstall = new Set<string>(fileMap.keys());
+
+    if (existingFiles.size > 0 && !options.overwrite) {
+      logger.warn(`${existingFiles.size} file(s) already exist:`);
+      const displayLimit = 10;
+      const existingArray = Array.from(existingFiles);
+      for (let i = 0; i < Math.min(displayLimit, existingArray.length); i++) {
+        logger.warn(`  - ${existingArray[i]}`);
+      }
+      if (existingArray.length > displayLimit) {
+        logger.warn(`  ... and ${existingArray.length - displayLimit} more`);
       }
       logger.break();
 
       const { shouldOverwrite } = await prompts({
         type: 'confirm',
         name: 'shouldOverwrite',
-        message: 'Do you want to overwrite these files?',
+        message: 'Overwrite existing files? (No = skip existing, install new files only)',
         initial: false,
       });
 
       if (!shouldOverwrite) {
-        logger.info('Aborting.');
-        return;
+        // Skip existing files, only install new ones
+        filesToInstall = newFiles;
+        logger.info(`Skipping ${existingFiles.size} existing file(s), installing ${newFiles.size} new file(s)...`);
+        logger.break();
       }
     }
 
@@ -205,6 +226,8 @@ export const add = new Command()
 
     try {
       const allCssImports = new Set<string>();
+      const installedItems = new Set<string>();
+      let filesCopied = 0;
 
       // Filter files based on TypeScript setting
       const shouldCopyFile = (file: RegistryFile) => {
@@ -218,22 +241,37 @@ export const add = new Command()
         return !file.path.endsWith('.ts');
       };
 
-      for (const item of toInstall) {
-        // Copy files (filtered based on TypeScript setting)
-        const filesToCopy = item.files.filter(shouldCopyFile);
-        for (const file of filesToCopy) {
-          await copyFile(file, config, cwd);
-        }
+      // Copy only the files in filesToInstall
+      for (const fileTarget of filesToInstall) {
+        const fileWithItem = fileMap.get(fileTarget);
+        if (!fileWithItem) continue;
 
-        // Collect CSS imports
-        if (item.cssImports) {
+        const { file, item } = fileWithItem;
+
+        // Apply TypeScript filter
+        if (!shouldCopyFile(file)) continue;
+
+        await copyFile(file, config, cwd);
+        filesCopied++;
+        installedItems.add(item.name);
+      }
+
+      // Collect CSS imports from all items that have at least one file installed
+      for (const item of toInstall) {
+        if (installedItems.has(item.name) && item.cssImports) {
           for (const cssImport of item.cssImports) {
             allCssImports.add(cssImport);
           }
         }
       }
 
-      spinner.succeed(`Copied ${toInstall.length} item(s)`);
+      // Calculate how many files were skipped
+      const skippedCount = filesToInstall === newFiles ? existingFiles.size : 0;
+      if (skippedCount > 0) {
+        spinner.succeed(`Copied ${filesCopied} file(s), skipped ${skippedCount} existing file(s)`);
+      } else {
+        spinner.succeed(`Copied ${filesCopied} file(s)`);
+      }
 
       // Update global CSS
       if (allCssImports.size > 0) {
@@ -246,11 +284,13 @@ export const add = new Command()
       logger.success('Installation complete!');
       logger.break();
 
-      // Show usage hints
-      const components = toInstall.filter((i) => i.type === 'component');
-      if (components.length > 0) {
+      // Show usage hints only for components that were actually installed
+      const installedComponents = toInstall.filter(
+        (i) => i.type === 'component' && installedItems.has(i.name)
+      );
+      if (installedComponents.length > 0) {
         logger.info('Import components in your code:');
-        for (const comp of components) {
+        for (const comp of installedComponents) {
           const componentName = comp.displayName || comp.name;
           logger.info(`  import { ${componentName} } from '${config.aliases.components}/${componentName}';`);
         }
