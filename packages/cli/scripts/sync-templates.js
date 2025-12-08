@@ -67,6 +67,36 @@ try {
     console.warn('   ⚠️  Tokens source not found');
   }
 
+  // Update registry with SVG icons
+  console.log('📝 Updating registry...');
+  const registryPath = path.resolve(__dirname, '../src/registry/components.ts');
+  const svgIconsPath = path.join(CLI_TEMPLATES, 'assets', 'svg', 'icons');
+
+  if (fs.existsSync(svgIconsPath) && fs.existsSync(registryPath)) {
+    const svgFiles = fs.readdirSync(svgIconsPath)
+      .filter(f => f.endsWith('.svg'))
+      .sort();
+
+    // Generate SVG icon entries
+    const svgEntries = svgFiles.map(file =>
+      `      { path: 'templates/assets/svg/icons/${file}', target: 'assets/svg/icons/${file}', type: 'component' },`
+    ).join('\n');
+
+    // Read current registry
+    let registryContent = fs.readFileSync(registryPath, 'utf-8');
+
+    // Replace SVG section (between comment and first non-SVG line)
+    const svgSectionRegex = /(\/\/ SVG icon assets \(\d+ icons\)\n)([\s\S]*?)(    \],\n    cssImports: \[\],\n  \},)/;
+    const newSection = `// SVG icon assets (${svgFiles.length} icons)\n${svgEntries}\n`;
+
+    registryContent = registryContent.replace(svgSectionRegex, `${newSection}$3`);
+
+    fs.writeFileSync(registryPath, registryContent, 'utf-8');
+    console.log(`   ✅ Registry updated with ${svgFiles.length} SVG icons`);
+  } else {
+    console.warn('   ⚠️  Could not update registry');
+  }
+
   console.log('\n✨ Templates synced successfully!\n');
 
   // Show summary
