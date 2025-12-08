@@ -31,18 +31,9 @@ function rewriteImports(content: string, config: any, filePath?: string): string
     config.aliases.tokens
   );
 
-  // Don't transform relative imports in index.ts files (barrel exports)
-  // These files re-export from sibling files and should keep relative imports
-  const isIndexFile = filePath?.endsWith('index.ts') || filePath?.endsWith('index.tsx');
-
-  if (!isIndexFile) {
-    // Rewrite relative imports like './Icon' → '@/design-system/components/Icon'
-    // Only for non-index files (actual component files)
-    rewritten = rewritten.replace(
-      /from ['"]\.\/([^'"]+)['"]/g,
-      `from '${config.aliases.components}/$1'`
-    );
-  }
+  // Don't transform relative imports - they are already correct in templates
+  // Templates use relative imports for same-directory files (e.g., './Icon')
+  // and these should be preserved as-is
 
   return rewritten;
 }
