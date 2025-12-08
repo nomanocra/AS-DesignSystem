@@ -34,10 +34,20 @@ export default defineConfig({
     '.svg': 'copy',
   },
   onSuccess: () => {
-    // Copy CSS files to dist
-    const cssFiles = ['Icon.css', 'Button.css', 'ToolIcons.css', 'Tab.css'];
-    cssFiles.forEach((file) => {
-      const srcCss = join(process.cwd(), 'src', file);
+    // Copy component CSS files to dist
+    const componentCssFiles = ['Icon.css', 'Button.css', 'IconButton.css', 'Tab.css', 'ToolIcons.css'];
+    componentCssFiles.forEach((file) => {
+      const srcCss = join(process.cwd(), 'src', 'components', file);
+      const distCss = join(process.cwd(), 'dist', file);
+      if (existsSync(srcCss)) {
+        copyFileSync(srcCss, distCss);
+      }
+    });
+
+    // Copy token CSS files to dist
+    const tokenCssFiles = ['colors.css', 'typography.css'];
+    tokenCssFiles.forEach((file) => {
+      const srcCss = join(process.cwd(), 'src', 'tokens', file);
       const distCss = join(process.cwd(), 'dist', file);
       if (existsSync(srcCss)) {
         copyFileSync(srcCss, distCss);

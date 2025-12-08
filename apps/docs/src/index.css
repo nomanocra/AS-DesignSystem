@@ -1,5 +1,5 @@
-@import '@as-design-system/tokens/typography.css';
-@import '@as-design-system/tokens/colors.css';
+@import '@as-design-system/core/typography.css';
+@import '@as-design-system/core/colors.css';
 
 * {
   margin: 0;

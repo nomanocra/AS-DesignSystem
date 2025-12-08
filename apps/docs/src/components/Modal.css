@@ -1,0 +1,99 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--cool-grey-20, #e5e8ed);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--cool-grey-60, #63728a);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--cool-grey-10, #f5f6f8);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-code-block {
+  background: var(--cool-grey-10, #f5f6f8);
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.modal-code-block pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.modal-code-block code {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-main, var(--cool-grey-90, #1d2433));
+}
+
+.modal-copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border: 1px solid var(--cool-grey-30, #c9ced6);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-copy-button:hover {
+  background: var(--cool-grey-10, #f5f6f8);
+}
+
+.modal-section-title {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: var(--cool-grey-60, #63728a);
+  font-weight: 600;
+}

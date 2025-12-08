@@ -2,6 +2,15 @@
   max-width: 100%;
 }
 
+.tabs-container {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--background-secondary, var(--warm-grey-10, #fafafa));
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--cool-grey-20, #e0e3e9);
+}
+
 .component-section {
   margin-bottom: 48px;
 }
@@ -17,6 +26,9 @@
   margin: 0;
   margin-top: 32px;
   margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 32px;
 }
 
 .button-showcase {
@@ -31,11 +43,21 @@
   gap: 12px;
 }
 
+.button-group h3 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
 .button-examples {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
+  padding: 24px;
+  background-color: var(--background-main, #ffffff);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
 }
 
 .props-table {

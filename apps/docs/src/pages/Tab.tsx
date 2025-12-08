@@ -8,9 +8,9 @@ import './Tab.css';
 
 export default function TabPage() {
   const [openModal, setOpenModal] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
 
-  const variantsCode = `import { Tab } from '@as-design-system/core';
-import '@as-design-system/core/Tab.css';
+  const variantsCode = `import { Tab } from '@/design-system/components/Tab';
 
 // Default variant - Enabled
 <Tab label="Default" variant="Default" status="Default" size="M" />
@@ -28,23 +28,20 @@ import '@as-design-system/core/Tab.css';
 <Tab label="Default" variant="Container" status="Default" size="M" disabled />
 <Tab label="Active" variant="Container" status="Active" size="M" disabled />`;
 
-  const sizesCode = `import { Tab } from '@as-design-system/core';
-import '@as-design-system/core/Tab.css';
+  const sizesCode = `import { Tab } from '@/design-system/components/Tab';
 
 <Tab label="Size S" size="S" status="Active" />
 <Tab label="Size M" size="M" status="Active" />
 <Tab label="Size L" size="L" status="Active" />
 <Tab label="Size XL" size="XL" status="Active" />`;
 
-  const statesCode = `import { Tab } from '@as-design-system/core';
-import '@as-design-system/core/Tab.css';
+  const statesCode = `import { Tab } from '@/design-system/components/Tab';
 
 <Tab label="Default" status="Default" size="M" />
 <Tab label="Active" status="Active" size="M" />
 <Tab label="Disabled" status="Default" size="M" disabled={true} />`;
 
-  const iconsCode = `import { Tab } from '@as-design-system/core';
-import '@as-design-system/core/Tab.css';
+  const iconsCode = `import { Tab } from '@/design-system/components/Tab';
 
 // Left icon
 <Tab label="Add" leftIcon="add" size="M" status="Active" />
@@ -62,10 +59,31 @@ import '@as-design-system/core/Tab.css';
       <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
         Tab
       </h1>
-      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '32px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
-        Le composant Tab permet de créer des onglets avec différentes tailles, statuts et variantes.
+      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
+        The Tab component allows you to create tabs with different sizes, statuses, and variants.
       </p>
 
+      {/* Tabs */}
+      <div className="tabs-container">
+        <div style={{ display: 'flex', gap: '0' }}>
+          <Tab
+            label="Examples"
+            size="M"
+            status={activeTab === 'examples' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('examples')}
+          />
+          <Tab
+            label="Props"
+            size="M"
+            status={activeTab === 'props' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('props')}
+          />
+        </div>
+      </div>
+
+      {/* Examples Tab */}
+      {activeTab === 'examples' && (
+        <>
       {/* Variants */}
       <section className="component-section">
         <div className="section-header">
@@ -184,8 +202,11 @@ import '@as-design-system/core/Tab.css';
           </div>
         </div>
       </section>
+        </>
+      )}
 
-      {/* Props */}
+      {/* Props Tab */}
+      {activeTab === 'props' && (
       <section className="component-section">
         <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
           Props
@@ -259,6 +280,7 @@ import '@as-design-system/core/Tab.css';
           </table>
         </div>
       </section>
+      )}
 
       {/* Modals */}
       <CodeModal

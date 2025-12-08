@@ -19,6 +19,41 @@ export default function Layout({ children }: LayoutProps) {
           <Logo />
         </div>
         <nav className="sidebar-nav">
+          {/* Section Getting Started */}
+          <div className="nav-section">
+            <h2 className="nav-section-title legend-bold">Getting Started</h2>
+            <div className="nav-section-links">
+              <Link
+                to="/getting-started/welcome"
+                className={`nav-link nav-link-sub ${location.pathname === '/getting-started/welcome' ? 'active' : ''
+                  }`}
+              >
+                Welcome
+              </Link>
+              <Link
+                to="/getting-started/installation"
+                className={`nav-link nav-link-sub ${location.pathname === '/getting-started/installation' ? 'active' : ''
+                  }`}
+              >
+                Installation
+              </Link>
+              <Link
+                to="/getting-started/how-to-use"
+                className={`nav-link nav-link-sub ${location.pathname === '/getting-started/how-to-use' ? 'active' : ''
+                  }`}
+              >
+                How to Use
+              </Link>
+              <Link
+                to="/getting-started/supported-platforms"
+                className={`nav-link nav-link-sub ${location.pathname === '/getting-started/supported-platforms' ? 'active' : ''
+                  }`}
+              >
+                Supported Platforms
+              </Link>
+            </div>
+          </div>
+
           {/* Section Tokens */}
           <div className="nav-section">
             <h2 className="nav-section-title legend-bold">Tokens</h2>
@@ -47,9 +82,6 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           </div>
 
-          {/* Barre de séparation */}
-          <div className="nav-separator"></div>
-
           {/* Section Components */}
           <div className="nav-section">
             <h2 className="nav-section-title legend-bold">Components</h2>
@@ -60,6 +92,13 @@ export default function Layout({ children }: LayoutProps) {
                   }`}
               >
                 Button
+              </Link>
+              <Link
+                to="/components/icon-button"
+                className={`nav-link nav-link-sub ${location.pathname === '/components/icon-button' ? 'active' : ''
+                  }`}
+              >
+                IconButton
               </Link>
               <Link
                 to="/components/tool-icons"

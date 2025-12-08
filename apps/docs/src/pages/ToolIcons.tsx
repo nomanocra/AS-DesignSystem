@@ -1,12 +1,17 @@
 import { useState } from 'react';
-import { ToolIcons, Button, type ToolName } from '@as-design-system/core';
+import { ToolIcons, type ToolName } from '@as-design-system/core';
+import { Tab, Button } from '@as-design-system/core';
 import '@as-design-system/core/ToolIcons.css';
+import '@as-design-system/core/Tab.css';
+import '@as-design-system/core/Button.css';
 import CodeModal from '../components/CodeModal';
 import './ToolIcons.css';
 
 export default function ToolIconsPage() {
   const [openModal, setOpenModal] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
 
+  // All available tools
   const allTools: ToolName[] = [
     'trajopt',
     'skyfinesse',
@@ -31,191 +36,240 @@ export default function ToolIconsPage() {
     'cabin-crew',
   ];
 
-  const lightModeCode = `import { ToolIcons } from '@as-design-system/core';
-import '@as-design-system/core/ToolIcons.css';
+  const lightCode = `import { ToolIcons } from '@/design-system/components/ToolIcons';
 
-<ToolIcons tool="trajopt" mode="light" />
-<ToolIcons tool="skyfinesse" mode="light" />
-<ToolIcons tool="airscout" mode="light" />
-<ToolIcons tool="maintenance" mode="light" />
-// ... all tools in light mode`;
+// All tools in light mode
+const tools = [
+  'trajopt', 'skyfinesse', 'airscout', 'maintenance',
+  'economics', 'network', 'network-fam', 'network-rotation',
+  'network-tam', 'aoa', 'missionlite', 'lopaexplorer',
+  'airline-simulator', 'navdb-editor', 'economicslite',
+  'atmosphere', 'ac-config', 'fellofly',
+  'airline-business-planner', 'weight-builder', 'cabin-crew'
+];
 
-  const darkModeCode = `import { ToolIcons } from '@as-design-system/core';
-import '@as-design-system/core/ToolIcons.css';
+{tools.map(tool => (
+  <ToolIcons key={tool} tool={tool} mode="light" size={60} />
+))}`;
 
-<ToolIcons tool="trajopt" mode="dark" />
-<ToolIcons tool="skyfinesse" mode="dark" />
-<ToolIcons tool="airscout" mode="dark" />
-<ToolIcons tool="maintenance" mode="dark" />
-// ... all tools in dark mode`;
+  const darkCode = `import { ToolIcons } from '@/design-system/components/ToolIcons';
 
-  const sizesCode = `import { ToolIcons } from '@as-design-system/core';
-import '@as-design-system/core/ToolIcons.css';
+// All tools in dark mode
+const tools = [
+  'trajopt', 'skyfinesse', 'airscout', 'maintenance',
+  'economics', 'network', 'network-fam', 'network-rotation',
+  'network-tam', 'aoa', 'missionlite', 'lopaexplorer',
+  'airline-simulator', 'navdb-editor', 'economicslite',
+  'atmosphere', 'ac-config', 'fellofly',
+  'airline-business-planner', 'weight-builder', 'cabin-crew'
+];
 
-// Default size (60px)
-<ToolIcons tool="trajopt" mode="light" />
+{tools.map(tool => (
+  <ToolIcons key={tool} tool={tool} mode="dark" size={60} />
+))}`;
 
-// Custom size with number (pixels)
-<ToolIcons tool="skyfinesse" mode="light" size={90} />
-<ToolIcons tool="network" mode="dark" size={120} />
+  const sizesCode = `import { ToolIcons } from '@/design-system/components/ToolIcons';
 
-// Custom size with CSS string
-<ToolIcons tool="economics" mode="light" size="5rem" />`;
+<ToolIcons tool="network" mode="light" size={40} />
+<ToolIcons tool="network" mode="light" size={60} />
+<ToolIcons tool="network" mode="light" size={80} />
+<ToolIcons tool="network" mode="light" size={100} />
+<ToolIcons tool="network" mode="light" size="120px" />`;
 
   return (
     <div className="component-page">
       <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
         ToolIcons
       </h1>
-      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '32px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
-        Le composant ToolIcons affiche les icônes des différents outils AS en mode light ou dark.
+      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
+        The ToolIcons component displays AS product tool icons in light or dark mode with customizable sizes.
       </p>
 
-      {/* Light Mode */}
-      <section className="component-section">
-        <div className="section-header">
-          <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-            Mode Light
-          </h2>
-          <Button
-            label="Code"
-            leftIcon="code"
-            size="S"
-            variant="Outlined"
-            onClick={() => setOpenModal('light')}
+      {/* Tabs */}
+      <div className="tabs-container">
+        <div style={{ display: 'flex', gap: '0' }}>
+          <Tab
+            label="Examples"
+            size="M"
+            status={activeTab === 'examples' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('examples')}
+          />
+          <Tab
+            label="Props"
+            size="M"
+            status={activeTab === 'props' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('props')}
           />
         </div>
-        <div className="tool-icons-grid">
-          {allTools.map((tool) => (
-            <div key={tool} className="tool-icon-item">
-              <ToolIcons tool={tool} mode="light" />
-              <span className="tool-icon-label">{tool}</span>
+      </div>
+
+      {/* Examples Tab */}
+      {activeTab === 'examples' && (
+        <>
+          {/* Light Mode */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                Light
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('light')}
+              />
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Dark Mode */}
-      <section className="component-section">
-        <div className="section-header">
-          <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-            Mode Dark
-          </h2>
-          <Button
-            label="Code"
-            leftIcon="code"
-            size="S"
-            variant="Outlined"
-            onClick={() => setOpenModal('dark')}
-          />
-        </div>
-        <div className="tool-icons-grid tool-icons-grid--dark">
-          {allTools.map((tool) => (
-            <div key={tool} className="tool-icon-item">
-              <ToolIcons tool={tool} mode="dark" />
-              <span className="tool-icon-label">{tool}</span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              {allTools.map(tool => (
+                <ToolIcons key={tool} tool={tool} mode="light" size={60} />
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
 
-      {/* Sizes */}
-      <section className="component-section">
-        <div className="section-header">
+          {/* Dark Mode */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                Dark
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('dark')}
+              />
+            </div>
+
+            <div style={{ backgroundColor: 'var(--background-corporate)', padding: '24px', borderRadius: '8px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              {allTools.map(tool => (
+                <ToolIcons key={tool} tool={tool} mode="dark" size={60} />
+              ))}
+            </div>
+          </section>
+
+          {/* Sizes */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                Sizes
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('sizes')}
+              />
+            </div>
+
+            <div className="tool-icons-grid" style={{ alignItems: 'flex-end' }}>
+              <div className="tool-icon-item">
+                <ToolIcons tool="network" mode="light" size={40} />
+                <p className="label-regular-s">40px</p>
+              </div>
+              <div className="tool-icon-item">
+                <ToolIcons tool="network" mode="light" size={60} />
+                <p className="label-regular-s">60px (default)</p>
+              </div>
+              <div className="tool-icon-item">
+                <ToolIcons tool="network" mode="light" size={80} />
+                <p className="label-regular-s">80px</p>
+              </div>
+              <div className="tool-icon-item">
+                <ToolIcons tool="network" mode="light" size={100} />
+                <p className="label-regular-s">100px</p>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* Props Tab */}
+      {activeTab === 'props' && (
+        <section className="component-section">
           <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-            Tailles
+            Props
           </h2>
-          <Button
-            label="Code"
-            leftIcon="code"
-            size="S"
-            variant="Outlined"
-            onClick={() => setOpenModal('sizes')}
-          />
-        </div>
-        <div className="tool-icons-sizes">
-          <div className="tool-icon-size-item">
-            <ToolIcons tool="trajopt" mode="light" size={40} />
-            <span className="tool-icon-label">40px</span>
+          <div className="props-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>tool</code></td>
+                  <td><code>ToolName</code></td>
+                  <td><code>'trajopt'</code></td>
+                  <td>Tool name to display (see list of 21 available tools)</td>
+                </tr>
+                <tr>
+                  <td><code>mode</code></td>
+                  <td><code>'light' | 'dark'</code></td>
+                  <td><code>'light'</code></td>
+                  <td>Display mode for the icon</td>
+                </tr>
+                <tr>
+                  <td><code>size</code></td>
+                  <td><code>number | string</code></td>
+                  <td><code>60</code></td>
+                  <td>Icon size in pixels or CSS value (e.g., "80px")</td>
+                </tr>
+                <tr>
+                  <td><code>alt</code></td>
+                  <td><code>string</code></td>
+                  <td>-</td>
+                  <td>Alternative text for accessibility</td>
+                </tr>
+                <tr>
+                  <td><code>className</code></td>
+                  <td><code>string</code></td>
+                  <td><code>''</code></td>
+                  <td>Additional CSS class</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className="tool-icon-size-item">
-            <ToolIcons tool="skyfinesse" mode="light" size={60} />
-            <span className="tool-icon-label">60px (default)</span>
-          </div>
-          <div className="tool-icon-size-item">
-            <ToolIcons tool="network" mode="light" size={90} />
-            <span className="tool-icon-label">90px</span>
-          </div>
-          <div className="tool-icon-size-item">
-            <ToolIcons tool="economics" mode="light" size={120} />
-            <span className="tool-icon-label">120px</span>
-          </div>
-        </div>
-      </section>
 
-      {/* Props */}
-      <section className="component-section">
-        <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-          Props
-        </h2>
-        <div className="props-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Prop</th>
-                <th>Type</th>
-                <th>Default</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>tool</code></td>
-                <td><code>ToolName</code></td>
-                <td><code>'trajopt'</code></td>
-                <td>Nom de l'outil à afficher (21 outils disponibles)</td>
-              </tr>
-              <tr>
-                <td><code>mode</code></td>
-                <td><code>'light' | 'dark'</code></td>
-                <td><code>'light'</code></td>
-                <td>Mode d'affichage de l'icône</td>
-              </tr>
-              <tr>
-                <td><code>size</code></td>
-                <td><code>number | string</code></td>
-                <td><code>60</code></td>
-                <td>Taille de l'icône (nombre en px ou valeur CSS)</td>
-              </tr>
-              <tr>
-                <td><code>alt</code></td>
-                <td><code>string</code></td>
-                <td><code>undefined</code></td>
-                <td>Texte alternatif pour l'accessibilité</td>
-              </tr>
-              <tr>
-                <td><code>className</code></td>
-                <td><code>string</code></td>
-                <td><code>''</code></td>
-                <td>Classe CSS supplémentaire</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+          <div style={{ marginTop: '24px' }}>
+            <h3 className="label-medium-m" style={{ marginBottom: '12px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+              Available Tool Names
+            </h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {allTools.map(tool => (
+                <code key={tool} style={{
+                  padding: '4px 8px',
+                  backgroundColor: 'var(--cool-grey-10, #f2f4f7)',
+                  borderRadius: '4px',
+                  fontSize: '12px'
+                }}>
+                  {tool}
+                </code>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* Modals */}
+      {/* Code Modals */}
       <CodeModal
         isOpen={openModal === 'light'}
         onClose={() => setOpenModal(null)}
         title="Light Mode Implementation"
-        code={lightModeCode}
+        code={lightCode}
       />
       <CodeModal
         isOpen={openModal === 'dark'}
         onClose={() => setOpenModal(null)}
         title="Dark Mode Implementation"
-        code={darkModeCode}
+        code={darkCode}
       />
       <CodeModal
         isOpen={openModal === 'sizes'}

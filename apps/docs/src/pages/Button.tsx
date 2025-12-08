@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Button } from '@as-design-system/core';
+import { Button, Tab } from '@as-design-system/core';
 import '@as-design-system/core/Button.css';
+import '@as-design-system/core/Tab.css';
 import CodeModal from '../components/CodeModal';
 import './Button.css';
 
 export default function ButtonPage() {
   const [openModal, setOpenModal] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
 
-  const variantsCode = `import { Button } from '@as-design-system/core';
-import '@as-design-system/core/Button.css';
+  const variantsCode = `import { Button } from '@/design-system/components/Button';
 
 // Enabled
 <Button label="Default" variant="Default" size="M" />
@@ -20,8 +21,7 @@ import '@as-design-system/core/Button.css';
 <Button label="Outlined" variant="Outlined" size="M" disabled />
 <Button label="Ghost" variant="Ghost" size="M" disabled />`;
 
-  const sizesCode = `import { Button } from '@as-design-system/core';
-import '@as-design-system/core/Button.css';
+  const sizesCode = `import { Button } from '@/design-system/components/Button';
 
 <Button label="Size XS" size="XS" variant="Default" />
 <Button label="Size S" size="S" variant="Default" />
@@ -29,8 +29,7 @@ import '@as-design-system/core/Button.css';
 <Button label="Size L" size="L" variant="Default" />
 <Button label="Size XL" size="XL" variant="Default" />`;
 
-  const iconsCode = `import { Button } from '@as-design-system/core';
-import '@as-design-system/core/Button.css';
+  const iconsCode = `import { Button } from '@/design-system/components/Button';
 
 // Left icon
 <Button label="Add" leftIcon="add" size="M" variant="Default" />
@@ -50,10 +49,31 @@ import '@as-design-system/core/Button.css';
       <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
         Button
       </h1>
-      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '32px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
-        Le composant Button permet de créer des boutons avec différentes tailles, états et variantes.
+      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
+        The Button component allows you to create buttons with different sizes, states, and variants.
       </p>
 
+      {/* Tabs */}
+      <div className="tabs-container">
+        <div style={{ display: 'flex', gap: '0' }}>
+          <Tab
+            label="Examples"
+            size="M"
+            status={activeTab === 'examples' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('examples')}
+          />
+          <Tab
+            label="Props"
+            size="M"
+            status={activeTab === 'props' ? 'Active' : 'Default'}
+            onClick={() => setActiveTab('props')}
+          />
+        </div>
+      </div>
+
+      {/* Examples Tab */}
+      {activeTab === 'examples' && (
+        <>
       {/* Variants */}
       <section className="component-section">
         <div className="section-header">
@@ -141,8 +161,11 @@ import '@as-design-system/core/Button.css';
           </div>
         </div>
       </section>
+        </>
+      )}
 
-      {/* Props */}
+      {/* Props Tab */}
+      {activeTab === 'props' && (
       <section className="component-section">
         <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
           Props
@@ -204,6 +227,7 @@ import '@as-design-system/core/Button.css';
           </table>
         </div>
       </section>
+      )}
 
       {/* Modals */}
       <CodeModal

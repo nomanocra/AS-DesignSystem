@@ -1,0 +1,360 @@
+import type { RegistryItem } from './schema';
+
+export const components: RegistryItem[] = [
+  {
+    name: 'icon',
+    type: 'component',
+    displayName: 'Icon',
+    description: 'Icon component with support for all design system icons',
+    files: [
+      {
+        path: 'templates/components/Icon.tsx',
+        target: 'components/Icon.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/Icon.css',
+        target: 'components/Icon.css',
+        type: 'style',
+      },
+      // SVG icon assets (37 icons)
+      { path: 'templates/assets/svg/icons/add.svg', target: 'assets/svg/icons/add.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_AC_twin_engine.svg', target: 'assets/svg/icons/AIR_AC_twin_engine.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Airbus.svg', target: 'assets/svg/icons/AIR_Airbus.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_airport.svg', target: 'assets/svg/icons/AIR_airport.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_APU.svg', target: 'assets/svg/icons/AIR_APU.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_arrival.svg', target: 'assets/svg/icons/AIR_arrival.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Chatbot.svg', target: 'assets/svg/icons/AIR_Chatbot.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_departure.svg', target: 'assets/svg/icons/AIR_departure.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_engine.svg', target: 'assets/svg/icons/AIR_engine.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Facebook.svg', target: 'assets/svg/icons/AIR_Facebook.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_fleet.svg', target: 'assets/svg/icons/AIR_fleet.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_GitHub.svg', target: 'assets/svg/icons/AIR_GitHub.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Google.svg', target: 'assets/svg/icons/AIR_Google.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_ground_In.svg', target: 'assets/svg/icons/AIR_ground_In.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_ground_out.svg', target: 'assets/svg/icons/AIR_ground_out.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Instagram.svg', target: 'assets/svg/icons/AIR_Instagram.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_landing_gear.svg', target: 'assets/svg/icons/AIR_landing_gear.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_life_vest.svg', target: 'assets/svg/icons/AIR_life_vest.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Linkedin.svg', target: 'assets/svg/icons/AIR_Linkedin.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_SAP.svg', target: 'assets/svg/icons/AIR_SAP.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_side.svg', target: 'assets/svg/icons/AIR_side.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Skywise.svg', target: 'assets/svg/icons/AIR_Skywise.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_spinner.svg', target: 'assets/svg/icons/AIR_spinner.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_SVG.svg', target: 'assets/svg/icons/AIR_SVG.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_tail.svg', target: 'assets/svg/icons/AIR_tail.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_X.svg', target: 'assets/svg/icons/AIR_X.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_XLS.svg', target: 'assets/svg/icons/AIR_XLS.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/AIR_Youtube.svg', target: 'assets/svg/icons/AIR_Youtube.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/code.svg', target: 'assets/svg/icons/code.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/construction.svg', target: 'assets/svg/icons/construction.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/dark_mode.svg', target: 'assets/svg/icons/dark_mode.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/delete.svg', target: 'assets/svg/icons/delete.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/emoji_emotions.svg', target: 'assets/svg/icons/emoji_emotions.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/keyboard_arrow_down.svg', target: 'assets/svg/icons/keyboard_arrow_down.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/keyboard_arrow_up.svg', target: 'assets/svg/icons/keyboard_arrow_up.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/light_mode.svg', target: 'assets/svg/icons/light_mode.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/menu.svg', target: 'assets/svg/icons/menu.svg', type: 'component' },
+    ],
+    cssImports: [],
+  },
+  {
+    name: 'button',
+    type: 'component',
+    displayName: 'Button',
+    description: 'Button component with variants, sizes, and icon support',
+    files: [
+      {
+        path: 'templates/components/Button.tsx',
+        target: 'components/Button.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/Button.css',
+        target: 'components/Button.css',
+        type: 'style',
+      },
+    ],
+    dependencies: ['icon'],
+    cssImports: [
+      '@/design-system/tokens/typography.css',
+      '@/design-system/tokens/colors.css',
+    ],
+  },
+  {
+    name: 'icon-button',
+    type: 'component',
+    displayName: 'IconButton',
+    description: 'Icon-only button with variants and sizes',
+    files: [
+      {
+        path: 'templates/components/IconButton.tsx',
+        target: 'components/IconButton.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/IconButton.css',
+        target: 'components/IconButton.css',
+        type: 'style',
+      },
+    ],
+    dependencies: ['icon'],
+    cssImports: [
+      '@/design-system/tokens/colors.css',
+    ],
+  },
+  {
+    name: 'tab',
+    type: 'component',
+    displayName: 'Tab',
+    description: 'Tab component with icon support and variants',
+    files: [
+      {
+        path: 'templates/components/Tab.tsx',
+        target: 'components/Tab.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/Tab.css',
+        target: 'components/Tab.css',
+        type: 'style',
+      },
+    ],
+    dependencies: ['icon'],
+    cssImports: [
+      '@/design-system/tokens/typography.css',
+      '@/design-system/tokens/colors.css',
+    ],
+  },
+  {
+    name: 'tool-icons',
+    type: 'component',
+    displayName: 'ToolIcons',
+    description: 'Tool icons component with Light and Dark mode support',
+    files: [
+      {
+        path: 'templates/components/ToolIcons.tsx',
+        target: 'components/ToolIcons.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/ToolIcons.css',
+        target: 'components/ToolIcons.css',
+        type: 'style',
+      },
+      // PNG tool icon assets
+      {
+        path: 'templates/assets/png/tool-icons/ac-config-dark.png',
+        target: 'assets/png/tool-icons/ac-config-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/ac-config-light.png',
+        target: 'assets/png/tool-icons/ac-config-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airline-business-planner-dark.png',
+        target: 'assets/png/tool-icons/airline-business-planner-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airline-business-planner-light.png',
+        target: 'assets/png/tool-icons/airline-business-planner-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airline-simulator-dark.png',
+        target: 'assets/png/tool-icons/airline-simulator-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airline-simulator-light.png',
+        target: 'assets/png/tool-icons/airline-simulator-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airscout-dark.png',
+        target: 'assets/png/tool-icons/airscout-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/airscout-light.png',
+        target: 'assets/png/tool-icons/airscout-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/aoa-dark.png',
+        target: 'assets/png/tool-icons/aoa-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/aoa-light.png',
+        target: 'assets/png/tool-icons/aoa-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/atmosphere-dark.png',
+        target: 'assets/png/tool-icons/atmosphere-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/atmosphere-light.png',
+        target: 'assets/png/tool-icons/atmosphere-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/cabin-crew-dark.png',
+        target: 'assets/png/tool-icons/cabin-crew-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/cabin-crew-light.png',
+        target: 'assets/png/tool-icons/cabin-crew-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/economics-dark.png',
+        target: 'assets/png/tool-icons/economics-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/economics-light.png',
+        target: 'assets/png/tool-icons/economics-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/economicslite-dark.png',
+        target: 'assets/png/tool-icons/economicslite-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/economicslite-light.png',
+        target: 'assets/png/tool-icons/economicslite-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/fellofly-dark.png',
+        target: 'assets/png/tool-icons/fellofly-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/fellofly-light.png',
+        target: 'assets/png/tool-icons/fellofly-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/lopaexplorer-dark.png',
+        target: 'assets/png/tool-icons/lopaexplorer-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/lopaexplorer-light.png',
+        target: 'assets/png/tool-icons/lopaexplorer-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/maintenance-dark.png',
+        target: 'assets/png/tool-icons/maintenance-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/maintenance-light.png',
+        target: 'assets/png/tool-icons/maintenance-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/missionlite-dark.png',
+        target: 'assets/png/tool-icons/missionlite-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/missionlite-light.png',
+        target: 'assets/png/tool-icons/missionlite-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/navdb-editor-dark.png',
+        target: 'assets/png/tool-icons/navdb-editor-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/navdb-editor-light.png',
+        target: 'assets/png/tool-icons/navdb-editor-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-dark.png',
+        target: 'assets/png/tool-icons/network-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-fam-dark.png',
+        target: 'assets/png/tool-icons/network-fam-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-fam-light.png',
+        target: 'assets/png/tool-icons/network-fam-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-light.png',
+        target: 'assets/png/tool-icons/network-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-rotation-dark.png',
+        target: 'assets/png/tool-icons/network-rotation-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-rotation-light.png',
+        target: 'assets/png/tool-icons/network-rotation-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-tam-dark.png',
+        target: 'assets/png/tool-icons/network-tam-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/network-tam-light.png',
+        target: 'assets/png/tool-icons/network-tam-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/skyfinesse-dark.png',
+        target: 'assets/png/tool-icons/skyfinesse-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/skyfinesse-light.png',
+        target: 'assets/png/tool-icons/skyfinesse-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/trajopt-dark.png',
+        target: 'assets/png/tool-icons/trajopt-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/trajopt-light.png',
+        target: 'assets/png/tool-icons/trajopt-light.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/weight-builder-dark.png',
+        target: 'assets/png/tool-icons/weight-builder-dark.png',
+        type: 'component',
+      },
+      {
+        path: 'templates/assets/png/tool-icons/weight-builder-light.png',
+        target: 'assets/png/tool-icons/weight-builder-light.png',
+        type: 'component',
+      },
+    ],
+    dependencies: [],
+    cssImports: [],
+  },
+];

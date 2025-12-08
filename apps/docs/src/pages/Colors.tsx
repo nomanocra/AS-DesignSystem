@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import './Tokens.css';
-import { colors } from '@as-design-system/tokens';
+import { colors, Tab } from '@as-design-system/core';
+import '@as-design-system/core/Tab.css';
+import '@as-design-system/core/colors.css';
 
 // Helper function to determine text color based on background luminosity
 function getTextColor(bgColor: string): string {
@@ -39,7 +42,7 @@ function getTextColor(bgColor: string): string {
   return '#000';
 }
 
-// Helper component pour afficher une palette de couleurs
+// Helper component to display a color palette
 function ColorPalette({
   name,
   palette,
@@ -47,7 +50,14 @@ function ColorPalette({
   name: string;
   palette: Record<string, string>;
 }) {
-  const shades = Object.keys(palette).reverse(); // Du plus clair au plus foncé
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const shades = Object.keys(palette).reverse(); // From lightest to darkest
+
+  const copyColor = (color: string) => {
+    navigator.clipboard.writeText(color);
+    setCopiedColor(color);
+    setTimeout(() => setCopiedColor(null), 2000);
+  };
 
   return (
     <div className="color-category">
@@ -57,22 +67,27 @@ function ColorPalette({
       <div className="color-palette">
         {shades.map((shade) => {
           const shadeValue = parseInt(shade);
-          // Shades élevés (100-60) = couleurs foncées -> texte blanc
-          // Shades faibles (50-10) = couleurs claires -> texte noir
+          // High shades (100-60) = dark colors -> white text
+          // Low shades (50-10) = light colors -> black text
           const textColor = shadeValue >= 60 ? '#fff' : '#000';
           const isDark = shadeValue >= 60;
           
           return (
             <div
               key={shade}
-              className="color-tile"
+              className="color-tile clickable"
               style={{
                 backgroundColor: palette[shade],
                 color: textColor,
+                cursor: 'pointer',
               }}
+              onClick={() => copyColor(palette[shade])}
+              title={`Click to copy ${palette[shade]}`}
             >
-              <span className="color-shade">{shade}</span>
-              <code 
+              <span className="color-shade">
+                {copiedColor === palette[shade] ? '✓ Copied!' : shade}
+              </span>
+              <code
                 className="color-value"
                 style={{
                   backgroundColor: isDark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)',
@@ -88,7 +103,7 @@ function ColorPalette({
   );
 }
 
-// Helper component pour afficher les couleurs sémantiques
+// Helper component to display semantic colors
 function SemanticColorGroup({
   title,
   colors: semanticColors,
@@ -98,7 +113,14 @@ function SemanticColorGroup({
   colors: Record<string, string | Record<string, string>>;
   reference?: string;
 }) {
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const flattenColors: Array<{ key: string; value: string; fullKey: string }> = [];
+
+  const copyColor = (color: string) => {
+    navigator.clipboard.writeText(color);
+    setCopiedColor(color);
+    setTimeout(() => setCopiedColor(null), 2000);
+  };
 
   Object.entries(semanticColors).forEach(([key, value]) => {
     if (typeof value === 'string') {
@@ -122,20 +144,20 @@ function SemanticColorGroup({
         {title}
         {reference && (
           <span className="label-regular-s" style={{ marginLeft: '8px' }}>
-            (référence: {reference})
+            (reference: {reference})
           </span>
         )}
       </h3>
       <div className="semantic-colors-grid">
         {flattenColors.map(({ key, value, fullKey }) => {
-          // Pour Success et Error: Default, Hover, Active -> texte blanc
-          const isFeedbackState = (title === 'Success' || title === 'Error') && 
+          // For Success and Error: Default, Hover, Active -> white text
+          const isFeedbackState = (title === 'Success' || title === 'Error') &&
                                   (key === 'default' || key === 'hover' || key === 'active');
-          // Pour Primary: Default, Hover, Active -> texte blanc
-          const isPrimaryState = title === 'Primary' && 
+          // For Primary: Default, Hover, Active -> white text
+          const isPrimaryState = title === 'Primary' &&
                                  (key === 'default' || key === 'hover' || key === 'active');
-          // Pour Text: Main, Secondary, Tertiary -> texte blanc
-          const isTextState = title === 'Text' && 
+          // For Text: Main, Secondary, Tertiary -> white text
+          const isTextState = title === 'Text' &&
                              (key === 'main' || key === 'secondary' || key === 'tertiary');
           
           const textColor = (isFeedbackState || isPrimaryState || isTextState) ? '#fff' : getTextColor(value);
@@ -143,13 +165,18 @@ function SemanticColorGroup({
           return (
             <div key={fullKey} className="semantic-color-item">
               <div
-                className="semantic-color-tile"
+                className="semantic-color-tile clickable"
                 style={{
                   backgroundColor: value,
                   color: textColor,
+                  cursor: 'pointer',
                 }}
+                onClick={() => copyColor(value)}
+                title={`Click to copy ${value}`}
               >
-                <span className="semantic-color-name">{key}</span>
+                <span className="semantic-color-name">
+                  {copiedColor === value ? '✓ Copied!' : key}
+                </span>
               </div>
               <code className="semantic-color-value">{value}</code>
             </div>
@@ -161,21 +188,44 @@ function SemanticColorGroup({
 }
 
 export default function Colors() {
+  const [activeTab, setActiveTab] = useState<'primitives' | 'semantics'>('primitives');
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+
+  const copyColor = (color: string) => {
+    navigator.clipboard.writeText(color);
+    setCopiedColor(color);
+    setTimeout(() => setCopiedColor(null), 2000);
+  };
+
   return (
     <div className="tokens-page">
       <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>Colors</h1>
       <p className="label-regular-m" style={{ marginTop: '12px', color: 'var(--cool-grey-60, #63728a)' }}>
-        Les tokens de couleur générés depuis Figma.
+        Color tokens generated from Figma.
       </p>
 
+      {/* Tabs */}
+      <div style={{ display: 'flex', gap: '0', marginTop: '32px', marginBottom: '32px' }}>
+        <Tab
+          label="Primitives"
+          size="M"
+          status={activeTab === 'primitives' ? 'Active' : 'Default'}
+          onClick={() => setActiveTab('primitives')}
+        />
+        <Tab
+          label="Semantics"
+          size="M"
+          status={activeTab === 'semantics' ? 'Active' : 'Default'}
+          onClick={() => setActiveTab('semantics')}
+        />
+      </div>
+
       {/* ========================================================================
-          COULEURS PRIMITIVES
+          PRIMITIVES TAB
           ======================================================================== */}
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-          Couleurs Primitives
-        </h2>
-        <div className="primitives-grid">
+      {activeTab === 'primitives' && (
+        <section className="tokens-section">
+          <div className="primitives-grid">
           <ColorPalette name="Sea Blue" palette={colors.seaBlue} />
           <ColorPalette name="Sky Blue" palette={colors.skyBlue} />
           <ColorPalette name="Cool Grey" palette={colors.coolGrey} />
@@ -189,13 +239,17 @@ export default function Colors() {
             </h3>
             <div className="color-palette">
               <div
-                className="color-tile"
-                style={{ backgroundColor: colors.white, color: '#000' }}
+                className="color-tile clickable"
+                style={{ backgroundColor: colors.white, color: '#000', cursor: 'pointer' }}
+                onClick={() => copyColor(colors.white)}
+                title={`Click to copy ${colors.white}`}
               >
-                <span className="color-shade">White</span>
-                <code 
+                <span className="color-shade">
+                  {copiedColor === colors.white ? '✓ Copied!' : 'White'}
+                </span>
+                <code
                   className="color-value"
-                  style={{ 
+                  style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   }}
                 >
@@ -203,13 +257,17 @@ export default function Colors() {
                 </code>
               </div>
               <div
-                className="color-tile"
-                style={{ backgroundColor: colors.black, color: '#fff' }}
+                className="color-tile clickable"
+                style={{ backgroundColor: colors.black, color: '#fff', cursor: 'pointer' }}
+                onClick={() => copyColor(colors.black)}
+                title={`Click to copy ${colors.black}`}
               >
-                <span className="color-shade">Black</span>
-                <code 
+                <span className="color-shade">
+                  {copiedColor === colors.black ? '✓ Copied!' : 'Black'}
+                </span>
+                <code
                   className="color-value"
-                  style={{ 
+                  style={{
                     backgroundColor: 'rgba(0, 0, 0, 0.1)',
                   }}
                 >
@@ -219,16 +277,15 @@ export default function Colors() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* ========================================================================
-          COULEURS SÉMANTIQUES
+          SEMANTICS TAB
           ======================================================================== */}
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-          Couleurs Sémantiques
-        </h2>
-        <div className="semantics-container">
+      {activeTab === 'semantics' && (
+        <section className="tokens-section">
+          <div className="semantics-container">
           <SemanticColorGroup
             title="Primary"
             colors={colors.primary}
@@ -267,7 +324,8 @@ export default function Colors() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
