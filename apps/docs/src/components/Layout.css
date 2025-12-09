@@ -53,6 +53,19 @@
   background-color: var(--background-tertiary, var(--cool-grey-10, #eff1f4));
 }
 
+.nav-section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary, var(--cool-grey-60, #63728a));
+}
+
 .nav-section-title {
   color: var(--text-secondary, var(--cool-grey-60, #63728a));
   text-transform: uppercase;

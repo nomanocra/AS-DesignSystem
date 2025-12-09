@@ -12,9 +12,10 @@ interface NavSectionProps {
   title: string;
   children: ReactNode;
   defaultOpen?: boolean;
+  icon?: ReactNode;
 }
 
-function NavSection({ title, children, defaultOpen = true }: NavSectionProps) {
+function NavSection({ title, children, defaultOpen = true, icon }: NavSectionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
@@ -24,7 +25,10 @@ function NavSection({ title, children, defaultOpen = true }: NavSectionProps) {
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >
-        <h2 className="nav-section-title legend-bold">{title}</h2>
+        <div className="nav-section-title-wrapper">
+          {icon && <span className="nav-section-icon">{icon}</span>}
+          <h2 className="nav-section-title legend-bold">{title}</h2>
+        </div>
         <span className={`nav-section-chevron ${isOpen ? 'open' : ''}`}>
           <Icon name="keyboard_arrow_down" size={16} color="var(--text-secondary, #63728a)" />
         </span>
@@ -47,7 +51,15 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <nav className="sidebar-nav">
           {/* Section Getting Started */}
-          <NavSection title="Getting Started">
+          <NavSection
+            title="Getting Started"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+            }
+          >
             <Link
               to="/getting-started/welcome"
               className={`nav-link nav-link-sub ${location.pathname === '/getting-started/welcome' ? 'active' : ''}`}
@@ -75,7 +87,19 @@ export default function Layout({ children }: LayoutProps) {
           </NavSection>
 
           {/* Section Tokens */}
-          <NavSection title="Tokens">
+          <NavSection
+            title="Tokens"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="4" />
+                <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+                <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+                <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+                <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+              </svg>
+            }
+          >
             <Link
               to="/tokens/text-styles"
               className={`nav-link nav-link-sub ${location.pathname === '/tokens/text-styles' ? 'active' : ''}`}
@@ -97,7 +121,17 @@ export default function Layout({ children }: LayoutProps) {
           </NavSection>
 
           {/* Section Components */}
-          <NavSection title="Components">
+          <NavSection
+            title="Components"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+            }
+          >
             <Link
               to="/components/button"
               className={`nav-link nav-link-sub ${location.pathname === '/components/button' ? 'active' : ''}`}
