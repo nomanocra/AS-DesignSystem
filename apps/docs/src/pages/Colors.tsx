@@ -299,7 +299,12 @@ export default function Colors() {
           <SemanticColorGroup
             title="Background"
             colors={colors.background}
-            reference="White, Cool Grey"
+            reference="White, Cool Grey, Sea Blue"
+          />
+          <SemanticColorGroup
+            title="Border"
+            colors={colors.border}
+            reference="Cool Grey, White"
           />
           <div>
             <h3 className="label-bold-l" style={{ marginBottom: '12px', color: 'var(--cool-grey-60)' }}>
