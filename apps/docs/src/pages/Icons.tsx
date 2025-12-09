@@ -135,28 +135,12 @@ export default function Icons() {
                   borderRadius: '8px',
                 }}
               >
-                <Icon name={selectedIcon} size={48} color={selectedColor.value} />
+                <Icon name={selectedIcon} size={selectedSize} color={selectedColor.value} />
               </div>
             </div>
 
-            {/* Basic Icon Usage */}
-            <div className="modal-section-title">Basic Usage</div>
-            <div className="modal-code-block">
-              <button
-                className="modal-copy-button"
-                onClick={() =>
-                  copyToClipboard(`<Icon name="${selectedIcon}" />`)
-                }
-              >
-                {copiedCode === `<Icon name="${selectedIcon}" />` ? '✓ Copied!' : 'Copy'}
-              </button>
-              <pre>
-                <code>{`<Icon name="${selectedIcon}" />`}</code>
-              </pre>
-            </div>
-
-            {/* With Current Settings */}
-            <div className="modal-section-title">With Current Settings</div>
+            {/* Code Example */}
+            <div className="modal-section-title">Code</div>
             <div className="modal-code-block">
               <button
                 className="modal-copy-button"
