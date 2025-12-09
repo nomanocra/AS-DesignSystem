@@ -131,9 +131,6 @@ export const text = {
   tertiary: coolGrey[40], // #b3bbc8
   negative: white, // #ffffff
   corporate: seaBlue[90], // #00205b
-  accent: {
-    default: seaBlue[90], // #00205b
-  },
 } as const;
 
 /**
