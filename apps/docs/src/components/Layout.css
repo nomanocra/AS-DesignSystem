@@ -54,7 +54,7 @@
 }
 
 .nav-section-title {
-  color: var(--text-tertiary, var(--cool-grey-60, #63728a));
+  color: var(--text-secondary, var(--cool-grey-60, #63728a));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0;
@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: var(--text-secondary, var(--cool-grey-80, #3c4657));
+  color: var(--text-main, var(--cool-grey-100, #14171d));
   border-radius: 4px;
   transition: all 0.2s;
   font-family: 'Inter', sans-serif;
