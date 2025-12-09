@@ -1,264 +1,265 @@
-import './Tokens.css';
+import './SupportedPlatforms.css';
+
+// Framework icons as SVG components
+const NextjsIcon = () => (
+  <svg viewBox="0 0 180 180" fill="none">
+    <mask id="mask0" maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
+      <circle cx="90" cy="90" r="90" fill="white"/>
+    </mask>
+    <g mask="url(#mask0)">
+      <circle cx="90" cy="90" r="90" fill="black"/>
+      <path d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z" fill="url(#paint0_linear)"/>
+      <rect x="115" y="54" width="12" height="72" fill="url(#paint1_linear)"/>
+    </g>
+    <defs>
+      <linearGradient id="paint0_linear" x1="109" y1="116.5" x2="144.5" y2="160.5" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0"/>
+      </linearGradient>
+      <linearGradient id="paint1_linear" x1="121" y1="54" x2="120.799" y2="106.875" gradientUnits="userSpaceOnUse">
+        <stop stopColor="white"/>
+        <stop offset="1" stopColor="white" stopOpacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const ViteIcon = () => (
+  <svg viewBox="0 0 410 404" fill="none">
+    <path d="M399.641 59.5246L215.643 388.545C211.844 395.338 202.084 395.378 198.228 388.618L10.5817 59.5563C6.38087 52.1896 12.6802 43.2665 21.0281 44.7586L205.223 77.6824C206.398 77.8924 207.601 77.8904 208.776 77.6763L389.119 44.8058C397.439 43.2894 403.768 52.1434 399.641 59.5246Z" fill="url(#paint0_linear_vite)"/>
+    <path d="M292.965 1.5744L156.801 28.2552C154.563 28.6937 152.906 30.5903 152.771 32.8664L144.395 174.33C144.198 177.662 147.258 180.248 150.51 179.498L188.42 170.749C191.967 169.931 195.172 173.055 194.443 176.622L183.18 231.775C182.422 235.487 185.907 238.661 189.532 237.56L212.947 230.446C216.577 229.344 220.065 232.527 219.297 236.242L201.398 322.875C200.278 328.294 207.486 331.249 210.492 326.603L212.5 323.5L323.454 102.072C325.312 98.3645 322.108 94.137 318.036 94.9228L279.014 102.454C275.347 103.161 272.227 99.746 273.262 96.1583L298.731 7.86689C299.767 4.27314 296.636 0.855181 292.965 1.5744Z" fill="url(#paint1_linear_vite)"/>
+    <defs>
+      <linearGradient id="paint0_linear_vite" x1="6.00017" y1="32.9999" x2="235" y2="344" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#41D1FF"/>
+        <stop offset="1" stopColor="#BD34FE"/>
+      </linearGradient>
+      <linearGradient id="paint1_linear_vite" x1="194.651" y1="8.81818" x2="236.076" y2="292.989" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#FFBD4F"/>
+        <stop offset="1" stopColor="#FF980E"/>
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const ReactIcon = () => (
+  <svg viewBox="-11.5 -10.232 23 20.463" fill="none">
+    <circle r="2.05" fill="#61dafb"/>
+    <g stroke="#61dafb" fill="none">
+      <ellipse rx="11" ry="4.2"/>
+      <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+      <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+    </g>
+  </svg>
+);
+
+const TypeScriptIcon = () => (
+  <svg viewBox="0 0 128 128" fill="none">
+    <rect width="128" height="128" rx="8" fill="#3178c6"/>
+    <path d="M82.5 67.5v-5h-30v5h10v40h10v-40h10zm10 40v-45h-10v50h25v-5h-15z" fill="white"/>
+  </svg>
+);
+
+const CRAIcon = () => (
+  <svg viewBox="0 0 100 100" fill="none">
+    <circle cx="50" cy="50" r="45" stroke="#61dafb" strokeWidth="3" fill="none"/>
+    <circle cx="50" cy="50" r="8" fill="#61dafb"/>
+    <ellipse cx="50" cy="50" rx="40" ry="16" stroke="#61dafb" strokeWidth="2" fill="none"/>
+    <ellipse cx="50" cy="50" rx="40" ry="16" stroke="#61dafb" strokeWidth="2" fill="none" transform="rotate(60 50 50)"/>
+    <ellipse cx="50" cy="50" rx="40" ry="16" stroke="#61dafb" strokeWidth="2" fill="none" transform="rotate(-60 50 50)"/>
+  </svg>
+);
+
+const ManualIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+  </svg>
+);
 
 export default function SupportedPlatforms() {
+  const frameworks = [
+    { name: 'Next.js', icon: <NextjsIcon />, supported: true },
+    { name: 'Vite', icon: <ViteIcon />, supported: true },
+    { name: 'Create React App', icon: <CRAIcon />, supported: true },
+    { name: 'React Router', icon: <ReactIcon />, supported: true },
+    { name: 'TypeScript', icon: <TypeScriptIcon />, supported: true },
+    { name: 'Manual Setup', icon: <ManualIcon />, supported: true },
+  ];
+
   return (
-    <div className="tokens-page">
-      <h1
-        className="heading-5"
-        style={{
-          color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
-          marginBottom: '24px',
-        }}
-      >
-        Supported Platforms
-      </h1>
+    <div className="platforms-page">
+      {/* Header */}
+      <header className="platforms-header">
+        <h1 className="platforms-title">Supported Platforms</h1>
+        <p className="platforms-subtitle">
+          Start by selecting your framework of choice. AS Design System is built to work with all React frameworks.
+        </p>
+      </header>
 
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Framework Support
-        </h2>
-        <div className="tokens-grid">
-          <div className="token-item" style={{ backgroundColor: 'var(--success-background)' }}>
-            <p className="legend-bold" style={{ marginBottom: '8px', color: 'var(--success-default)' }}>
-              ✓ React 18+
-            </p>
-            <p className="body-small">
-              Fully supported. All components are built with React 18 and hooks.
-            </p>
+      {/* Frameworks Grid */}
+      <div className="platforms-grid">
+        {frameworks.map((framework) => (
+          <div
+            key={framework.name}
+            className={`platform-card ${framework.supported ? 'platform-card--supported' : 'platform-card--coming-soon'}`}
+          >
+            <div className="platform-icon">
+              {framework.icon}
+            </div>
+            <span className="platform-name">{framework.name}</span>
+            {!framework.supported && (
+              <span className="platform-status">Coming soon</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Requirements Section */}
+      <section className="platforms-section">
+        <h2 className="platforms-section-title">Requirements</h2>
+        <p className="platforms-section-desc">
+          Make sure your environment meets these requirements before getting started.
+        </p>
+        <div className="requirements-grid">
+          <div className="requirement-card">
+            <div className="requirement-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </div>
+            <div className="requirement-content">
+              <div className="requirement-title">Node.js</div>
+              <div className="requirement-value">Version 18.0.0 or higher</div>
+            </div>
           </div>
 
-          <div className="token-item" style={{ backgroundColor: 'var(--background-secondary)' }}>
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>
-              Future: Vue, Angular
-            </p>
-            <p className="body-small">
-              Support for other frameworks is planned for future releases.
-            </p>
+          <div className="requirement-card">
+            <div className="requirement-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div className="requirement-content">
+              <div className="requirement-title">React</div>
+              <div className="requirement-value">Version 18.0.0 or higher</div>
+            </div>
+          </div>
+
+          <div className="requirement-card">
+            <div className="requirement-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div className="requirement-content">
+              <div className="requirement-title">TypeScript</div>
+              <div className="requirement-value">Version 5.0+ (optional but recommended)</div>
+            </div>
+          </div>
+
+          <div className="requirement-card">
+            <div className="requirement-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <div className="requirement-content">
+              <div className="requirement-title">Package Manager</div>
+              <div className="requirement-value">npm, pnpm, or yarn</div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Build Tools
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          AS Design System works with all modern React build tools:
+      {/* Browser Support */}
+      <section className="platforms-section">
+        <h2 className="platforms-section-title">Browser Support</h2>
+        <p className="platforms-section-desc">
+          Components work in all modern browsers that support CSS custom properties.
         </p>
-        <div className="tokens-grid">
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Vite</p>
-            <p className="body-small" style={{ marginBottom: '8px' }}>
-              Recommended for new projects. Fast development and excellent TypeScript support.
-            </p>
-            <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
-              Status: ✅ Fully Supported
-            </p>
+        <div className="browsers-grid">
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Chrome / Edge</span>
           </div>
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Firefox</span>
+          </div>
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Safari</span>
+          </div>
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Mobile Browsers</span>
+          </div>
+        </div>
 
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Create React App</p>
-            <p className="body-small" style={{ marginBottom: '8px' }}>
-              Classic React setup tool. Works well with path aliases via tsconfig.
-            </p>
-            <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
-              Status: ✅ Fully Supported
-            </p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Next.js</p>
-            <p className="body-small" style={{ marginBottom: '8px' }}>
-              React framework with SSR. Components work in both App Router and Pages Router.
-            </p>
-            <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
-              Status: ✅ Supported
-            </p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Other Build Tools</p>
-            <p className="body-small" style={{ marginBottom: '8px' }}>
-              Webpack, Parcel, Rollup, etc. Should work if they support React and CSS imports.
-            </p>
-            <p className="body-small" style={{ color: 'var(--text-secondary)' }}>
-              Status: ⚠️ Not Tested
-            </p>
-          </div>
+        <div className="info-box">
+          <span className="info-box-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </span>
+          <span className="info-box-text">
+            Internet Explorer is not supported. CSS custom properties (variables) are used extensively throughout the design system.
+          </span>
         </div>
       </section>
 
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          TypeScript Support
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          AS Design System is built with TypeScript and provides full type support:
+      {/* Operating Systems */}
+      <section className="platforms-section">
+        <h2 className="platforms-section-title">Operating Systems</h2>
+        <p className="platforms-section-desc">
+          The CLI works on all major operating systems.
         </p>
-        <ul style={{ paddingLeft: '24px', lineHeight: '1.8', marginBottom: '16px' }}>
-          <li className="body-medium">All components have TypeScript type definitions</li>
-          <li className="body-medium">Design tokens are typed for autocomplete</li>
-          <li className="body-medium">Works with TypeScript 5.0+</li>
-          <li className="body-medium">Supports strict mode</li>
-        </ul>
-        <div className="code-block">
-          <code>{`// TypeScript types are included
-import { Button, ButtonProps } from '@/design-system/components/Button';
-import { colors, ColorToken } from '@/design-system/tokens/colors';
-
-// Full autocomplete and type checking
-const props: ButtonProps = {
-  variant: 'primary', // ✓ Type-checked
-  size: 'M',
-  onClick: () => console.log('clicked')
-};`}</code>
-        </div>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          JavaScript Support
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          While the design system is built with TypeScript, it also works in JavaScript projects:
-        </p>
-        <ul style={{ paddingLeft: '24px', lineHeight: '1.8' }}>
-          <li className="body-medium">The CLI can be used in non-TypeScript projects</li>
-          <li className="body-medium">Components will be copied as .tsx files but work in .jsx</li>
-          <li className="body-medium">You can convert copied .tsx files to .jsx if needed</li>
-          <li className="body-medium">Design tokens work the same way</li>
-        </ul>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Browser Support
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          Components and tokens work in all modern browsers:
-        </p>
-        <div className="tokens-grid">
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Chrome / Edge</p>
-            <p className="body-small">Latest 2 versions ✅</p>
+        <div className="browsers-grid">
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">macOS</span>
           </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Firefox</p>
-            <p className="body-small">Latest 2 versions ✅</p>
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Linux</span>
           </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Safari</p>
-            <p className="body-small">Latest 2 versions ✅</p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Mobile Browsers</p>
-            <p className="body-small">iOS Safari, Chrome Mobile ✅</p>
+          <div className="browser-item">
+            <span className="browser-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span className="browser-name">Windows</span>
           </div>
         </div>
-        <p className="body-medium" style={{ marginTop: '16px', lineHeight: '1.6' }}>
-          Note: CSS custom properties (variables) are used extensively. IE11 is not supported.
-        </p>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Package Managers
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          The CLI works with all major Node.js package managers:
-        </p>
-        <div className="tokens-grid">
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>pnpm</p>
-            <p className="body-small">
-              Recommended. Fast and disk-efficient. ✅
-            </p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>npm</p>
-            <p className="body-small">
-              Default Node.js package manager. ✅
-            </p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>yarn</p>
-            <p className="body-small">
-              Classic and Berry versions supported. ✅
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Node.js Requirements
-        </h2>
-        <div className="token-item" style={{ backgroundColor: 'var(--background-secondary)' }}>
-          <p className="body-large" style={{ marginBottom: '8px' }}>
-            <strong>Minimum Version:</strong> Node.js 18.0.0
-          </p>
-          <p className="body-medium" style={{ lineHeight: '1.6' }}>
-            The CLI requires Node.js 18 or higher for ESM support and modern JavaScript features.
-            We recommend using the latest LTS version for best compatibility.
-          </p>
-        </div>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Operating Systems
-        </h2>
-        <div className="tokens-grid">
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>macOS</p>
-            <p className="body-small">✅ Fully tested and supported</p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Linux</p>
-            <p className="body-small">✅ Tested on Ubuntu, should work on all distributions</p>
-          </div>
-
-          <div className="token-item">
-            <p className="legend-bold" style={{ marginBottom: '8px' }}>Windows</p>
-            <p className="body-small">✅ Supported via WSL2 or native</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Testing Compatibility
-        </h2>
-        <p className="body-large" style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-          Components work with popular testing libraries:
-        </p>
-        <ul style={{ paddingLeft: '24px', lineHeight: '1.8' }}>
-          <li className="body-medium">
-            <strong>Jest + React Testing Library</strong> - Recommended setup ✅
-          </li>
-          <li className="body-medium">
-            <strong>Vitest</strong> - Modern alternative to Jest ✅
-          </li>
-          <li className="body-medium">
-            <strong>Cypress / Playwright</strong> - For E2E testing ✅
-          </li>
-        </ul>
-      </section>
-
-      <section className="tokens-section">
-        <h2 className="heading-6" style={{ color: 'var(--text-corporate)', marginBottom: '16px' }}>
-          Reporting Issues
-        </h2>
-        <p className="body-large" style={{ lineHeight: '1.6' }}>
-          If you encounter compatibility issues with your platform or build tool, please report
-          them on our GitHub repository. We're continuously working to expand platform support.
-        </p>
       </section>
     </div>
   );
