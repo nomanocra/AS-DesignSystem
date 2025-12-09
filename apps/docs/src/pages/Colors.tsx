@@ -1,8 +1,10 @@
 import { useState, createContext, useContext } from 'react';
 import './Tokens.css';
 import './Colors.css';
-import { colors, Tab } from '@as-design-system/core';
+import { colors, Tab, ButtonGroup } from '@as-design-system/core';
 import '@as-design-system/core/Tab.css';
+import '@as-design-system/core/ButtonGroup.css';
+import '@as-design-system/core/Button.css';
 import '@as-design-system/core/colors.css';
 
 // Color format types
@@ -304,26 +306,21 @@ function SemanticColorGroup({
 function FormatSelector() {
   const { format, setFormat } = useContext(ColorFormatContext);
 
-  const formats: { label: string; value: ColorFormat }[] = [
-    { label: 'HEX', value: 'hex' },
-    { label: 'RGB', value: 'rgb' },
-    { label: 'Variable', value: 'variable' },
+  const formatOptions = [
+    { value: 'hex', label: 'HEX' },
+    { value: 'rgb', label: 'RGB' },
+    { value: 'variable', label: 'Variable' },
   ];
 
   return (
     <div className="color-format-selector">
       <span className="color-format-label">Format</span>
-      <div className="color-format-options">
-        {formats.map((f) => (
-          <button
-            key={f.value}
-            className={`color-format-option ${format === f.value ? 'active' : ''}`}
-            onClick={() => setFormat(f.value)}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
+      <ButtonGroup
+        options={formatOptions}
+        value={format}
+        onChange={(value) => setFormat(value as ColorFormat)}
+        size="S"
+      />
     </div>
   );
 }

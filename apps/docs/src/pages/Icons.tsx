@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './Tokens.css';
 import './Icons.css';
-import { Icon, availableIcons } from '@as-design-system/core';
+import { Icon, availableIcons, ButtonGroup } from '@as-design-system/core';
+import '@as-design-system/core/ButtonGroup.css';
+import '@as-design-system/core/Button.css';
 import { Modal } from '../components/Modal';
 import '../components/Modal.css';
 
@@ -21,6 +23,18 @@ const colorOptions = [
   { label: 'Success', value: 'var(--feedback-success-default, #08875b)', isDefault: false },
 ] as const;
 type ColorOption = (typeof colorOptions)[number];
+
+// ButtonGroup options for sizes
+const sizeOptions = sizes.map((size) => ({
+  value: String(size),
+  label: String(size),
+}));
+
+// ButtonGroup options for colors
+const colorButtonOptions = colorOptions.map((color) => ({
+  value: color.label,
+  label: color.label,
+}));
 
 export default function Icons() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -80,38 +94,26 @@ export default function Icons() {
         {/* Size Selector */}
         <div className="icons-setting">
           <span className="icons-setting-label">Size</span>
-          <div className="icons-setting-options">
-            {sizes.map((size) => (
-              <button
-                key={size}
-                className={`icons-setting-option ${selectedSize === size ? 'active' : ''}`}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+          <ButtonGroup
+            options={sizeOptions}
+            value={String(selectedSize)}
+            onChange={(value) => setSelectedSize(Number(value) as IconSize)}
+            size="S"
+          />
         </div>
 
         {/* Color Selector */}
         <div className="icons-setting">
           <span className="icons-setting-label">Color</span>
-          <div className="icons-setting-options">
-            {colorOptions.map((color) => (
-              <button
-                key={color.label}
-                className={`icons-setting-option icons-color-option ${selectedColor.label === color.label ? 'active' : ''}`}
-                onClick={() => setSelectedColor(color)}
-                style={{ '--option-color': color.value } as React.CSSProperties}
-              >
-                <span
-                  className="icons-color-dot"
-                  style={{ backgroundColor: color.value }}
-                />
-                {color.label}
-              </button>
-            ))}
-          </div>
+          <ButtonGroup
+            options={colorButtonOptions}
+            value={selectedColor.label}
+            onChange={(value) => {
+              const color = colorOptions.find((c) => c.label === value);
+              if (color) setSelectedColor(color);
+            }}
+            size="S"
+          />
         </div>
       </div>
 
