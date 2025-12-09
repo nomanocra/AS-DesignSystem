@@ -8,7 +8,7 @@
   padding: 4px;
   background-color: var(--background-tertiary, #eff1f4);
   border-radius: 3px;
-  gap: 0;
+  gap: 4px;
 }
 
 /* Horizontal layout (default) - buttons fit content */
