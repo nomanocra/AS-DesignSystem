@@ -1,0 +1,61 @@
+/* ============================================================================
+   COLORS PAGE - Controls
+   ============================================================================ */
+
+.colors-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+/* ============================================================================
+   FORMAT SELECTOR
+   ============================================================================ */
+
+.color-format-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-format-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary, #63728a);
+}
+
+.color-format-options {
+  display: flex;
+  gap: 4px;
+}
+
+.color-format-option {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid var(--border-moderate, #ced5dd);
+  border-radius: 4px;
+  background-color: var(--background-main, #ffffff);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, #63728a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-format-option:hover {
+  border-color: var(--primary-default, #063b9e);
+  color: var(--primary-default, #063b9e);
+}
+
+.color-format-option.active {
+  background-color: var(--primary-default, #063b9e);
+  border-color: var(--primary-default, #063b9e);
+  color: var(--text-negative, #ffffff);
+}
