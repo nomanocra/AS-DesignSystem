@@ -127,13 +127,10 @@ export const primary = {
  */
 export const text = {
   main: coolGrey[100], // #14171d
-  secondary: coolGrey[70], // #505d74
+  secondary: coolGrey[60], // #63728a
   tertiary: coolGrey[40], // #b3bbc8
   negative: white, // #ffffff
   corporate: seaBlue[90], // #00205b
-  accent: {
-    default: seaBlue[90], // #00205b
-  },
 } as const;
 
 /**
@@ -144,6 +141,19 @@ export const background = {
   main: white, // #ffffff
   secondary: warmGrey[10], // #fafafa
   tertiary: coolGrey[10], // #eff1f4
+  corporate: seaBlue[90], // #00205b
+} as const;
+
+/**
+ * Border Colors
+ * Références : Cool Grey, White
+ */
+export const border = {
+  strong: coolGrey[70], // #505d74
+  default: coolGrey[50], // #919cb0
+  moderate: coolGrey[30], // #ced5dd
+  minimal: coolGrey[10], // #eff1f4
+  white: white, // #ffffff
 } as const;
 
 /**
@@ -197,5 +207,6 @@ export const colors = {
   primary,
   text,
   background,
+  border,
   feedback,
 } as const;

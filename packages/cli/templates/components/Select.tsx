@@ -204,9 +204,6 @@ export function Select({
                   className={`select-item select-item--${size.toLowerCase()}`}
                 >
                   <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
-                  <SelectPrimitive.ItemIndicator className="select-item-indicator">
-                    <Icon name="keyboard_arrow_down" size={iconSize} />
-                  </SelectPrimitive.ItemIndicator>
                 </SelectPrimitive.Item>
               ))}
             </SelectPrimitive.Viewport>

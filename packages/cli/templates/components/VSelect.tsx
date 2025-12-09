@@ -273,11 +273,6 @@ export function VSelect({
                 tabIndex={0}
               >
                 <span className="vselect-item-text">{option.label}</span>
-                {option.value === selectedValue && (
-                  <span className="vselect-item-indicator">
-                    <Icon name="keyboard_arrow_down" size={iconSize} />
-                  </span>
-                )}
               </div>
             ))}
           </div>
