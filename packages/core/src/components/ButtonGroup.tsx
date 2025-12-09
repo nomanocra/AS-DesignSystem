@@ -1,7 +1,10 @@
 import './ButtonGroup.css';
-import { Icon, type IconName } from './Icon';
+import { Button, type ButtonSize } from './Button';
+import { IconButton } from './IconButton';
+import type { IconName } from './Icon';
 
 export type ButtonGroupLayout = 'horizontal' | 'vertical';
+export type ButtonGroupSize = ButtonSize;
 
 export interface ButtonGroupOption {
   /**
@@ -40,6 +43,11 @@ export interface ButtonGroupProps {
    */
   layout?: ButtonGroupLayout;
   /**
+   * Size of all buttons in the group
+   * @default 'M'
+   */
+  size?: ButtonGroupSize;
+  /**
    * Additional CSS class
    */
   className?: string;
@@ -53,6 +61,7 @@ export interface ButtonGroupProps {
  * ButtonGroup Component
  *
  * A group of toggle buttons where one option can be selected at a time.
+ * Uses Button and IconButton components internally.
  *
  * @example
  * ```tsx
@@ -66,6 +75,7 @@ export interface ButtonGroupProps {
  *   ]}
  *   value={selected}
  *   onChange={setSelected}
+ *   size="M"
  *   layout="horizontal"
  * />
  * ```
@@ -75,6 +85,7 @@ export function ButtonGroup({
   value,
   onChange,
   layout = 'horizontal',
+  size = 'M',
   className = '',
   disabled = false,
 }: ButtonGroupProps) {
@@ -92,36 +103,37 @@ export function ButtonGroup({
       {options.map((option) => {
         const isActive = option.value === value;
         const isDisabled = disabled || option.disabled;
-
-        const buttonClasses = [
-          'button-group__button',
-          isActive ? 'button-group__button--active' : '',
-          isDisabled ? 'button-group__button--disabled' : '',
-        ]
-          .filter(Boolean)
-          .join(' ');
-
-        const iconColor = isActive
-          ? 'var(--text-negative, #ffffff)'
-          : 'var(--primary-default, #063b9e)';
-
         const hasIconOnly = option.iconName && !option.label;
 
+        if (hasIconOnly) {
+          // Icon-only button: use IconButton
+          return (
+            <IconButton
+              key={option.value}
+              icon={option.iconName as string}
+              size={size}
+              variant={isActive ? 'Default' : 'Ghost'}
+              state={isDisabled ? 'Disabled' : 'Default'}
+              onClick={() => !isDisabled && onChange(option.value)}
+              aria-pressed={isActive}
+              className="button-group__item"
+            />
+          );
+        }
+
+        // Button with label (and optional icon)
         return (
-          <button
+          <Button
             key={option.value}
-            type="button"
-            className={`${buttonClasses}${hasIconOnly ? ' button-group__button--icon-only' : ''}`}
+            label={option.label}
+            leftIcon={option.iconName}
+            size={size}
+            variant={isActive ? 'Default' : 'Ghost'}
+            state={isDisabled ? 'Disabled' : 'Default'}
             onClick={() => !isDisabled && onChange(option.value)}
-            disabled={isDisabled}
             aria-pressed={isActive}
-            aria-label={hasIconOnly ? option.value : undefined}
-          >
-            {option.iconName && (
-              <Icon name={option.iconName} size={16} color={iconColor} />
-            )}
-            {option.label}
-          </button>
+            className="button-group__item"
+          />
         );
       })}
     </div>

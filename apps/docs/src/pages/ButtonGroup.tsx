@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ButtonGroup, Button, Tab } from '@as-design-system/core';
 import '@as-design-system/core/ButtonGroup.css';
 import '@as-design-system/core/Button.css';
+import '@as-design-system/core/IconButton.css';
 import '@as-design-system/core/Tab.css';
 import CodeModal from '../components/CodeModal';
 import './ButtonGroup.css';
@@ -17,9 +18,15 @@ export default function ButtonGroupPage() {
   const [verticalValue, setVerticalValue] = useState('option1');
   const [verticalIconValue, setVerticalIconValue] = useState('add');
   const [verticalIconLabelValue, setVerticalIconLabelValue] = useState('add');
+  const [sizeXsValue, setSizeXsValue] = useState('option1');
+  const [sizeSValue, setSizeSValue] = useState('option1');
+  const [sizeMValue, setSizeMValue] = useState('option1');
+  const [sizeLValue, setSizeLValue] = useState('option1');
+  const [sizeXlValue, setSizeXlValue] = useState('option1');
+  const [disabledValue, setDisabledValue] = useState('option1');
 
   const horizontalCode = `import { useState } from 'react';
-import { ButtonGroup } from '@/design-system/components/ButtonGroup';
+import { ButtonGroup } from '@as-design-system/core';
 
 function Example() {
   const [value, setValue] = useState('option1');
@@ -65,7 +72,7 @@ function Example() {
 }`;
 
   const verticalCode = `import { useState } from 'react';
-import { ButtonGroup } from '@/design-system/components/ButtonGroup';
+import { ButtonGroup } from '@as-design-system/core';
 
 function Example() {
   const [value, setValue] = useState('option1');
@@ -110,13 +117,95 @@ function Example() {
   );
 }`;
 
+  const sizesCode = `import { useState } from 'react';
+import { ButtonGroup } from '@as-design-system/core';
+
+function Example() {
+  const [value, setValue] = useState('option1');
+
+  return (
+    <>
+      <ButtonGroup
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+        value={value}
+        onChange={setValue}
+        size="XS"
+      />
+
+      <ButtonGroup
+        options={[...]}
+        value={value}
+        onChange={setValue}
+        size="S"
+      />
+
+      <ButtonGroup
+        options={[...]}
+        value={value}
+        onChange={setValue}
+        size="M"
+      />
+
+      <ButtonGroup
+        options={[...]}
+        value={value}
+        onChange={setValue}
+        size="L"
+      />
+
+      <ButtonGroup
+        options={[...]}
+        value={value}
+        onChange={setValue}
+        size="XL"
+      />
+    </>
+  );
+}`;
+
+  const disabledCode = `import { useState } from 'react';
+import { ButtonGroup } from '@as-design-system/core';
+
+function Example() {
+  const [value, setValue] = useState('option1');
+
+  return (
+    <>
+      {/* Individual disabled option */}
+      <ButtonGroup
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2', disabled: true },
+          { value: 'option3', label: 'Option 3' },
+        ]}
+        value={value}
+        onChange={setValue}
+      />
+
+      {/* Entire group disabled */}
+      <ButtonGroup
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+        value={value}
+        onChange={setValue}
+        disabled
+      />
+    </>
+  );
+}`;
+
   return (
     <div className="component-page">
       <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
         ButtonGroup
       </h1>
       <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary, var(--cool-grey-60, #63728a))' }}>
-        A group of toggle buttons where one option can be selected at a time.
+        A group of toggle buttons where one option can be selected at a time. Uses Button and IconButton components internally.
       </p>
 
       {/* Tabs */}
@@ -257,6 +346,132 @@ function Example() {
               </div>
             </div>
           </section>
+
+          {/* Sizes */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                Sizes
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('sizes')}
+              />
+            </div>
+            <p className="label-regular-m" style={{ marginBottom: '16px', color: 'var(--text-secondary, var(--cool-grey-60, #63728a))' }}>
+              The size prop controls the size of all buttons in the group.
+            </p>
+            <div className="button-group-examples">
+              <div className="button-group-example-row">
+                <span className="example-label">XS:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value={sizeXsValue}
+                  onChange={setSizeXsValue}
+                  size="XS"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">S:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value={sizeSValue}
+                  onChange={setSizeSValue}
+                  size="S"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">M (default):</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value={sizeMValue}
+                  onChange={setSizeMValue}
+                  size="M"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">L:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value={sizeLValue}
+                  onChange={setSizeLValue}
+                  size="L"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">XL:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value={sizeXlValue}
+                  onChange={setSizeXlValue}
+                  size="XL"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Disabled */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                Disabled
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('disabled')}
+              />
+            </div>
+            <p className="label-regular-m" style={{ marginBottom: '16px', color: 'var(--text-secondary, var(--cool-grey-60, #63728a))' }}>
+              Individual options or the entire group can be disabled.
+            </p>
+            <div className="button-group-examples">
+              <div className="button-group-example-row">
+                <span className="example-label">Disabled option:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2', disabled: true },
+                    { value: 'option3', label: 'Option 3' },
+                  ]}
+                  value={disabledValue}
+                  onChange={setDisabledValue}
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">Disabled group:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                  ]}
+                  value="option1"
+                  onChange={() => {}}
+                  disabled
+                />
+              </div>
+            </div>
+          </section>
         </>
       )}
 
@@ -304,6 +519,12 @@ function Example() {
                   <td><code>'horizontal' | 'vertical'</code></td>
                   <td><code>'horizontal'</code></td>
                   <td>Layout direction of the buttons</td>
+                </tr>
+                <tr>
+                  <td><code>size</code></td>
+                  <td><code>'XS' | 'S' | 'M' | 'L' | 'XL'</code></td>
+                  <td><code>'M'</code></td>
+                  <td>Size of all buttons in the group</td>
                 </tr>
                 <tr>
                   <td><code>disabled</code></td>
@@ -372,6 +593,18 @@ function Example() {
         onClose={() => setOpenModal(null)}
         title="Vertical Layout"
         code={verticalCode}
+      />
+      <CodeModal
+        isOpen={openModal === 'sizes'}
+        onClose={() => setOpenModal(null)}
+        title="Sizes"
+        code={sizesCode}
+      />
+      <CodeModal
+        isOpen={openModal === 'disabled'}
+        onClose={() => setOpenModal(null)}
+        title="Disabled States"
+        code={disabledCode}
       />
     </div>
   );
