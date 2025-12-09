@@ -1,0 +1,82 @@
+/* ============================================================================
+   ICONS PAGE - Controls Bar
+   ============================================================================ */
+
+.icons-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: var(--background-secondary, #fafafa);
+  border-radius: 8px;
+  border: 1px solid var(--border-moderate, #ced5dd);
+}
+
+.icons-controls .icon-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.icons-setting {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icons-setting-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary, #63728a);
+}
+
+.icons-setting-options {
+  display: flex;
+  gap: 4px;
+}
+
+.icons-setting-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-moderate, #ced5dd);
+  border-radius: 4px;
+  background-color: var(--background-main, #ffffff);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, #63728a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icons-setting-option:hover {
+  border-color: var(--primary-default, #063b9e);
+  color: var(--primary-default, #063b9e);
+}
+
+.icons-setting-option.active {
+  background-color: var(--primary-default, #063b9e);
+  border-color: var(--primary-default, #063b9e);
+  color: var(--text-negative, #ffffff);
+}
+
+/* Color option specific styles */
+.icons-color-option {
+  padding: 6px 10px;
+}
+
+.icons-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.icons-color-option.active .icons-color-dot {
+  border: 2px solid var(--text-negative, #ffffff);
+}

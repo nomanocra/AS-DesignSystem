@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Tokens.css';
+import './Icons.css';
 import { Icon, availableIcons } from '@as-design-system/core';
 import { Modal } from '../components/Modal';
 import '../components/Modal.css';
@@ -7,10 +8,25 @@ import '../components/Modal.css';
 // List of available icons (automatically synced from Icon component)
 const iconNames = [...availableIcons];
 
+// Available sizes
+const sizes = [16, 20, 24, 32, 40] as const;
+type IconSize = (typeof sizes)[number];
+
+// Available colors with their CSS variable names
+const colorOptions = [
+  { label: 'Primary', value: 'var(--primary-default, #063b9e)' },
+  { label: 'Error', value: 'var(--feedback-error-default, #e4002b)' },
+  { label: 'Warning', value: 'var(--feedback-warning-default, #ffc929)' },
+  { label: 'Success', value: 'var(--feedback-success-default, #08875b)' },
+] as const;
+type ColorOption = (typeof colorOptions)[number];
+
 export default function Icons() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<IconSize>(24);
+  const [selectedColor, setSelectedColor] = useState<ColorOption>(colorOptions[0]);
 
   const filteredIcons = iconNames.filter((iconName) =>
     iconName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -33,6 +49,10 @@ export default function Icons() {
         >
           Icons
         </h1>
+      </div>
+
+      {/* Controls Bar */}
+      <div className="icons-controls">
         <input
           type="text"
           placeholder="Search an icon..."
@@ -40,6 +60,43 @@ export default function Icons() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="icon-search"
         />
+
+        {/* Size Selector */}
+        <div className="icons-setting">
+          <span className="icons-setting-label">Size</span>
+          <div className="icons-setting-options">
+            {sizes.map((size) => (
+              <button
+                key={size}
+                className={`icons-setting-option ${selectedSize === size ? 'active' : ''}`}
+                onClick={() => setSelectedSize(size)}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Color Selector */}
+        <div className="icons-setting">
+          <span className="icons-setting-label">Color</span>
+          <div className="icons-setting-options">
+            {colorOptions.map((color) => (
+              <button
+                key={color.label}
+                className={`icons-setting-option icons-color-option ${selectedColor.label === color.label ? 'active' : ''}`}
+                onClick={() => setSelectedColor(color)}
+                style={{ '--option-color': color.value } as React.CSSProperties}
+              >
+                <span
+                  className="icons-color-dot"
+                  style={{ backgroundColor: color.value }}
+                />
+                {color.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <section className="tokens-section">
@@ -53,38 +110,11 @@ export default function Icons() {
               title="Click to see usage"
             >
               <div className="icon-preview">
-                <Icon name={iconName} size={24} />
+                <Icon name={iconName} size={selectedSize} color={selectedColor.value} />
               </div>
               <code className="icon-name">{iconName}</code>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="tokens-section">
-        <h2
-          className="heading-6"
-          style={{
-            marginTop: '32px',
-            marginBottom: '16px',
-            color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
-          }}
-        >
-          Usage
-        </h2>
-        <div className="usage-example">
-          <pre className="code-block">
-            <code>{`import { Icon } from '@/design-system/components/Icon';
-
-// Basic usage
-<Icon name="AIR_fleet" />
-
-// With custom size
-<Icon name="add" size={32} />
-
-// With custom color
-<Icon name="delete" size={24} color="var(--primary-default)" />`}</code>
-          </pre>
         </div>
       </section>
 
@@ -105,7 +135,7 @@ export default function Icons() {
                   borderRadius: '8px',
                 }}
               >
-                <Icon name={selectedIcon} size={48} />
+                <Icon name={selectedIcon} size={48} color={selectedColor.value} />
               </div>
             </div>
 
@@ -125,37 +155,19 @@ export default function Icons() {
               </pre>
             </div>
 
-            {/* With Size */}
-            <div className="modal-section-title">With Custom Size</div>
+            {/* With Current Settings */}
+            <div className="modal-section-title">With Current Settings</div>
             <div className="modal-code-block">
               <button
                 className="modal-copy-button"
                 onClick={() =>
-                  copyToClipboard(`<Icon name="${selectedIcon}" size={32} />`)
+                  copyToClipboard(`<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />`)
                 }
               >
-                {copiedCode === `<Icon name="${selectedIcon}" size={32} />` ? '✓ Copied!' : 'Copy'}
+                {copiedCode === `<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />` ? '✓ Copied!' : 'Copy'}
               </button>
               <pre>
-                <code>{`<Icon name="${selectedIcon}" size={32} />`}</code>
-              </pre>
-            </div>
-
-            {/* With Color */}
-            <div className="modal-section-title">With Custom Color</div>
-            <div className="modal-code-block">
-              <button
-                className="modal-copy-button"
-                onClick={() =>
-                  copyToClipboard(
-                    `<Icon name="${selectedIcon}" size={24} color="var(--primary-default)" />`
-                  )
-                }
-              >
-                {copiedCode === `<Icon name="${selectedIcon}" size={24} color="var(--primary-default)" />` ? '✓ Copied!' : 'Copy'}
-              </button>
-              <pre>
-                <code>{`<Icon name="${selectedIcon}" size={24} color="var(--primary-default)" />`}</code>
+                <code>{`<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />`}</code>
               </pre>
             </div>
 
