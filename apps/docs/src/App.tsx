@@ -5,6 +5,7 @@ import Installation from './pages/Installation';
 import HowToUse from './pages/HowToUse';
 import SupportedPlatforms from './pages/SupportedPlatforms';
 import Button from './pages/Button';
+import ButtonGroup from './pages/ButtonGroup';
 import IconButton from './pages/IconButton';
 import ToolIcons from './pages/ToolIcons';
 import Tab from './pages/Tab';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/tokens/icons" element={<Icons />} />
           <Route path="/components" element={<Navigate to="/components/button" replace />} />
           <Route path="/components/button" element={<Button />} />
+          <Route path="/components/button-group" element={<ButtonGroup />} />
           <Route path="/components/icon-button" element={<IconButton />} />
           <Route path="/components/tool-icons" element={<ToolIcons />} />
           <Route path="/components/tab" element={<Tab />} />

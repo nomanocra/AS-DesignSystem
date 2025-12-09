@@ -12,6 +12,7 @@
       "types": "./dist/index.d.ts"
     },
     "./Button.css": "./dist/Button.css",
+    "./ButtonGroup.css": "./dist/ButtonGroup.css",
     "./IconButton.css": "./dist/IconButton.css",
     "./Icon.css": "./dist/Icon.css",
     "./Tab.css": "./dist/Tab.css",

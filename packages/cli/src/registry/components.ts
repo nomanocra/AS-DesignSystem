@@ -406,4 +406,27 @@ export const components: RegistryItem[] = [
       '@/design-system/tokens/colors.css',
     ],
   },
+  {
+    name: 'button-group',
+    type: 'component',
+    displayName: 'ButtonGroup',
+    description: 'Toggle button group for single selection',
+    files: [
+      {
+        path: 'templates/components/ButtonGroup.tsx',
+        target: 'components/ButtonGroup.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/ButtonGroup.css',
+        target: 'components/ButtonGroup.css',
+        type: 'style',
+      },
+    ],
+    dependencies: [],
+    cssImports: [
+      '@/design-system/tokens/typography.css',
+      '@/design-system/tokens/colors.css',
+    ],
+  },
 ];

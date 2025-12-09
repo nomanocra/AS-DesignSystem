@@ -138,6 +138,12 @@ export default function Layout({ children }: LayoutProps) {
               Button
             </Link>
             <Link
+              to="/components/button-group"
+              className={`nav-link nav-link-sub ${location.pathname === '/components/button-group' ? 'active' : ''}`}
+            >
+              ButtonGroup
+            </Link>
+            <Link
               to="/components/icon-button"
               className={`nav-link nav-link-sub ${location.pathname === '/components/icon-button' ? 'active' : ''}`}
             >

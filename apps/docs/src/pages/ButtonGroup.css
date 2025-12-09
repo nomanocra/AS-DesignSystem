@@ -1,0 +1,23 @@
+/* ButtonGroup Documentation Page Styles */
+
+.button-group-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background-color: var(--background-main, #ffffff);
+  border: 1px solid var(--border-minimal, #eff1f4);
+  border-radius: 8px;
+}
+
+.button-group-example-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.example-label {
+  font-size: 14px;
+  color: var(--text-secondary, #63728a);
+  min-width: 120px;
+}
