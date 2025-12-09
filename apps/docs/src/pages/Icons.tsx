@@ -8,16 +8,17 @@ import '../components/Modal.css';
 // List of available icons (automatically synced from Icon component)
 const iconNames = [...availableIcons];
 
-// Available sizes
+// Available sizes (default is 24)
 const sizes = [16, 20, 24, 32, 40] as const;
 type IconSize = (typeof sizes)[number];
+const DEFAULT_SIZE: IconSize = 24;
 
-// Available colors with their CSS variable names
+// Available colors with their CSS variable names (Primary is default)
 const colorOptions = [
-  { label: 'Primary', value: 'var(--primary-default, #063b9e)' },
-  { label: 'Error', value: 'var(--feedback-error-default, #e4002b)' },
-  { label: 'Warning', value: 'var(--feedback-warning-default, #ffc929)' },
-  { label: 'Success', value: 'var(--feedback-success-default, #08875b)' },
+  { label: 'Primary', value: 'var(--primary-default, #063b9e)', isDefault: true },
+  { label: 'Error', value: 'var(--feedback-error-default, #e4002b)', isDefault: false },
+  { label: 'Warning', value: 'var(--feedback-warning-default, #ffc929)', isDefault: false },
+  { label: 'Success', value: 'var(--feedback-success-default, #08875b)', isDefault: false },
 ] as const;
 type ColorOption = (typeof colorOptions)[number];
 
@@ -25,12 +26,27 @@ export default function Icons() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<IconSize>(24);
+  const [selectedSize, setSelectedSize] = useState<IconSize>(DEFAULT_SIZE);
   const [selectedColor, setSelectedColor] = useState<ColorOption>(colorOptions[0]);
 
   const filteredIcons = iconNames.filter((iconName) =>
     iconName.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Generate code string based on selected settings, omitting default values
+  const generateIconCode = (iconName: string) => {
+    const props: string[] = [`name="${iconName}"`];
+
+    if (selectedSize !== DEFAULT_SIZE) {
+      props.push(`size={${selectedSize}}`);
+    }
+
+    if (!selectedColor.isDefault) {
+      props.push(`color="${selectedColor.value}"`);
+    }
+
+    return `<Icon ${props.join(' ')} />`;
+  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -144,14 +160,12 @@ export default function Icons() {
             <div className="modal-code-block">
               <button
                 className="modal-copy-button"
-                onClick={() =>
-                  copyToClipboard(`<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />`)
-                }
+                onClick={() => copyToClipboard(generateIconCode(selectedIcon))}
               >
-                {copiedCode === `<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />` ? '✓ Copied!' : 'Copy'}
+                {copiedCode === generateIconCode(selectedIcon) ? '✓ Copied!' : 'Copy'}
               </button>
               <pre>
-                <code>{`<Icon name="${selectedIcon}" size={${selectedSize}} color="${selectedColor.value}" />`}</code>
+                <code>{generateIconCode(selectedIcon)}</code>
               </pre>
             </div>
 
