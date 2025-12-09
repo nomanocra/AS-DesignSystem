@@ -11,77 +11,104 @@ export default function ButtonGroupPage() {
   const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
 
   // Demo states
-  const [basicValue, setBasicValue] = useState('option1');
-  const [alignValue, setAlignValue] = useState('left');
-  const [viewValue, setViewValue] = useState('day');
+  const [horizontalValue, setHorizontalValue] = useState('option1');
+  const [horizontalIconValue, setHorizontalIconValue] = useState('add');
+  const [horizontalIconLabelValue, setHorizontalIconLabelValue] = useState('add');
+  const [verticalValue, setVerticalValue] = useState('option1');
+  const [verticalIconValue, setVerticalIconValue] = useState('add');
+  const [verticalIconLabelValue, setVerticalIconLabelValue] = useState('add');
 
-  const basicCode = `import { useState } from 'react';
+  const horizontalCode = `import { useState } from 'react';
 import { ButtonGroup } from '@/design-system/components/ButtonGroup';
 
 function Example() {
   const [value, setValue] = useState('option1');
 
   return (
-    <ButtonGroup
-      options={[
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' },
-        { value: 'option3', label: 'Option 3' },
-      ]}
-      value={value}
-      onChange={setValue}
-    />
+    <>
+      {/* Text only */}
+      <ButtonGroup
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+          { value: 'option3', label: 'Option 3' },
+        ]}
+        value={value}
+        onChange={setValue}
+        layout="horizontal"
+      />
+
+      {/* Icon only */}
+      <ButtonGroup
+        options={[
+          { value: 'add', iconName: 'add' },
+          { value: 'delete', iconName: 'delete' },
+          { value: 'code', iconName: 'code' },
+        ]}
+        value={iconValue}
+        onChange={setIconValue}
+        layout="horizontal"
+      />
+
+      {/* Icon with label */}
+      <ButtonGroup
+        options={[
+          { value: 'add', iconName: 'add', label: 'Add' },
+          { value: 'delete', iconName: 'delete', label: 'Delete' },
+        ]}
+        value={iconLabelValue}
+        onChange={setIconLabelValue}
+        layout="horizontal"
+      />
+    </>
   );
 }`;
 
-  const disabledCode = `import { ButtonGroup } from '@/design-system/components/ButtonGroup';
+  const verticalCode = `import { useState } from 'react';
+import { ButtonGroup } from '@/design-system/components/ButtonGroup';
 
-// Disabled individual option
-<ButtonGroup
-  options={[
-    { value: 'a', label: 'Option A' },
-    { value: 'b', label: 'Option B', disabled: true },
-    { value: 'c', label: 'Option C' },
-  ]}
-  value="a"
-  onChange={setValue}
-/>
+function Example() {
+  const [value, setValue] = useState('option1');
 
-// Disabled entire group
-<ButtonGroup
-  options={[
-    { value: 'a', label: 'Option A' },
-    { value: 'b', label: 'Option B' },
-  ]}
-  value="a"
-  onChange={setValue}
-  disabled
-/>`;
+  return (
+    <>
+      {/* Text only */}
+      <ButtonGroup
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+          { value: 'option3', label: 'Option 3' },
+        ]}
+        value={value}
+        onChange={setValue}
+        layout="vertical"
+      />
 
-  const useCasesCode = `import { ButtonGroup } from '@/design-system/components/ButtonGroup';
+      {/* Icon only */}
+      <ButtonGroup
+        options={[
+          { value: 'add', iconName: 'add' },
+          { value: 'delete', iconName: 'delete' },
+          { value: 'code', iconName: 'code' },
+        ]}
+        value={iconValue}
+        onChange={setIconValue}
+        layout="vertical"
+      />
 
-// Text alignment
-<ButtonGroup
-  options={[
-    { value: 'left', label: 'Left' },
-    { value: 'center', label: 'Center' },
-    { value: 'right', label: 'Right' },
-  ]}
-  value={alignValue}
-  onChange={setAlignValue}
-/>
-
-// Calendar view
-<ButtonGroup
-  options={[
-    { value: 'day', label: 'Day' },
-    { value: 'week', label: 'Week' },
-    { value: 'month', label: 'Month' },
-    { value: 'year', label: 'Year' },
-  ]}
-  value={viewValue}
-  onChange={setViewValue}
-/>`;
+      {/* Icon with label */}
+      <ButtonGroup
+        options={[
+          { value: 'add', iconName: 'add', label: 'Add' },
+          { value: 'delete', iconName: 'delete', label: 'Delete' },
+        ]}
+        value={iconLabelValue}
+        onChange={setIconLabelValue}
+        layout="vertical"
+      />
+    </>
+  );
+}`;
 
   return (
     <div className="component-page">
@@ -113,113 +140,119 @@ function Example() {
       {/* Examples Tab */}
       {activeTab === 'examples' && (
         <>
-          {/* Basic Usage */}
+          {/* Horizontal Layout */}
           <section className="component-section">
             <div className="section-header">
               <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-                Basic Usage
+                Horizontal
               </h2>
               <Button
                 label="Code"
                 leftIcon="code"
                 size="S"
                 variant="Outlined"
-                onClick={() => setOpenModal('basic')}
+                onClick={() => setOpenModal('horizontal')}
               />
             </div>
-            <div className="button-group-examples">
-              <ButtonGroup
-                options={[
-                  { value: 'option1', label: 'Option 1' },
-                  { value: 'option2', label: 'Option 2' },
-                  { value: 'option3', label: 'Option 3' },
-                ]}
-                value={basicValue}
-                onChange={setBasicValue}
-              />
-            </div>
-          </section>
-
-          {/* Disabled States */}
-          <section className="component-section">
-            <div className="section-header">
-              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-                Disabled States
-              </h2>
-              <Button
-                label="Code"
-                leftIcon="code"
-                size="S"
-                variant="Outlined"
-                onClick={() => setOpenModal('disabled')}
-              />
-            </div>
+            <p className="label-regular-m" style={{ marginBottom: '16px', color: 'var(--text-secondary, var(--cool-grey-60, #63728a))' }}>
+              Buttons are laid out horizontally and fit their content width.
+            </p>
             <div className="button-group-examples">
               <div className="button-group-example-row">
-                <span className="example-label">Disabled option:</span>
+                <span className="example-label">Text only:</span>
                 <ButtonGroup
                   options={[
-                    { value: 'a', label: 'Option A' },
-                    { value: 'b', label: 'Option B', disabled: true },
-                    { value: 'c', label: 'Option C' },
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
                   ]}
-                  value="a"
-                  onChange={() => {}}
+                  value={horizontalValue}
+                  onChange={setHorizontalValue}
+                  layout="horizontal"
                 />
               </div>
               <div className="button-group-example-row">
-                <span className="example-label">Disabled group:</span>
+                <span className="example-label">Icon only:</span>
                 <ButtonGroup
                   options={[
-                    { value: 'a', label: 'Option A' },
-                    { value: 'b', label: 'Option B' },
+                    { value: 'add', iconName: 'add' },
+                    { value: 'delete', iconName: 'delete' },
+                    { value: 'code', iconName: 'code' },
                   ]}
-                  value="a"
-                  onChange={() => {}}
-                  disabled
+                  value={horizontalIconValue}
+                  onChange={setHorizontalIconValue}
+                  layout="horizontal"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">Icon + label:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'add', iconName: 'add', label: 'Add' },
+                    { value: 'delete', iconName: 'delete', label: 'Delete' },
+                  ]}
+                  value={horizontalIconLabelValue}
+                  onChange={setHorizontalIconLabelValue}
+                  layout="horizontal"
                 />
               </div>
             </div>
           </section>
 
-          {/* Use Cases */}
+          {/* Vertical Layout */}
           <section className="component-section">
             <div className="section-header">
               <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-                Use Cases
+                Vertical
               </h2>
               <Button
                 label="Code"
                 leftIcon="code"
                 size="S"
                 variant="Outlined"
-                onClick={() => setOpenModal('usecases')}
+                onClick={() => setOpenModal('vertical')}
               />
             </div>
+            <p className="label-regular-m" style={{ marginBottom: '16px', color: 'var(--text-secondary, var(--cool-grey-60, #63728a))' }}>
+              Buttons are stacked vertically and fill the width of the container.
+            </p>
             <div className="button-group-examples">
               <div className="button-group-example-row">
-                <span className="example-label">Text alignment:</span>
+                <span className="example-label">Text only:</span>
                 <ButtonGroup
                   options={[
-                    { value: 'left', label: 'Left' },
-                    { value: 'center', label: 'Center' },
-                    { value: 'right', label: 'Right' },
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
                   ]}
-                  value={alignValue}
-                  onChange={setAlignValue}
+                  value={verticalValue}
+                  onChange={setVerticalValue}
+                  layout="vertical"
                 />
               </div>
               <div className="button-group-example-row">
-                <span className="example-label">Calendar view:</span>
+                <span className="example-label">Icon only:</span>
                 <ButtonGroup
                   options={[
-                    { value: 'day', label: 'Day' },
-                    { value: 'week', label: 'Week' },
-                    { value: 'month', label: 'Month' },
-                    { value: 'year', label: 'Year' },
+                    { value: 'add', iconName: 'add' },
+                    { value: 'delete', iconName: 'delete' },
+                    { value: 'code', iconName: 'code' },
                   ]}
-                  value={viewValue}
-                  onChange={setViewValue}
+                  value={verticalIconValue}
+                  onChange={setVerticalIconValue}
+                  layout="vertical"
+                />
+              </div>
+              <div className="button-group-example-row">
+                <span className="example-label">Icon + label:</span>
+                <ButtonGroup
+                  options={[
+                    { value: 'add', iconName: 'add', label: 'Add' },
+                    { value: 'delete', iconName: 'delete', label: 'Delete' },
+                  ]}
+                  value={verticalIconLabelValue}
+                  onChange={setVerticalIconLabelValue}
+                  layout="vertical"
                 />
               </div>
             </div>
@@ -267,6 +300,12 @@ function Example() {
                   <td>Callback when selection changes</td>
                 </tr>
                 <tr>
+                  <td><code>layout</code></td>
+                  <td><code>'horizontal' | 'vertical'</code></td>
+                  <td><code>'horizontal'</code></td>
+                  <td>Layout direction of the buttons</td>
+                </tr>
+                <tr>
                   <td><code>disabled</code></td>
                   <td><code>boolean</code></td>
                   <td><code>false</code></td>
@@ -303,7 +342,12 @@ function Example() {
                 <tr>
                   <td><code>label</code></td>
                   <td><code>string</code></td>
-                  <td>Display label for the button</td>
+                  <td>Display label (optional if iconName is provided)</td>
+                </tr>
+                <tr>
+                  <td><code>iconName</code></td>
+                  <td><code>IconName</code></td>
+                  <td>Icon to display (optional, can be used alone or with label)</td>
                 </tr>
                 <tr>
                   <td><code>disabled</code></td>
@@ -318,22 +362,16 @@ function Example() {
 
       {/* Code Modals */}
       <CodeModal
-        isOpen={openModal === 'basic'}
+        isOpen={openModal === 'horizontal'}
         onClose={() => setOpenModal(null)}
-        title="Basic Usage"
-        code={basicCode}
+        title="Horizontal Layout"
+        code={horizontalCode}
       />
       <CodeModal
-        isOpen={openModal === 'disabled'}
+        isOpen={openModal === 'vertical'}
         onClose={() => setOpenModal(null)}
-        title="Disabled States"
-        code={disabledCode}
-      />
-      <CodeModal
-        isOpen={openModal === 'usecases'}
-        onClose={() => setOpenModal(null)}
-        title="Use Cases"
-        code={useCasesCode}
+        title="Vertical Layout"
+        code={verticalCode}
       />
     </div>
   );

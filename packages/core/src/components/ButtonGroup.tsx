@@ -1,4 +1,7 @@
 import './ButtonGroup.css';
+import { Icon, type IconName } from './Icon';
+
+export type ButtonGroupLayout = 'horizontal' | 'vertical';
 
 export interface ButtonGroupOption {
   /**
@@ -6,9 +9,13 @@ export interface ButtonGroupOption {
    */
   value: string;
   /**
-   * Display label for the button
+   * Display label for the button (optional if iconName is provided)
    */
-  label: string;
+  label?: string;
+  /**
+   * Icon name to display (optional, can be used alone or with label)
+   */
+  iconName?: IconName;
   /**
    * Whether the option is disabled
    */
@@ -28,6 +35,10 @@ export interface ButtonGroupProps {
    * Callback when selection changes
    */
   onChange: (value: string) => void;
+  /**
+   * Layout direction: horizontal (default) or vertical
+   */
+  layout?: ButtonGroupLayout;
   /**
    * Additional CSS class
    */
@@ -55,6 +66,7 @@ export interface ButtonGroupProps {
  *   ]}
  *   value={selected}
  *   onChange={setSelected}
+ *   layout="horizontal"
  * />
  * ```
  */
@@ -62,11 +74,13 @@ export function ButtonGroup({
   options,
   value,
   onChange,
+  layout = 'horizontal',
   className = '',
   disabled = false,
 }: ButtonGroupProps) {
   const containerClasses = [
     'button-group',
+    `button-group--${layout}`,
     disabled ? 'button-group--disabled' : '',
     className,
   ]
@@ -87,15 +101,25 @@ export function ButtonGroup({
           .filter(Boolean)
           .join(' ');
 
+        const iconColor = isActive
+          ? 'var(--text-negative, #ffffff)'
+          : 'var(--primary-default, #063b9e)';
+
+        const hasIconOnly = option.iconName && !option.label;
+
         return (
           <button
             key={option.value}
             type="button"
-            className={buttonClasses}
+            className={`${buttonClasses}${hasIconOnly ? ' button-group__button--icon-only' : ''}`}
             onClick={() => !isDisabled && onChange(option.value)}
             disabled={isDisabled}
             aria-pressed={isActive}
+            aria-label={hasIconOnly ? option.value : undefined}
           >
+            {option.iconName && (
+              <Icon name={option.iconName} size={16} color={iconColor} />
+            )}
             {option.label}
           </button>
         );
