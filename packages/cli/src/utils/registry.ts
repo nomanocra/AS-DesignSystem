@@ -76,3 +76,10 @@ export function getRegistryByType(type: 'component' | 'token' | 'icon'): Registr
   const registry = getRegistry();
   return registry.filter((item) => item.type === type);
 }
+
+/**
+ * Get all registry items
+ */
+export function getAllRegistryItems(): RegistryItem[] {
+  return getRegistry();
+}

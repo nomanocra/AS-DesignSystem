@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { init } from './commands/init';
 import { add } from './commands/add';
 import { list } from './commands/list';
+import { update } from './commands/update';
 
 const packageJson = {
   name: '@as-design-system/cli',
@@ -18,6 +19,7 @@ export function createCLI() {
   // Register commands
   program.addCommand(init);
   program.addCommand(add);
+  program.addCommand(update);
   program.addCommand(list);
 
   return program;
