@@ -28,15 +28,10 @@
   border-radius: 3px;
 }
 
-/* In vertical layout, buttons should fill width */
+/* In vertical layout, buttons should fill the ButtonGroup width */
 .button-group--vertical .button-group__item {
   width: 100% !important;
   justify-content: center;
-}
-
-/* Vertical ButtonGroup should fill its container width */
-.button-group--vertical {
-  width: 100%;
 }
 
 /* Disabled container */

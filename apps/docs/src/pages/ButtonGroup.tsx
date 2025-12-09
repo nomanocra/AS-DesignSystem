@@ -313,18 +313,16 @@ function Example() {
               </div>
               <div className="button-group-example-row">
                 <span className="example-label">Icon only:</span>
-                <div style={{ width: '40px' }}>
-                  <ButtonGroup
-                    options={[
-                      { value: 'add', iconName: 'add' },
-                      { value: 'delete', iconName: 'delete' },
-                      { value: 'code', iconName: 'code' },
-                    ]}
-                    value={verticalIconValue}
-                    onChange={setVerticalIconValue}
-                    layout="vertical"
-                  />
-                </div>
+                <ButtonGroup
+                  options={[
+                    { value: 'add', iconName: 'add' },
+                    { value: 'delete', iconName: 'delete' },
+                    { value: 'code', iconName: 'code' },
+                  ]}
+                  value={verticalIconValue}
+                  onChange={setVerticalIconValue}
+                  layout="vertical"
+                />
               </div>
               <div className="button-group-example-row">
                 <span className="example-label">Icon + label:</span>
