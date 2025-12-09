@@ -129,7 +129,7 @@ export function ButtonGroup({
               state={isDisabled ? 'Disabled' : 'Default'}
               onClick={() => !isDisabled && onChange(option.value)}
               aria-pressed={isActive}
-              className="button-group__item"
+              className="button-group__item button-group__item--icon-only"
             />
           );
         }
