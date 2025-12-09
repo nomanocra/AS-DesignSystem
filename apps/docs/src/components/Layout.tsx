@@ -26,7 +26,7 @@ function NavSection({ title, children, defaultOpen = true }: NavSectionProps) {
       >
         <h2 className="nav-section-title legend-bold">{title}</h2>
         <span className={`nav-section-chevron ${isOpen ? 'open' : ''}`}>
-          <Icon name="keyboard_arrow_down" size={16} />
+          <Icon name="keyboard_arrow_down" size={16} color="var(--text-tertiary, #8e99ab)" />
         </span>
       </button>
       <div className={`nav-section-links ${isOpen ? 'open' : ''}`}>
