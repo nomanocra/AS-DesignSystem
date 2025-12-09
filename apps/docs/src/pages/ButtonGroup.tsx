@@ -313,7 +313,7 @@ function Example() {
               </div>
               <div className="button-group-example-row">
                 <span className="example-label">Icon only:</span>
-                <div style={{ width: '48px' }}>
+                <div style={{ width: '40px' }}>
                   <ButtonGroup
                     options={[
                       { value: 'add', iconName: 'add' },
