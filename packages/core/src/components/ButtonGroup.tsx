@@ -4,7 +4,16 @@ import { IconButton } from './IconButton';
 import type { IconName } from './Icon';
 
 export type ButtonGroupLayout = 'horizontal' | 'vertical';
-export type ButtonGroupSize = ButtonSize;
+export type ButtonGroupSize = 'S' | 'M' | 'L' | 'XL';
+
+// Map ButtonGroup size to internal Button size (one level smaller)
+// This ensures ButtonGroup height matches Button height of the same size
+const sizeToButtonSize: Record<ButtonGroupSize, ButtonSize> = {
+  S: 'XS',
+  M: 'S',
+  L: 'M',
+  XL: 'L',
+};
 
 export interface ButtonGroupOption {
   /**
@@ -43,7 +52,8 @@ export interface ButtonGroupProps {
    */
   layout?: ButtonGroupLayout;
   /**
-   * Size of all buttons in the group
+   * Size of the ButtonGroup (S, M, L, XL)
+   * The ButtonGroup height matches a Button of the same size
    * @default 'M'
    */
   size?: ButtonGroupSize;
@@ -98,6 +108,9 @@ export function ButtonGroup({
     .filter(Boolean)
     .join(' ');
 
+  // Get the internal button size (one level smaller)
+  const buttonSize = sizeToButtonSize[size];
+
   return (
     <div className={containerClasses} role="group">
       {options.map((option) => {
@@ -111,7 +124,7 @@ export function ButtonGroup({
             <IconButton
               key={option.value}
               icon={option.iconName as string}
-              size={size}
+              size={buttonSize}
               variant={isActive ? 'Default' : 'Ghost'}
               state={isDisabled ? 'Disabled' : 'Default'}
               onClick={() => !isDisabled && onChange(option.value)}
@@ -127,7 +140,7 @@ export function ButtonGroup({
             key={option.value}
             label={option.label}
             leftIcon={option.iconName}
-            size={size}
+            size={buttonSize}
             variant={isActive ? 'Default' : 'Ghost'}
             state={isDisabled ? 'Disabled' : 'Default'}
             onClick={() => !isDisabled && onChange(option.value)}
