@@ -27,7 +27,6 @@
 .nav-section {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
 .nav-separator {
@@ -36,18 +35,59 @@
   margin: 8px 0;
 }
 
+.nav-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 8px;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nav-section-header:hover {
+  background-color: var(--background-tertiary, var(--cool-grey-10, #eff1f4));
+}
+
 .nav-section-title {
   color: var(--text-tertiary, var(--cool-grey-60, #63728a));
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 2px;
+  margin: 0;
   padding: 0;
+}
+
+.nav-section-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary, var(--cool-grey-40, #8e99ab));
+  transition: transform 0.2s ease;
+}
+
+.nav-section-chevron.open {
+  transform: rotate(180deg);
 }
 
 .nav-section-links {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease;
+  margin-top: 0;
+}
+
+.nav-section-links.open {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 4px;
 }
 
 .nav-link {
