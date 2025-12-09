@@ -39,24 +39,8 @@
   justify-content: center;
   padding: 40px 24px;
   background-color: var(--background-secondary, #fafafa);
-  border: 1px solid transparent;
   border-radius: 12px;
-  cursor: default;
-  transition: all 0.2s ease;
   min-height: 160px;
-}
-
-.platform-card:hover {
-  background-color: var(--background-main, #ffffff);
-  border-color: var(--border-moderate, #ced5dd);
-}
-
-.platform-card--supported {
-  cursor: pointer;
-}
-
-.platform-card--supported:hover {
-  border-color: var(--primary-default, #063b9e);
 }
 
 .platform-card--coming-soon {
