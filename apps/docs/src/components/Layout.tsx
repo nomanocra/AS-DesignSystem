@@ -114,6 +114,13 @@ export default function Layout({ children }: LayoutProps) {
               >
                 Tab
               </Link>
+              <Link
+                to="/components/select"
+                className={`nav-link nav-link-sub ${location.pathname === '/components/select' ? 'active' : ''
+                  }`}
+              >
+                Select
+              </Link>
             </div>
           </div>
         </nav>

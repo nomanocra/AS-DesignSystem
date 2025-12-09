@@ -8,6 +8,7 @@ import Button from './pages/Button';
 import IconButton from './pages/IconButton';
 import ToolIcons from './pages/ToolIcons';
 import Tab from './pages/Tab';
+import Select from './pages/Select';
 import TextStyles from './pages/TextStyles';
 import Colors from './pages/Colors';
 import Icons from './pages/Icons';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/components/icon-button" element={<IconButton />} />
           <Route path="/components/tool-icons" element={<ToolIcons />} />
           <Route path="/components/tab" element={<Tab />} />
+          <Route path="/components/select" element={<Select />} />
         </Routes>
       </Layout>
     </BrowserRouter>

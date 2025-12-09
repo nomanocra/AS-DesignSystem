@@ -16,6 +16,8 @@
     "./Icon.css": "./dist/Icon.css",
     "./Tab.css": "./dist/Tab.css",
     "./ToolIcons.css": "./dist/ToolIcons.css",
+    "./Select.css": "./dist/Select.css",
+    "./VSelect.css": "./dist/VSelect.css",
     "./colors.css": "./dist/colors.css",
     "./typography.css": "./dist/typography.css"
   },
@@ -37,5 +39,8 @@
     "react-dom": "^18.2.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "^2.2.6"
   }
 }

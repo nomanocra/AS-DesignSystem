@@ -1,0 +1,36 @@
+.select-examples {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 24px;
+  background-color: var(--background-main, #ffffff);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+}
+
+.select-examples > * {
+  min-width: 140px;
+  flex: 1 1 140px;
+}
+
+.select-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 16px;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison-box {
+  background-color: var(--background-tertiary, #eff1f4);
+  border: 1px solid var(--border-default, #d1d7e0);
+  border-radius: 3px;
+  padding: 16px;
+  margin-top: 16px;
+}

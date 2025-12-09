@@ -110,7 +110,7 @@
 
   /* Text - Références Cool Grey, White, Sea Blue */
   --text-main: var(--cool-grey-100);
-  --text-secondary: var(--cool-grey-70);
+  --text-secondary: var(--cool-grey-60);
   --text-tertiary: var(--cool-grey-40);
   --text-negative: var(--white);
   --text-corporate: var(--sea-blue-90);
@@ -121,6 +121,13 @@
   --background-secondary: var(--warm-grey-10);
   --background-tertiary: var(--cool-grey-10);
   --background-corporate: var(--sea-blue-90);
+
+  /* Border - Références Cool Grey, White */
+  --border-strong: var(--cool-grey-70);
+  --border-default: var(--cool-grey-50);
+  --border-moderate: var(--cool-grey-30);
+  --border-minimal: var(--cool-grey-10);
+  --border-white: var(--white);
 
   /* Feedback Success - Références Green */
   --feedback-success-default: var(--green-80);

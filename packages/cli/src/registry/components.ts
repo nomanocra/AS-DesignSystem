@@ -360,4 +360,50 @@ export const components: RegistryItem[] = [
     dependencies: [],
     cssImports: [],
   },
+  {
+    name: 'select',
+    type: 'component',
+    displayName: 'Select',
+    description: 'Accessible select component based on Radix UI with sizes and states',
+    files: [
+      {
+        path: 'templates/components/Select.tsx',
+        target: 'components/Select.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/Select.css',
+        target: 'components/Select.css',
+        type: 'style',
+      },
+    ],
+    dependencies: ['icon'],
+    cssImports: [
+      '@/design-system/tokens/typography.css',
+      '@/design-system/tokens/colors.css',
+    ],
+  },
+  {
+    name: 'vselect',
+    type: 'component',
+    displayName: 'VSelect',
+    description: 'Vanilla select component (pure React) with sizes and states',
+    files: [
+      {
+        path: 'templates/components/VSelect.tsx',
+        target: 'components/VSelect.tsx',
+        type: 'component',
+      },
+      {
+        path: 'templates/components/VSelect.css',
+        target: 'components/VSelect.css',
+        type: 'style',
+      },
+    ],
+    dependencies: ['icon'],
+    cssImports: [
+      '@/design-system/tokens/typography.css',
+      '@/design-system/tokens/colors.css',
+    ],
+  },
 ];
