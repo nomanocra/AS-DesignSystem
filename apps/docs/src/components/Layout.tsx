@@ -91,12 +91,11 @@ export default function Layout({ children }: LayoutProps) {
             title="Tokens"
             icon={
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <circle cx="12" cy="12" r="4" />
-                <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
-                <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
-                <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
-                <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+                <circle cx="13.5" cy="6.5" r="0.5" fill="currentColor" />
+                <circle cx="17.5" cy="10.5" r="0.5" fill="currentColor" />
+                <circle cx="8.5" cy="7.5" r="0.5" fill="currentColor" />
+                <circle cx="6.5" cy="12.5" r="0.5" fill="currentColor" />
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z" />
               </svg>
             }
           >
