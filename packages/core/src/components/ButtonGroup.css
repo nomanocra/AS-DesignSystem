@@ -30,7 +30,8 @@
 
 /* In vertical layout, buttons should fill the ButtonGroup width */
 .button-group--vertical .button-group__item {
-  width: 100% !important;
+  width: auto !important;
+  min-width: 100%;
   justify-content: center;
 }
 
