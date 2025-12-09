@@ -54,7 +54,7 @@
 }
 
 .nav-section-title {
-  color: var(--text-secondary, var(--cool-grey-60, #63728a));
+  color: var(--text-tertiary, var(--cool-grey-40, #8e99ab));
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0;
