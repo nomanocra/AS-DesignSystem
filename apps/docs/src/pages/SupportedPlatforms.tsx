@@ -77,11 +77,9 @@ const ManualIcon = () => (
 
 export default function SupportedPlatforms() {
   const frameworks = [
-    { name: 'Next.js', icon: <NextjsIcon />, supported: true },
     { name: 'Vite', icon: <ViteIcon />, supported: true },
+    { name: 'Next.js', icon: <NextjsIcon />, supported: true },
     { name: 'Create React App', icon: <CRAIcon />, supported: true },
-    { name: 'React Router', icon: <ReactIcon />, supported: true },
-    { name: 'TypeScript', icon: <TypeScriptIcon />, supported: true },
     { name: 'Manual Setup', icon: <ManualIcon />, supported: true },
   ];
 

@@ -38,7 +38,8 @@
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
-  background-color: var(--background-secondary, #fafafa);
+  background-color: var(--background-main, #ffffff);
+  border: 1px solid var(--border-minimal, #eff1f4);
   border-radius: 12px;
   min-height: 160px;
 }
