@@ -378,6 +378,9 @@ export const components: RegistryItem[] = [
       },
     ],
     dependencies: ['icon'],
+    externalDependencies: {
+      '@radix-ui/react-select': '^2.1.2',
+    },
     cssImports: [
       '@/design-system/tokens/typography.css',
       '@/design-system/tokens/colors.css',

@@ -2,10 +2,50 @@ import { Command } from 'commander';
 import prompts from 'prompts';
 import fs from 'fs-extra';
 import path from 'path';
+import { execSync } from 'child_process';
 import { logger } from '../utils/logger';
 import { loadConfig, getResolvedPaths } from '../utils/config';
 import { resolveDependencies, getRegistryItem } from '../utils/registry';
 import type { RegistryItem, RegistryFile } from '../registry/schema';
+
+/**
+ * Detect package manager used in the project
+ */
+function detectPackageManager(cwd: string): 'npm' | 'yarn' | 'pnpm' | 'bun' {
+  if (fs.existsSync(path.join(cwd, 'bun.lockb'))) return 'bun';
+  if (fs.existsSync(path.join(cwd, 'pnpm-lock.yaml'))) return 'pnpm';
+  if (fs.existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';
+  return 'npm';
+}
+
+/**
+ * Install npm packages using the detected package manager
+ */
+async function installPackages(
+  packages: Record<string, string>,
+  cwd: string
+): Promise<boolean> {
+  const pm = detectPackageManager(cwd);
+  const packageList = Object.entries(packages)
+    .map(([name, version]) => `${name}@${version}`)
+    .join(' ');
+
+  const commands: Record<string, string> = {
+    npm: `npm install ${packageList}`,
+    yarn: `yarn add ${packageList}`,
+    pnpm: `pnpm add ${packageList}`,
+    bun: `bun add ${packageList}`,
+  };
+
+  const command = commands[pm];
+
+  try {
+    execSync(command, { cwd, stdio: 'inherit' });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 /**
  * Rewrite imports in file content
@@ -269,6 +309,54 @@ export const add = new Command()
         const cssSpinner = logger.spinner('Updating global CSS...');
         await updateGlobalCss(Array.from(allCssImports), config, cwd);
         cssSpinner.succeed('Updated global CSS');
+      }
+
+      // Collect external dependencies from installed items
+      const allExternalDeps: Record<string, string> = {};
+      for (const item of toInstall) {
+        if (installedItems.has(item.name) && item.externalDependencies) {
+          Object.assign(allExternalDeps, item.externalDependencies);
+        }
+      }
+
+      // Install external dependencies if any
+      if (Object.keys(allExternalDeps).length > 0) {
+        logger.break();
+        logger.info('The following npm packages are required:');
+        for (const [pkg, version] of Object.entries(allExternalDeps)) {
+          logger.info(`  - ${pkg}@${version}`);
+        }
+        logger.break();
+
+        const { shouldInstall } = await prompts({
+          type: 'confirm',
+          name: 'shouldInstall',
+          message: 'Install these dependencies now?',
+          initial: true,
+        });
+
+        if (shouldInstall) {
+          const depSpinner = logger.spinner('Installing dependencies...');
+          const success = await installPackages(allExternalDeps, cwd);
+          if (success) {
+            depSpinner.succeed('Dependencies installed');
+          } else {
+            depSpinner.fail('Failed to install dependencies');
+            logger.warn('You may need to install them manually:');
+            const pm = detectPackageManager(cwd);
+            const pkgList = Object.entries(allExternalDeps)
+              .map(([name, version]) => `${name}@${version}`)
+              .join(' ');
+            logger.info(`  ${pm} ${pm === 'yarn' ? 'add' : 'install'} ${pkgList}`);
+          }
+        } else {
+          logger.warn('Skipping dependency installation. Install them manually:');
+          const pm = detectPackageManager(cwd);
+          const pkgList = Object.entries(allExternalDeps)
+            .map(([name, version]) => `${name}@${version}`)
+            .join(' ');
+          logger.info(`  ${pm} ${pm === 'yarn' ? 'add' : 'install'} ${pkgList}`);
+        }
       }
 
       logger.break();

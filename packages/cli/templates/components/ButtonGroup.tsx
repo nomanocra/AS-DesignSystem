@@ -1,4 +1,19 @@
 import './ButtonGroup.css';
+import { Button, type ButtonSize } from './Button';
+import { IconButton } from './IconButton';
+import type { IconName } from './Icon';
+
+export type ButtonGroupLayout = 'horizontal' | 'vertical';
+export type ButtonGroupSize = 'S' | 'M' | 'L' | 'XL';
+
+// Map ButtonGroup size to internal Button size (one level smaller)
+// This ensures ButtonGroup height matches Button height of the same size
+const sizeToButtonSize: Record<ButtonGroupSize, ButtonSize> = {
+  S: 'XS',
+  M: 'S',
+  L: 'M',
+  XL: 'L',
+};
 
 export interface ButtonGroupOption {
   /**
@@ -6,9 +21,13 @@ export interface ButtonGroupOption {
    */
   value: string;
   /**
-   * Display label for the button
+   * Display label for the button (optional if iconName is provided)
    */
-  label: string;
+  label?: string;
+  /**
+   * Icon name to display (optional, can be used alone or with label)
+   */
+  iconName?: IconName;
   /**
    * Whether the option is disabled
    */
@@ -29,6 +48,16 @@ export interface ButtonGroupProps {
    */
   onChange: (value: string) => void;
   /**
+   * Layout direction: horizontal (default) or vertical
+   */
+  layout?: ButtonGroupLayout;
+  /**
+   * Size of the ButtonGroup (S, M, L, XL)
+   * The ButtonGroup height matches a Button of the same size
+   * @default 'M'
+   */
+  size?: ButtonGroupSize;
+  /**
    * Additional CSS class
    */
   className?: string;
@@ -42,6 +71,7 @@ export interface ButtonGroupProps {
  * ButtonGroup Component
  *
  * A group of toggle buttons where one option can be selected at a time.
+ * Uses Button and IconButton components internally.
  *
  * @example
  * ```tsx
@@ -55,6 +85,8 @@ export interface ButtonGroupProps {
  *   ]}
  *   value={selected}
  *   onChange={setSelected}
+ *   size="M"
+ *   layout="horizontal"
  * />
  * ```
  */
@@ -62,42 +94,59 @@ export function ButtonGroup({
   options,
   value,
   onChange,
+  layout = 'horizontal',
+  size = 'M',
   className = '',
   disabled = false,
 }: ButtonGroupProps) {
   const containerClasses = [
     'button-group',
+    `button-group--${layout}`,
     disabled ? 'button-group--disabled' : '',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
+  // Get the internal button size (one level smaller)
+  const buttonSize = sizeToButtonSize[size];
+
   return (
     <div className={containerClasses} role="group">
       {options.map((option) => {
         const isActive = option.value === value;
         const isDisabled = disabled || option.disabled;
+        const hasIconOnly = option.iconName && !option.label;
 
-        const buttonClasses = [
-          'button-group__button',
-          isActive ? 'button-group__button--active' : '',
-          isDisabled ? 'button-group__button--disabled' : '',
-        ]
-          .filter(Boolean)
-          .join(' ');
+        if (hasIconOnly) {
+          // Icon-only button: use IconButton
+          return (
+            <IconButton
+              key={option.value}
+              icon={option.iconName as string}
+              size={buttonSize}
+              variant={isActive ? 'Default' : 'Ghost'}
+              state={isDisabled ? 'Disabled' : 'Default'}
+              onClick={() => !isDisabled && onChange(option.value)}
+              aria-pressed={isActive}
+              className="button-group__item button-group__item--icon-only"
+            />
+          );
+        }
 
+        // Button with label (and optional icon)
         return (
-          <button
+          <Button
             key={option.value}
-            type="button"
-            className={buttonClasses}
+            label={option.label}
+            leftIcon={option.iconName}
+            size={buttonSize}
+            variant={isActive ? 'Default' : 'Ghost'}
+            state={isDisabled ? 'Disabled' : 'Default'}
             onClick={() => !isDisabled && onChange(option.value)}
-            disabled={isDisabled}
             aria-pressed={isActive}
-          >
-            {option.label}
-          </button>
+            className="button-group__item"
+          />
         );
       })}
     </div>

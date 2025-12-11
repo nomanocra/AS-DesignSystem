@@ -1,67 +1,47 @@
 /**
  * ButtonGroup Component Styles
+ * Container styles only - buttons use Button.css and IconButton.css
  */
 
 .button-group {
   display: inline-flex;
-  align-items: center;
   padding: 4px;
   background-color: var(--background-tertiary, #eff1f4);
   border-radius: 3px;
+  gap: 4px;
 }
 
-/* Button base */
-.button-group__button {
-  display: flex;
+/* Horizontal layout (default) - buttons fit content */
+.button-group--horizontal {
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 32px;
-  padding: 8px 12px;
-  border: none;
+}
+
+/* Vertical layout - buttons fill width */
+.button-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Button items inside group - override some default button styles */
+.button-group__item {
   border-radius: 3px;
-  background-color: transparent;
-  color: var(--primary-default, #063b9e);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 16px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
 }
 
-/* Hover state for inactive buttons */
-.button-group__button:not(.button-group__button--active):not(:disabled):hover {
-  background-color: var(--t-hover, rgba(6, 59, 158, 0.04));
+/* In vertical layout, text buttons should fill the ButtonGroup width */
+.button-group--vertical .button-group__item:not(.button-group__item--icon-only) {
+  width: auto !important;
+  min-width: 100%;
+  justify-content: center;
 }
 
-/* Active button */
-.button-group__button--active {
-  background-color: var(--primary-default, #063b9e);
-  color: var(--text-negative, #ffffff);
-}
-
-.button-group__button--active:hover {
-  background-color: var(--primary-hover, #0a4fc7);
-}
-
-/* Disabled state */
-.button-group__button:disabled,
-.button-group__button--disabled {
-  opacity: 0.3;
-  cursor: default;
-  pointer-events: none;
+/* Icon-only buttons in vertical layout keep their size */
+.button-group--vertical .button-group__item--icon-only {
+  align-self: stretch;
 }
 
 /* Disabled container */
 .button-group--disabled {
   opacity: 0.3;
   pointer-events: none;
-}
-
-/* Focus state */
-.button-group__button:focus-visible {
-  outline: 2px solid var(--primary-default, #063b9e);
-  outline-offset: 2px;
 }
