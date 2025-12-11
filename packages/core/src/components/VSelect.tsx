@@ -55,6 +55,10 @@ export interface VSelectProps {
    */
   showInfo?: boolean;
   /**
+   * Texte d'information affiché dans le tooltip
+   */
+  infoText?: string;
+  /**
    * Afficher l'icône à gauche du select
    * @default false
    */
@@ -109,6 +113,7 @@ export function VSelect({
   showLegend = false,
   showOptional = false,
   showInfo = false,
+  infoText = '',
   showLeftIcon = false,
   leftIcon = 'AIR_fleet',
   options = [],
@@ -226,8 +231,9 @@ export function VSelect({
             {showOptional && <span className="vselect-optional"> (Optional)</span>}
           </label>
           {showInfo && (
-            <span className="vselect-info-icon">
-              <Icon name="emoji_emotions" size={16} />
+            <span className="vselect-info-icon" data-tooltip={infoText || undefined}>
+              <Icon name="info" size={16} />
+              {infoText && <span className="vselect-tooltip">{infoText}</span>}
             </span>
           )}
         </div>

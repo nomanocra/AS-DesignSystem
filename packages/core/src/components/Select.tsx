@@ -57,6 +57,10 @@ export interface SelectProps {
    */
   showInfo?: boolean;
   /**
+   * Texte d'information affiché dans le tooltip
+   */
+  infoText?: string;
+  /**
    * Afficher l'icône à gauche du select
    * @default false
    */
@@ -111,6 +115,7 @@ export function Select({
   showLegend = false,
   showOptional = false,
   showInfo = false,
+  infoText = '',
   showLeftIcon = false,
   leftIcon = 'AIR_fleet',
   options = [],
@@ -163,8 +168,9 @@ export function Select({
             {showOptional && <span className="select-optional"> (Optional)</span>}
           </label>
           {showInfo && (
-            <span className="select-info-icon">
-              <Icon name="emoji_emotions" size={16} />
+            <span className="select-info-icon" data-tooltip={infoText || undefined}>
+              <Icon name="info" size={16} />
+              {infoText && <span className="select-tooltip">{infoText}</span>}
             </span>
           )}
         </div>

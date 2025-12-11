@@ -10,7 +10,9 @@ import './Select.css';
 export default function SelectPage() {
   const [openModal, setOpenModal] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
-  const [componentType, setComponentType] = useState<'select' | 'vselect'>('select');
+  const [componentType, setComponentType] = useState<'select' | 'vselect'>(
+    'select'
+  );
 
   const [selectValue, setSelectValue] = useState<string>();
   const [vselectValue, setVselectValue] = useState<string>();
@@ -63,10 +65,10 @@ const options = [
 <Select label="Country" options={options} legend="Select your country" showLegend />
 
 // With left icon
-<Select label="Country" options={options} showLeftIcon leftIcon="AIR_fleet" />
+<Select label="Country" options={options} showLeftIcon leftIcon="AIR_engine" />
 
-// With info icon
-<Select label="Country" options={options} showInfo />`;
+// With info icon and tooltip
+<Select label="Country" options={options} showInfo infoText="Select your country of residence" />`;
 
   const vselectCode = `import { VSelect } from '@/design-system/components/VSelect';
 
@@ -80,11 +82,22 @@ const options = [
 
   return (
     <div className="component-page">
-      <h1 className="heading-5" style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+      <h1
+        className="heading-5"
+        style={{ color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}
+      >
         Select
       </h1>
-      <p className="label-regular-m" style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary, var(--cool-grey-70, #63728a))' }}>
-        Select components with two implementations: Select (Radix UI) and VSelect (Vanilla React).
+      <p
+        className="label-regular-m"
+        style={{
+          marginTop: '12px',
+          marginBottom: '24px',
+          color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+        }}
+      >
+        Select components with two implementations: Select (Radix UI) and
+        VSelect (Vanilla React).
       </p>
 
       {/* Implementation Type Tabs */}
@@ -129,7 +142,14 @@ const options = [
           {/* Sizes */}
           <section className="component-section">
             <div className="section-header">
-              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
                 Sizes
               </h2>
               <Button
@@ -143,17 +163,65 @@ const options = [
             <div className="select-examples">
               {componentType === 'select' ? (
                 <>
-                  <Select label="Size XS" options={countryOptions} size="XS" value={selectValue} onValueChange={setSelectValue} />
-                  <Select label="Size S" options={countryOptions} size="S" value={selectValue} onValueChange={setSelectValue} />
-                  <Select label="Size M" options={countryOptions} size="M" value={selectValue} onValueChange={setSelectValue} />
-                  <Select label="Size L" options={countryOptions} size="L" value={selectValue} onValueChange={setSelectValue} />
+                  <Select
+                    label="Size XS"
+                    options={countryOptions}
+                    size="XS"
+                    value={selectValue}
+                    onValueChange={setSelectValue}
+                  />
+                  <Select
+                    label="Size S"
+                    options={countryOptions}
+                    size="S"
+                    value={selectValue}
+                    onValueChange={setSelectValue}
+                  />
+                  <Select
+                    label="Size M"
+                    options={countryOptions}
+                    size="M"
+                    value={selectValue}
+                    onValueChange={setSelectValue}
+                  />
+                  <Select
+                    label="Size L"
+                    options={countryOptions}
+                    size="L"
+                    value={selectValue}
+                    onValueChange={setSelectValue}
+                  />
                 </>
               ) : (
                 <>
-                  <VSelect label="Size XS" options={countryOptions} size="XS" value={vselectValue} onChange={setVselectValue} />
-                  <VSelect label="Size S" options={countryOptions} size="S" value={vselectValue} onChange={setVselectValue} />
-                  <VSelect label="Size M" options={countryOptions} size="M" value={vselectValue} onChange={setVselectValue} />
-                  <VSelect label="Size L" options={countryOptions} size="L" value={vselectValue} onChange={setVselectValue} />
+                  <VSelect
+                    label="Size XS"
+                    options={countryOptions}
+                    size="XS"
+                    value={vselectValue}
+                    onChange={setVselectValue}
+                  />
+                  <VSelect
+                    label="Size S"
+                    options={countryOptions}
+                    size="S"
+                    value={vselectValue}
+                    onChange={setVselectValue}
+                  />
+                  <VSelect
+                    label="Size M"
+                    options={countryOptions}
+                    size="M"
+                    value={vselectValue}
+                    onChange={setVselectValue}
+                  />
+                  <VSelect
+                    label="Size L"
+                    options={countryOptions}
+                    size="L"
+                    value={vselectValue}
+                    onChange={setVselectValue}
+                  />
                 </>
               )}
             </div>
@@ -162,7 +230,14 @@ const options = [
           {/* States */}
           <section className="component-section">
             <div className="section-header">
-              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
                 States
               </h2>
               <Button
@@ -176,29 +251,86 @@ const options = [
             <div className="select-examples">
               {componentType === 'select' ? (
                 <>
-                  <Select label="Default" options={countryOptions} state="Default" />
-                  <Select label="Error" options={countryOptions} state="Error" legend="This field is required" showLegend />
-                  <Select label="Valid" options={countryOptions} state="Valid" legend="Selection confirmed" showLegend />
-                  <Select label="Disabled" options={countryOptions} state="Disabled" />
-                  <Select label="Read-only" options={countryOptions} state="Read-only" value="fr" />
+                  <Select
+                    label="Default"
+                    options={countryOptions}
+                    state="Default"
+                  />
+                  <Select
+                    label="Error"
+                    options={countryOptions}
+                    state="Error"
+                    legend="This field is required"
+                    showLegend
+                  />
+                  <Select
+                    label="Valid"
+                    options={countryOptions}
+                    state="Valid"
+                    legend="Selection confirmed"
+                    showLegend
+                  />
+                  <Select
+                    label="Disabled"
+                    options={countryOptions}
+                    state="Disabled"
+                  />
+                  <Select
+                    label="Read-only"
+                    options={countryOptions}
+                    state="Read-only"
+                    value="fr"
+                  />
                 </>
               ) : (
                 <>
-                  <VSelect label="Default" options={countryOptions} state="Default" />
-                  <VSelect label="Error" options={countryOptions} state="Error" legend="This field is required" showLegend />
-                  <VSelect label="Valid" options={countryOptions} state="Valid" legend="Selection confirmed" showLegend />
-                  <VSelect label="Disabled" options={countryOptions} state="Disabled" />
-                  <VSelect label="Read-only" options={countryOptions} state="Read-only" value="fr" />
+                  <VSelect
+                    label="Default"
+                    options={countryOptions}
+                    state="Default"
+                  />
+                  <VSelect
+                    label="Error"
+                    options={countryOptions}
+                    state="Error"
+                    legend="This field is required"
+                    showLegend
+                  />
+                  <VSelect
+                    label="Valid"
+                    options={countryOptions}
+                    state="Valid"
+                    legend="Selection confirmed"
+                    showLegend
+                  />
+                  <VSelect
+                    label="Disabled"
+                    options={countryOptions}
+                    state="Disabled"
+                  />
+                  <VSelect
+                    label="Read-only"
+                    options={countryOptions}
+                    state="Read-only"
+                    value="fr"
+                  />
                 </>
               )}
             </div>
           </section>
 
-          {/* Options */}
+          {/* Other options */}
           <section className="component-section">
             <div className="section-header">
-              <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
-                Options
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
+                Other Options
               </h2>
               <Button
                 label="Code"
@@ -208,39 +340,60 @@ const options = [
                 onClick={() => setOpenModal('options')}
               />
             </div>
-            <div className="select-showcase">
-              <div className="select-group">
-                <h3 className="label-bold-m" style={{ marginBottom: '12px', color: 'var(--text-main, #14171d)' }}>With optional text</h3>
-                <div className="select-examples">
-                  {componentType === 'select' ? (
-                    <Select label="Country" options={countryOptions} showOptional />
-                  ) : (
-                    <VSelect label="Country" options={countryOptions} showOptional />
-                  )}
-                </div>
-              </div>
-
-              <div className="select-group">
-                <h3 className="label-bold-m" style={{ marginBottom: '12px', color: 'var(--text-main, #14171d)' }}>With legend</h3>
-                <div className="select-examples">
-                  {componentType === 'select' ? (
-                    <Select label="Country" options={countryOptions} legend="Select your country" showLegend />
-                  ) : (
-                    <VSelect label="Country" options={countryOptions} legend="Select your country" showLegend />
-                  )}
-                </div>
-              </div>
-
-              <div className="select-group">
-                <h3 className="label-bold-m" style={{ marginBottom: '12px', color: 'var(--text-main, #14171d)' }}>With left icon</h3>
-                <div className="select-examples">
-                  {componentType === 'select' ? (
-                    <Select label="Country" options={countryOptions} showLeftIcon leftIcon="AIR_fleet" />
-                  ) : (
-                    <VSelect label="Country" options={countryOptions} showLeftIcon leftIcon="AIR_fleet" />
-                  )}
-                </div>
-              </div>
+            <div className="select-examples">
+              {componentType === 'select' ? (
+                <>
+                  <Select
+                    label="With optional"
+                    options={countryOptions}
+                    showOptional
+                  />
+                  <Select
+                    label="With legend"
+                    options={countryOptions}
+                    legend="Select your country"
+                    showLegend
+                  />
+                  <Select
+                    label="With left icon"
+                    options={countryOptions}
+                    showLeftIcon
+                    leftIcon="AIR_engine"
+                  />
+                  <Select
+                    label="With info tooltip"
+                    options={countryOptions}
+                    showInfo
+                    infoText="Select your country of residence"
+                  />
+                </>
+              ) : (
+                <>
+                  <VSelect
+                    label="With optional"
+                    options={countryOptions}
+                    showOptional
+                  />
+                  <VSelect
+                    label="With legend"
+                    options={countryOptions}
+                    legend="Select your country"
+                    showLegend
+                  />
+                  <VSelect
+                    label="With left icon"
+                    options={countryOptions}
+                    showLeftIcon
+                    leftIcon="AIR_engine"
+                  />
+                  <VSelect
+                    label="With info tooltip"
+                    options={countryOptions}
+                    showInfo
+                    infoText="Select your country of residence"
+                  />
+                </>
+              )}
             </div>
           </section>
 
@@ -248,7 +401,14 @@ const options = [
           {componentType === 'select' && (
             <section className="component-section">
               <div className="section-header">
-                <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+                <h2
+                  className="heading-6"
+                  style={{
+                    marginTop: '32px',
+                    marginBottom: '16px',
+                    color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                  }}
+                >
                   Select vs VSelect
                 </h2>
                 <Button
@@ -261,13 +421,16 @@ const options = [
               </div>
               <div className="comparison-box">
                 <p className="label-regular-m" style={{ marginBottom: '12px' }}>
-                  <strong>Select</strong> uses Radix UI for better accessibility and keyboard navigation.
+                  <strong>Select</strong> uses Radix UI for better accessibility
+                  and keyboard navigation.
                 </p>
                 <p className="label-regular-m" style={{ marginBottom: '12px' }}>
-                  <strong>VSelect</strong> is a vanilla React implementation with no external dependencies (except React).
+                  <strong>VSelect</strong> is a vanilla React implementation
+                  with no external dependencies (except React).
                 </p>
                 <p className="label-regular-m">
-                  Both components have the same API and visual appearance. Choose based on your needs.
+                  Both components have the same API and visual appearance.
+                  Choose based on your needs.
                 </p>
               </div>
             </section>
@@ -278,7 +441,14 @@ const options = [
       {/* Props Tab */}
       {activeTab === 'props' && (
         <section className="component-section">
-          <h2 className="heading-6" style={{ marginTop: '32px', marginBottom: '16px', color: 'var(--text-corporate, var(--sea-blue-90, #00205b))' }}>
+          <h2
+            className="heading-6"
+            style={{
+              marginTop: '32px',
+              marginBottom: '16px',
+              color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+            }}
+          >
             Props
           </h2>
           <div className="props-table">
@@ -293,87 +463,188 @@ const options = [
               </thead>
               <tbody>
                 <tr>
-                  <td><code>label</code></td>
-                  <td><code>string</code></td>
-                  <td><code>'Label'</code></td>
+                  <td>
+                    <code>label</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>'Label'</code>
+                  </td>
                   <td>Select label text</td>
                 </tr>
                 <tr>
-                  <td><code>legend</code></td>
-                  <td><code>string</code></td>
-                  <td><code>'Legend'</code></td>
+                  <td>
+                    <code>legend</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>'Legend'</code>
+                  </td>
                   <td>Helper text below select</td>
                 </tr>
                 <tr>
-                  <td><code>placeholder</code></td>
-                  <td><code>string</code></td>
-                  <td><code>'Select an option'</code></td>
+                  <td>
+                    <code>placeholder</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>'Select an option'</code>
+                  </td>
                   <td>Placeholder text</td>
                 </tr>
                 <tr>
-                  <td><code>size</code></td>
-                  <td><code>'XS' | 'S' | 'M' | 'L'</code></td>
-                  <td><code>'M'</code></td>
+                  <td>
+                    <code>size</code>
+                  </td>
+                  <td>
+                    <code>'XS' | 'S' | 'M' | 'L'</code>
+                  </td>
+                  <td>
+                    <code>'M'</code>
+                  </td>
                   <td>Select size</td>
                 </tr>
                 <tr>
-                  <td><code>state</code></td>
-                  <td><code>'Default' | 'Hover' | 'Active' | 'Disabled' | 'Error' | 'Valid' | 'Read-only'</code></td>
-                  <td><code>'Default'</code></td>
+                  <td>
+                    <code>state</code>
+                  </td>
+                  <td>
+                    <code>
+                      'Default' | 'Hover' | 'Active' | 'Disabled' | 'Error' |
+                      'Valid' | 'Read-only'
+                    </code>
+                  </td>
+                  <td>
+                    <code>'Default'</code>
+                  </td>
                   <td>Select state</td>
                 </tr>
                 <tr>
-                  <td><code>showLabel</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>true</code></td>
+                  <td>
+                    <code>showLabel</code>
+                  </td>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    <code>true</code>
+                  </td>
                   <td>Show label</td>
                 </tr>
                 <tr>
-                  <td><code>showLegend</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
+                  <td>
+                    <code>showLegend</code>
+                  </td>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    <code>false</code>
+                  </td>
                   <td>Show legend</td>
                 </tr>
                 <tr>
-                  <td><code>showOptional</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
+                  <td>
+                    <code>showOptional</code>
+                  </td>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    <code>false</code>
+                  </td>
                   <td>Show "(Optional)" text</td>
                 </tr>
                 <tr>
-                  <td><code>showInfo</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
+                  <td>
+                    <code>showInfo</code>
+                  </td>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    <code>false</code>
+                  </td>
                   <td>Show info icon</td>
                 </tr>
                 <tr>
-                  <td><code>showLeftIcon</code></td>
-                  <td><code>boolean</code></td>
-                  <td><code>false</code></td>
+                  <td>
+                    <code>infoText</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>''</code>
+                  </td>
+                  <td>Tooltip text displayed on hover of info icon</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>showLeftIcon</code>
+                  </td>
+                  <td>
+                    <code>boolean</code>
+                  </td>
+                  <td>
+                    <code>false</code>
+                  </td>
                   <td>Show left icon</td>
                 </tr>
                 <tr>
-                  <td><code>leftIcon</code></td>
-                  <td><code>string</code></td>
-                  <td><code>'AIR_fleet'</code></td>
+                  <td>
+                    <code>leftIcon</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>'AIR_fleet'</code>
+                  </td>
                   <td>Left icon name</td>
                 </tr>
                 <tr>
-                  <td><code>options</code></td>
-                  <td><code>{'SelectOption[]'}</code></td>
-                  <td><code>[]</code></td>
+                  <td>
+                    <code>options</code>
+                  </td>
+                  <td>
+                    <code>{'SelectOption[]'}</code>
+                  </td>
+                  <td>
+                    <code>[]</code>
+                  </td>
                   <td>Array of options</td>
                 </tr>
                 <tr>
-                  <td><code>value</code></td>
-                  <td><code>string</code></td>
-                  <td><code>undefined</code></td>
+                  <td>
+                    <code>value</code>
+                  </td>
+                  <td>
+                    <code>string</code>
+                  </td>
+                  <td>
+                    <code>undefined</code>
+                  </td>
                   <td>Selected value</td>
                 </tr>
                 <tr>
-                  <td><code>onValueChange</code> (Select)<br/><code>onChange</code> (VSelect)</td>
-                  <td><code>(value: string) =&gt; void</code></td>
-                  <td><code>undefined</code></td>
+                  <td>
+                    <code>onValueChange</code> (Select)
+                    <br />
+                    <code>onChange</code> (VSelect)
+                  </td>
+                  <td>
+                    <code>(value: string) =&gt; void</code>
+                  </td>
+                  <td>
+                    <code>undefined</code>
+                  </td>
                   <td>Value change callback</td>
                 </tr>
               </tbody>

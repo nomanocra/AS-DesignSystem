@@ -34,6 +34,7 @@ import darkModeIcon from '../assets/svg/icons/dark_mode.svg?raw';
 import deleteIcon from '../assets/svg/icons/delete.svg?raw';
 import dropdownIcon from '../assets/svg/icons/dropdown.svg?raw';
 import emojiEmotionsIcon from '../assets/svg/icons/emoji_emotions.svg?raw';
+import infoIcon from '../assets/svg/icons/info.svg?raw';
 import keyboardArrowDownIcon from '../assets/svg/icons/keyboard_arrow_down.svg?raw';
 import keyboardArrowUpIcon from '../assets/svg/icons/keyboard_arrow_up.svg?raw';
 import lightModeIcon from '../assets/svg/icons/light_mode.svg?raw';
@@ -77,6 +78,7 @@ const iconMap: Record<string, string> = {
   'delete': deleteIcon,
   'dropdown': dropdownIcon,
   'emoji_emotions': emojiEmotionsIcon,
+  'info': infoIcon,
   'keyboard_arrow_down': keyboardArrowDownIcon,
   'keyboard_arrow_up': keyboardArrowUpIcon,
   'light_mode': lightModeIcon,
@@ -120,6 +122,7 @@ export const availableIcons = [
   'delete',
   'dropdown',
   'emoji_emotions',
+  'info',
   'keyboard_arrow_down',
   'keyboard_arrow_up',
   'light_mode',
