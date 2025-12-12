@@ -1,5 +1,5 @@
 // @ts-ignore - React import needed for JSX in non-TypeScript projects
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Icon } from './Icon';
 import './Select.css';
@@ -139,6 +139,39 @@ export function Select({
 
   const iconSize = iconSizes[size];
 
+  // Ref pour le trigger (pour gérer le blur à la fermeture)
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  // Track si la dernière interaction était souris ou clavier
+  const wasMouseInteraction = useRef(false);
+
+  // Écouter les événements pour détecter le type d'interaction
+  useEffect(() => {
+    const handlePointerDown = () => {
+      wasMouseInteraction.current = true;
+    };
+    const handleKeyDown = () => {
+      wasMouseInteraction.current = false;
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // Gestion de l'ouverture/fermeture - blur uniquement si interaction souris
+  const handleOpenChange = (open: boolean) => {
+    if (!open && wasMouseInteraction.current) {
+      // setTimeout pour s'assurer que le blur s'exécute après le focus interne de Radix
+      setTimeout(() => {
+        triggerRef.current?.blur();
+      }, 0);
+    }
+  };
+
   // Classes CSS
   const containerClasses = [
     'select-container',
@@ -180,9 +213,10 @@ export function Select({
       <SelectPrimitive.Root
         value={value}
         onValueChange={onValueChange}
+        onOpenChange={handleOpenChange}
         disabled={isDisabled || isReadOnly}
       >
-        <SelectPrimitive.Trigger className={triggerClasses} aria-label={label}>
+        <SelectPrimitive.Trigger ref={triggerRef} className={triggerClasses} aria-label={label}>
           {showLeftIcon && leftIcon && (
             <span className="select-icon select-icon--left">
               <Icon name={leftIcon} size={iconSize} />
