@@ -14,6 +14,16 @@ export interface StudyRowColumn {
   flex?: number;
 }
 
+/**
+ * When the selection checkbox is visible.
+ *
+ * - `'always'` — the checkbox is permanently visible.
+ * - `'hover'` — the checkbox is only revealed on hover/focus, when the row is
+ *   selected, or when `selectionActive` is true. Lighter interface for tables
+ *   where selection is a secondary action.
+ */
+export type StudySelectionMode = 'always' | 'hover';
+
 export interface StudyRowProps {
   /**
    * Study status
@@ -58,6 +68,21 @@ export interface StudyRowProps {
    */
   onSelectionChange?: (selected: boolean) => void;
   /**
+   * When the selection checkbox is visible. The checkbox column always reserves
+   * its width, so toggling visibility never shifts the table layout.
+   * Has no effect if `selectable` is false.
+   * @default 'always'
+   */
+  selectionMode?: StudySelectionMode;
+  /**
+   * Whether at least one row of the table is currently selected. In
+   * `selectionMode="hover"`, this reveals the checkbox permanently so the user
+   * can extend the selection without hovering each row. The parent owns the
+   * selection state, so it is the one that computes this flag.
+   * @default false
+   */
+  selectionActive?: boolean;
+  /**
    * Show more options button on hover
    * @default false
    */
@@ -94,6 +119,21 @@ export interface StudyRowProps {
  *   showMoreOptions
  * />
  * ```
+ *
+ * @example Checkbox revealed on hover only
+ * ```tsx
+ * const anySelected = Object.values(selection).some(Boolean);
+ *
+ * <StudyRow
+ *   status="Computed"
+ *   columns={columns}
+ *   selectable
+ *   selectionMode="hover"
+ *   selectionActive={anySelected}
+ *   selected={selection[id]}
+ *   onSelectionChange={(value) => setSelection({ ...selection, [id]: value })}
+ * />
+ * ```
  */
 export function StudyRow({
   status,
@@ -105,6 +145,8 @@ export function StudyRow({
   selectable = false,
   selected = false,
   onSelectionChange,
+  selectionMode = 'always',
+  selectionActive = false,
   showMoreOptions = false,
   onMoreOptionsClick,
   onClick,
@@ -121,8 +163,15 @@ export function StudyRow({
     onMoreOptionsClick?.(e);
   };
 
+  // In hover mode the checkbox stays hidden until the row is hovered/focused —
+  // unless it is already selected, or a selection is in progress elsewhere in
+  // the table, in which case every checkbox must stay visible.
+  const hideCheckbox =
+    selectable && selectionMode === 'hover' && !selected && !selectionActive;
+
   const classes = [
     'study-row',
+    hideCheckbox ? 'study-row--select-hover' : '',
     selected ? 'study-row--selected' : '',
     status === 'Failed' ? 'study-row--failed' : '',
     status === 'Warning' ? 'study-row--warning' : '',

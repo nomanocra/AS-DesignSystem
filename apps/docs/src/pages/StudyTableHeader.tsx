@@ -328,6 +328,18 @@ export default function StudyTableHeaderPage() {
                 <td>Callback when select all changes</td>
               </tr>
               <tr>
+                <td><code>selectionMode</code></td>
+                <td><code>'always' | 'hover'</code></td>
+                <td><code>'always'</code></td>
+                <td>When the select-all checkbox is visible. <code>'hover'</code> only reveals it on header hover/focus, or when a selection is in progress. Mirrors the same prop on <code>StudyRow</code>. Ignored if <code>selectable</code> is false.</td>
+              </tr>
+              <tr>
+                <td><code>selectionActive</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Whether at least one row of the table is selected. Redundant when <code>allSelected</code> or <code>someSelected</code> is already true.</td>
+              </tr>
+              <tr>
                 <td><code>showStatusColumn</code></td>
                 <td><code>boolean</code></td>
                 <td><code>true</code></td>

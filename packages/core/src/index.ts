@@ -35,7 +35,7 @@ export { PanelGroup, type PanelGroupProps, type PanelGroupSize } from './compone
 export { Avatar, AvatarStack, type AvatarProps, type AvatarStackProps, type AvatarSize } from './components/Avatar';
 export { Chip, type ChipProps, type ChipSize, type ChipType } from './components/Chip';
 export { StudyStatus, type StudyStatusProps, type StudyStatusState } from './components/StudyStatus';
-export { StudyRow, type StudyRowProps, type StudyRowColumn } from './components/StudyRow';
+export { StudyRow, type StudyRowProps, type StudyRowColumn, type StudySelectionMode } from './components/StudyRow';
 export { StudyTableHeader, type StudyTableHeaderProps, type StudyTableHeaderColumn } from './components/StudyTableHeader';
 export { StudyContent, type StudyContentProps, type StudyContentVariant } from './components/StudyContent';
 export { ScrollableContent, type ScrollableContentProps } from './components/ScrollableContent';

@@ -36,6 +36,23 @@ export interface StudyTableHeaderProps {
    */
   onSelectAllChange?: (selected: boolean) => void;
   /**
+   * When the select-all checkbox is visible. The checkbox column always reserves
+   * its width, so toggling visibility never shifts the table layout.
+   * Has no effect if `selectable` is false.
+   *
+   * Same contract as `StudySelectionMode` on StudyRow — the union is inlined
+   * rather than imported so this component stays installable on its own.
+   * @default 'always'
+   */
+  selectionMode?: 'always' | 'hover';
+  /**
+   * Whether at least one row of the table is currently selected. In
+   * `selectionMode="hover"`, this reveals the select-all checkbox permanently.
+   * Redundant when `allSelected` or `someSelected` is already true.
+   * @default false
+   */
+  selectionActive?: boolean;
+  /**
    * Show status column header
    * @default true
    */
@@ -74,6 +91,8 @@ export function StudyTableHeader({
   allSelected = false,
   someSelected = false,
   onSelectAllChange,
+  selectionMode = 'always',
+  selectionActive = false,
   showStatusColumn = true,
   showActionsColumn = false,
   className = '',
@@ -84,8 +103,18 @@ export function StudyTableHeader({
     }
   };
 
+  // Same rule as StudyRow: hidden until the header is hovered/focused, unless a
+  // selection is already in progress somewhere in the table.
+  const hideCheckbox =
+    selectable &&
+    selectionMode === 'hover' &&
+    !allSelected &&
+    !someSelected &&
+    !selectionActive;
+
   const classes = [
     'study-table-header',
+    hideCheckbox ? 'study-table-header--select-hover' : '',
     className,
   ].filter(Boolean).join(' ');
 

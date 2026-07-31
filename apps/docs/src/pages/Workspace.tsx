@@ -15,9 +15,21 @@ import CodeModal from '../components/CodeModal';
 import InstallCommand from '../components/InstallCommand';
 import './Workspace.css';
 
+const selectionStudies = [
+  { id: 'a', status: 'Computed' as const, name: 'A320 Fleet Analysis', description: 'Fleet performance review' },
+  { id: 'b', status: 'Computing' as const, name: 'Route Optimization', description: 'Network route analysis' },
+  { id: 'c', status: 'Draft' as const, name: 'Maintenance Forecast', description: 'Annual maintenance schedule' },
+  { id: 'd', status: 'Failed' as const, name: 'Fuel Burn Study', description: 'Error during computation' },
+];
+
 export default function WorkspacePage() {
   const [openModal, setOpenModal] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'examples' | 'props'>('examples');
+  const [selection, setSelection] = useState<Record<string, boolean>>({});
+
+  const selectedCount = selectionStudies.filter((s) => selection[s.id]).length;
+  const anySelected = selectedCount > 0;
+  const allSelected = selectedCount === selectionStudies.length;
 
   const basicCode = `import { Workspace } from '@/design-system/composites/Workspace';
 
@@ -65,6 +77,53 @@ import { StudyRow } from '@/design-system/components/StudyRow';
       { key: 'description', value: 'Network route analysis' },
     ]}
   />
+</Workspace>`;
+
+  const selectionCode = `import { useState } from 'react';
+import { Workspace } from '@/design-system/composites/Workspace';
+import { StudyTableHeader } from '@/design-system/components/StudyTableHeader';
+import { StudyRow } from '@/design-system/components/StudyRow';
+
+const studies = [
+  { id: 'a', status: 'Computed', name: 'A320 Fleet Analysis' },
+  { id: 'b', status: 'Computing', name: 'Route Optimization' },
+  { id: 'c', status: 'Draft', name: 'Maintenance Forecast' },
+];
+
+const [selection, setSelection] = useState<Record<string, boolean>>({});
+
+// The workspace owns the selection state, so it derives the table-wide flags
+const selectedCount = studies.filter((s) => selection[s.id]).length;
+const anySelected = selectedCount > 0;
+const allSelected = selectedCount === studies.length;
+
+<Workspace title="AirFrance 2026" studyCount={studies.length} defaultOpen>
+  <StudyTableHeader
+    columns={[{ key: 'name', label: 'Name' }]}
+    selectable
+    selectionMode="hover"
+    selectionActive={anySelected}
+    allSelected={allSelected}
+    someSelected={anySelected && !allSelected}
+    onSelectAllChange={(value) =>
+      setSelection(Object.fromEntries(studies.map((s) => [s.id, value])))
+    }
+  />
+
+  {studies.map((study) => (
+    <StudyRow
+      key={study.id}
+      status={study.status}
+      columns={[{ key: 'name', value: study.name }]}
+      selectable
+      selectionMode="hover"
+      selectionActive={anySelected}
+      selected={!!selection[study.id]}
+      onSelectionChange={(value) =>
+        setSelection((prev) => ({ ...prev, [study.id]: value }))
+      }
+    />
+  ))}
 </Workspace>`;
 
   const computingCode = `import { Workspace } from '@/design-system/composites/Workspace';
@@ -262,6 +321,83 @@ const [isOpen, setIsOpen] = useState(false);
                   ]}
                 />
               </Workspace>
+            </div>
+          </section>
+
+          {/* Selection */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
+                Selection
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('selection')}
+              />
+            </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              With <code>selectionMode="hover"</code>, checkboxes stay hidden until a row is hovered — the workspace reads as a plain list. As soon as one study is selected, <code>selectionActive</code> turns true and every checkbox of the workspace stays visible, so the selection can be extended without hovering each row. The workspace owns the selection state and derives the flags for both the header and the rows.
+            </p>
+            <div className="example-container">
+              <div className="workspace-demo">
+                <Workspace
+                  title="AirFrance 2026"
+                  studyCount={selectionStudies.length}
+                  lastModified="Jan 15, 2025"
+                  users={[{ initials: 'JD', name: 'Jean-Marc Dupont' }]}
+                  defaultOpen
+                >
+                  <StudyTableHeader
+                    columns={[
+                      { key: 'name', label: 'Name' },
+                      { key: 'description', label: 'Description' },
+                    ]}
+                    selectable
+                    selectionMode="hover"
+                    selectionActive={anySelected}
+                    allSelected={allSelected}
+                    someSelected={anySelected && !allSelected}
+                    onSelectAllChange={(value) =>
+                      setSelection(
+                        Object.fromEntries(selectionStudies.map((s) => [s.id, value]))
+                      )
+                    }
+                  />
+                  {selectionStudies.map((study) => (
+                    <StudyRow
+                      key={study.id}
+                      status={study.status}
+                      columns={[
+                        { key: 'name', value: study.name },
+                        { key: 'description', value: study.description },
+                      ]}
+                      selectable
+                      selectionMode="hover"
+                      selectionActive={anySelected}
+                      selected={!!selection[study.id]}
+                      onSelectionChange={(value) =>
+                        setSelection((prev) => ({ ...prev, [study.id]: value }))
+                      }
+                    />
+                  ))}
+                </Workspace>
+              </div>
             </div>
           </section>
 
@@ -475,6 +611,12 @@ const [isOpen, setIsOpen] = useState(false);
         onClose={() => setOpenModal(null)}
         title="Workspace — Expanded"
         sections={[{ title: 'Workspace.tsx', language: 'tsx', code: expandedCode }]}
+      />
+      <CodeModal
+        isOpen={openModal === 'selection'}
+        onClose={() => setOpenModal(null)}
+        title="Workspace — Selection"
+        sections={[{ title: 'Workspace.tsx', language: 'tsx', code: selectionCode }]}
       />
       <CodeModal
         isOpen={openModal === 'computing'}

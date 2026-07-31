@@ -32,6 +32,22 @@
   width: 48px;
   justify-content: center;
   padding: 0;
+  transition: opacity 150ms ease;
+}
+
+/*
+ * Hover-reveal selection — mirrors .study-row--select-hover. The class is
+ * dropped by StudyTableHeader as soon as any row of the table is selected.
+ */
+.study-table-header--select-hover .study-table-header__cell--checkbox {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.study-table-header--select-hover:hover .study-table-header__cell--checkbox,
+.study-table-header--select-hover:focus-within .study-table-header__cell--checkbox {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Status column */

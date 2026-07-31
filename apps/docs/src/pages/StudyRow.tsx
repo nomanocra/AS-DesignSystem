@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { StudyRow, Tab, Button } from '@as-designsystem/core';
+import { StudyRow, StudyTableHeader, Tab, Button } from '@as-designsystem/core';
 import '@as-designsystem/core/StudyRow.css';
+import '@as-designsystem/core/StudyTableHeader.css';
 import '@as-designsystem/core/StudyStatus.css';
 import '@as-designsystem/core/Checkbox.css';
 import '@as-designsystem/core/IconButton.css';
@@ -21,6 +22,18 @@ export default function StudyRowPage() {
   const toggleRow = (id: string) => {
     setSelectedRows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+
+  // Demo data for the hover-revealed checkbox example
+  const hoverStudies = [
+    { id: 'a', status: 'Computed' as const, name: 'A320 Fleet Analysis', description: 'Fleet performance review' },
+    { id: 'b', status: 'Computing' as const, name: 'Route Optimization', description: 'Network route analysis' },
+    { id: 'c', status: 'Draft' as const, name: 'Maintenance Planning', description: 'Annual maintenance schedule' },
+    { id: 'd', status: 'Failed' as const, name: 'Fuel Burn Study', description: 'Error during computation' },
+  ];
+  const [hoverSelection, setHoverSelection] = useState<Record<string, boolean>>({});
+  const hoverSelectedCount = hoverStudies.filter((s) => hoverSelection[s.id]).length;
+  const hoverAnySelected = hoverSelectedCount > 0;
+  const hoverAllSelected = hoverSelectedCount === hoverStudies.length;
 
   const basicCode = `import { StudyRow } from '@/design-system/components/StudyRow';
 
@@ -46,6 +59,50 @@ export default function StudyRowPage() {
   selected={isSelected}
   onSelectionChange={(selected) => setIsSelected(selected)}
 />`;
+
+  const hoverCheckboxCode = `import { useState } from 'react';
+import { StudyTableHeader } from '@/design-system/components/StudyTableHeader';
+import { StudyRow } from '@/design-system/components/StudyRow';
+
+const studies = [
+  { id: 'a', status: 'Computed', name: 'A320 Fleet Analysis' },
+  { id: 'b', status: 'Computing', name: 'Route Optimization' },
+  { id: 'c', status: 'Draft', name: 'Maintenance Planning' },
+];
+
+const [selection, setSelection] = useState<Record<string, boolean>>({});
+
+// The parent owns the selection state, so it computes the table-wide flags
+const selectedIds = studies.filter((s) => selection[s.id]);
+const anySelected = selectedIds.length > 0;
+const allSelected = selectedIds.length === studies.length;
+
+<StudyTableHeader
+  columns={[{ key: 'name', label: 'Name' }]}
+  selectable
+  selectionMode="hover"
+  selectionActive={anySelected}
+  allSelected={allSelected}
+  someSelected={anySelected && !allSelected}
+  onSelectAllChange={(value) =>
+    setSelection(Object.fromEntries(studies.map((s) => [s.id, value])))
+  }
+/>
+
+{studies.map((study) => (
+  <StudyRow
+    key={study.id}
+    status={study.status}
+    columns={[{ key: 'name', value: study.name }]}
+    selectable
+    selectionMode="hover"
+    selectionActive={anySelected}
+    selected={!!selection[study.id]}
+    onSelectionChange={(value) =>
+      setSelection((prev) => ({ ...prev, [study.id]: value }))
+    }
+  />
+))}`;
 
   const withActionsCode = `import { StudyRow } from '@/design-system/components/StudyRow';
 
@@ -241,8 +298,77 @@ export default function StudyRowPage() {
                   ]}
                   selectable
                   selected={selectedRows['row1']}
-                  onSelectionChange={(selected) => toggleRow('row1')}
+                  onSelectionChange={() => toggleRow('row1')}
                 />
+              </div>
+            </div>
+          </section>
+
+          {/* Checkbox Revealed on Hover */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
+                Checkbox Revealed on Hover
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('hoverCheckbox')}
+              />
+            </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              Set <code>selectionMode="hover"</code> to keep the interface light: the checkbox only appears when the row is hovered or focused. Pass <code>selectionActive</code> (true as soon as one row is selected) so that <strong>every</strong> checkbox of the table stays visible while a selection is in progress — otherwise the user would have to hover each row to extend it. The checkbox column always reserves its width, so nothing shifts.
+            </p>
+            <div className="example-container">
+              <div className="study-row-demo">
+                <StudyTableHeader
+                  columns={[
+                    { key: 'name', label: 'Name' },
+                    { key: 'description', label: 'Description' },
+                  ]}
+                  selectable
+                  selectionMode="hover"
+                  selectionActive={hoverAnySelected}
+                  allSelected={hoverAllSelected}
+                  someSelected={hoverAnySelected && !hoverAllSelected}
+                  onSelectAllChange={(value) =>
+                    setHoverSelection(
+                      Object.fromEntries(hoverStudies.map((s) => [s.id, value]))
+                    )
+                  }
+                />
+                {hoverStudies.map((study) => (
+                  <StudyRow
+                    key={study.id}
+                    status={study.status}
+                    columns={[
+                      { key: 'name', value: study.name },
+                      { key: 'description', value: study.description },
+                    ]}
+                    selectable
+                    selectionMode="hover"
+                    selectionActive={hoverAnySelected}
+                    selected={!!hoverSelection[study.id]}
+                    onSelectionChange={(value) =>
+                      setHoverSelection((prev) => ({ ...prev, [study.id]: value }))
+                    }
+                  />
+                ))}
               </div>
             </div>
           </section>
@@ -277,7 +403,7 @@ export default function StudyRowPage() {
                     { key: 'description', value: 'Annual maintenance schedule' },
                   ]}
                   showMoreOptions
-                  onMoreOptionsClick={(e) => console.log('More options clicked')}
+                  onMoreOptionsClick={() => console.log('More options clicked')}
                 />
               </div>
             </div>
@@ -641,6 +767,18 @@ export default function StudyRowPage() {
                 <td>Callback when selection changes</td>
               </tr>
               <tr>
+                <td><code>selectionMode</code></td>
+                <td><code>'always' | 'hover'</code></td>
+                <td><code>'always'</code></td>
+                <td>When the checkbox is visible. <code>'hover'</code> only reveals it on row hover/focus, when the row is selected, or when <code>selectionActive</code> is true. The column always reserves its width, so the layout never shifts. Ignored if <code>selectable</code> is false.</td>
+              </tr>
+              <tr>
+                <td><code>selectionActive</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Whether at least one row of the table is selected. In <code>selectionMode="hover"</code>, forces every checkbox visible so the selection can be extended without hovering each row. Computed by the parent, which owns the selection state.</td>
+              </tr>
+              <tr>
                 <td><code>showMoreOptions</code></td>
                 <td><code>boolean</code></td>
                 <td><code>false</code></td>
@@ -728,6 +866,12 @@ export default function StudyRowPage() {
         onClose={() => setOpenModal(null)}
         title="With Checkbox"
         code={withCheckboxCode}
+      />
+      <CodeModal
+        isOpen={openModal === 'hoverCheckbox'}
+        onClose={() => setOpenModal(null)}
+        title="Checkbox Revealed on Hover"
+        code={hoverCheckboxCode}
       />
       <CodeModal
         isOpen={openModal === 'withActions'}
