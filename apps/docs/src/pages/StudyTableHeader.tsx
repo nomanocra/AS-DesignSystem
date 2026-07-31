@@ -162,6 +162,15 @@ export default function StudyTableHeaderPage() {
                 onClick={() => setOpenModal('withCheckbox')}
               />
             </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              Set <code>selectable</code> to add the select-all column. As on <code>StudyRow</code>, the <strong>whole column</strong> is the hit area — clicking anywhere in it, over its full width and height, toggles the selection.
+            </p>
             <div className="example-container">
               <div className="study-table-header-demo">
                 <StudyTableHeader
@@ -325,7 +334,7 @@ export default function StudyTableHeaderPage() {
                 <td><code>onSelectAllChange</code></td>
                 <td><code>(selected: boolean) =&gt; void</code></td>
                 <td>-</td>
-                <td>Callback when select all changes</td>
+                <td>Callback when select all changes. Fired by a click anywhere in the checkbox column, not only on the checkbox.</td>
               </tr>
               <tr>
                 <td><code>selectionMode</code></td>

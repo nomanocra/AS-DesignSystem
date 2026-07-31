@@ -32,7 +32,8 @@ export interface StudyTableHeaderProps {
    */
   someSelected?: boolean;
   /**
-   * Callback when select all changes
+   * Callback when select all changes. Fired by a click anywhere in the
+   * checkbox column, not only on the checkbox itself.
    */
   onSelectAllChange?: (selected: boolean) => void;
   /**
@@ -103,6 +104,17 @@ export function StudyTableHeader({
     }
   };
 
+  // Same rule as StudyRow: the whole checkbox column is the hit area, so
+  // select-all never requires aiming at the 16px checkbox itself. From
+  // indeterminate, `!allSelected` is `true` — which is also what the checkbox
+  // itself resolves to, so both paths agree.
+  const handleCheckboxCellClick = (e: React.MouseEvent) => {
+    // A click landing on the checkbox is already handled by the checkbox
+    // itself; toggling again here would cancel it out.
+    if ((e.target as HTMLElement).closest('.study-table-header__checkbox')) return;
+    onSelectAllChange?.(!allSelected);
+  };
+
   // Same rule as StudyRow: hidden until the header is hovered/focused, unless a
   // selection is already in progress somewhere in the table.
   const hideCheckbox =
@@ -122,13 +134,18 @@ export function StudyTableHeader({
     <div className={classes}>
       {/* Checkbox column */}
       {selectable && (
-        <div className="study-table-header__cell study-table-header__cell--checkbox">
-          <Checkbox
-            checked={someSelected && !allSelected ? 'indeterminate' : allSelected}
-            onCheckedChange={handleCheckboxChange}
-            size="S"
-            showLabel={false}
-          />
+        <div
+          className="study-table-header__cell study-table-header__cell--checkbox"
+          onClick={handleCheckboxCellClick}
+        >
+          <div className="study-table-header__checkbox">
+            <Checkbox
+              checked={someSelected && !allSelected ? 'indeterminate' : allSelected}
+              onCheckedChange={handleCheckboxChange}
+              size="S"
+              showLabel={false}
+            />
+          </div>
         </div>
       )}
 
