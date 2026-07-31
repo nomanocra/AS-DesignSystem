@@ -92,9 +92,10 @@ export interface StudyRowProps {
    */
   onMoreOptionsClick?: (e: React.MouseEvent) => void;
   /**
-   * Click handler for the row
+   * Click handler for the row. Not fired by clicks on the selection checkbox or
+   * on the more-options button — those stop at their own control.
    */
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   /**
    * Additional CSS class
    */
@@ -163,6 +164,14 @@ export function StudyRow({
     onMoreOptionsClick?.(e);
   };
 
+  // Selecting a row must not also fire the row's `onClick` (typically opening
+  // the study). Scoped to the checkbox itself, not the whole 48px cell, so the
+  // rest of the column keeps behaving like the rest of the row — same rule as
+  // the more-options button, which stops at the button.
+  const handleCheckboxClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   // In hover mode the checkbox stays hidden until the row is hovered/focused —
   // unless it is already selected, or a selection is in progress elsewhere in
   // the table, in which case every checkbox must stay visible.
@@ -188,12 +197,14 @@ export function StudyRow({
       {/* Checkbox column */}
       {selectable && (
         <div className="study-row__cell study-row__cell--checkbox">
-          <Checkbox
-            checked={selected}
-            onCheckedChange={handleCheckboxChange}
-            size="S"
-            showLabel={false}
-          />
+          <div className="study-row__checkbox" onClick={handleCheckboxClick}>
+            <Checkbox
+              checked={selected}
+              onCheckedChange={handleCheckboxChange}
+              size="S"
+              showLabel={false}
+            />
+          </div>
         </div>
       )}
 

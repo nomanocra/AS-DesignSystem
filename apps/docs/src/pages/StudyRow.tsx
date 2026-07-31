@@ -792,9 +792,9 @@ const allSelected = selectedIds.length === studies.length;
               </tr>
               <tr>
                 <td><code>onClick</code></td>
-                <td><code>() =&gt; void</code></td>
+                <td><code>(e: MouseEvent) =&gt; void</code></td>
                 <td>-</td>
-                <td>Row click handler</td>
+                <td>Row click handler. Not fired by clicks on the selection checkbox or the more-options button — those stop at their own control.</td>
               </tr>
               <tr>
                 <td><code>className</code></td>

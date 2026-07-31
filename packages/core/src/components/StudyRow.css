@@ -70,6 +70,13 @@
   overflow: visible;
 }
 
+/* Hit area that swallows the click so selecting a row never triggers its
+   `onClick`. Hugs the checkbox — see StudyRow.tsx. */
+.study-row__checkbox {
+  display: flex;
+  align-items: center;
+}
+
 /*
  * Hover-reveal selection: the column keeps its 48px so the table never shifts,
  * only the checkbox fades. The class is dropped by StudyRow as soon as the row
