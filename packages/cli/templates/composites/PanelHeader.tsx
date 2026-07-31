@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../components/Button';
+import { Icon, type IconName } from '../components/Icon';
 import { PanelStudyName } from '../components/PanelStudyName';
 import { IconButton } from '../components/IconButton';
 import { SimpleTooltip } from '../components/Tooltip';
@@ -11,6 +12,11 @@ export interface PanelHeaderProps {
    * @default 'Workspace Name'
    */
   workspaceName?: string;
+  /**
+   * Optional decorative icon displayed on the left of the workspace label
+   * (e.g. 'folder' to indicate a workspace)
+   */
+  workspaceIcon?: IconName;
   /**
    * Study name displayed in the header
    */
@@ -62,6 +68,8 @@ export interface PanelHeaderProps {
  * @example
  * ```tsx
  * <PanelHeader
+ *   workspaceIcon="folder"
+ *   workspaceName="Fleet Operations"
  *   studyName="My Study"
  *   onBackHome={() => navigate('/')}
  *   onStudyNameClick={() => openRenameDialog()}
@@ -72,6 +80,7 @@ export interface PanelHeaderProps {
  */
 export function PanelHeader({
   workspaceName = 'Workspace Name',
+  workspaceIcon,
   studyName,
   studyNameLines = 1,
   onStudyNameClick,
@@ -112,7 +121,17 @@ export function PanelHeader({
 
         {/* Study Info section */}
         <div className="panel-header__study-info">
-          <span className="panel-header__legend label-regular-xs">{workspaceName}</span>
+          <span className="panel-header__legend label-regular-xs">
+            {workspaceIcon && (
+              <Icon
+                name={workspaceIcon}
+                size={14}
+                color="currentColor"
+                className="panel-header__legend-icon"
+              />
+            )}
+            {workspaceName}
+          </span>
           <div className="panel-header__study-row">
             <PanelStudyName
               name={studyName}

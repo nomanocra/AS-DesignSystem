@@ -78,9 +78,15 @@
 }
 
 .panel-header__legend {
-  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   color: var(--cool-grey-50, #919cb0);
   padding-left: 8px;
+}
+
+.panel-header__legend-icon {
+  flex-shrink: 0;
 }
 
 .panel-header__study-row {

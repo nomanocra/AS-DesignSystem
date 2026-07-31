@@ -23,6 +23,23 @@ export default function PanelHeaderPage() {
   onDuplicate={() => console.log('Duplicate study')}
 />`;
 
+  const workspaceCode = `import { PanelHeader } from '@/design-system/composites/PanelHeader';
+
+{/* Custom workspace label */}
+<PanelHeader
+  workspaceName="Fleet Operations"
+  studyName="My Study"
+  onBackHome={() => navigate('/')}
+/>
+
+{/* With an optional icon on the left of the label */}
+<PanelHeader
+  workspaceIcon="folder"
+  workspaceName="Fleet Operations"
+  studyName="My Study"
+  onBackHome={() => navigate('/')}
+/>`;
+
   const withBackgroundCode = `import { PanelHeader } from '@/design-system/composites/PanelHeader';
 
 <PanelHeader
@@ -148,6 +165,69 @@ import { IconButton } from '@/design-system/components/IconButton';
                   onStudyNameClick={() => console.log('Edit study name')}
                   onDuplicate={() => console.log('Duplicate study')}
                 />
+              </div>
+            </div>
+          </section>
+
+          {/* Workspace Label */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
+                Workspace Label
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('workspace')}
+              />
+            </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              Use <code>workspaceName</code> to set the label above the study name, and the optional{' '}
+              <code>workspaceIcon</code> to prefix it with an icon (e.g. <code>folder</code> to
+              indicate a workspace).
+            </p>
+            <div className="panel-header-demo-grid">
+              <div className="example-container">
+                <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                  Label only
+                </p>
+                <div className="panel-header-demo">
+                  <PanelHeader
+                    workspaceName="Fleet Operations"
+                    studyName="My Study"
+                    onBackHome={() => console.log('Back home')}
+                    onDuplicate={() => console.log('Duplicate')}
+                  />
+                </div>
+              </div>
+              <div className="example-container">
+                <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                  With workspace icon
+                </p>
+                <div className="panel-header-demo">
+                  <PanelHeader
+                    workspaceIcon="folder"
+                    workspaceName="Fleet Operations"
+                    studyName="My Study"
+                    onBackHome={() => console.log('Back home')}
+                    onDuplicate={() => console.log('Duplicate')}
+                  />
+                </div>
               </div>
             </div>
           </section>
@@ -343,6 +423,18 @@ import { IconButton } from '@/design-system/components/IconButton';
               </thead>
               <tbody>
                 <tr>
+                  <td><code>workspaceName</code></td>
+                  <td><code>string</code></td>
+                  <td><code>'Workspace Name'</code></td>
+                  <td>Label displayed above the study name</td>
+                </tr>
+                <tr>
+                  <td><code>workspaceIcon</code></td>
+                  <td><code>IconName</code></td>
+                  <td>-</td>
+                  <td>Optional decorative icon displayed on the left of the workspace label</td>
+                </tr>
+                <tr>
                   <td><code>studyName</code></td>
                   <td><code>string</code></td>
                   <td>-</td>
@@ -408,6 +500,12 @@ import { IconButton } from '@/design-system/components/IconButton';
         onClose={() => setOpenModal(null)}
         title="Default"
         code={basicCode}
+      />
+      <CodeModal
+        isOpen={openModal === 'workspace'}
+        onClose={() => setOpenModal(null)}
+        title="Workspace Label"
+        code={workspaceCode}
       />
       <CodeModal
         isOpen={openModal === 'withBackground'}
