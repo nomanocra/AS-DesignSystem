@@ -287,6 +287,15 @@ const allSelected = selectedIds.length === studies.length;
                 onClick={() => setOpenModal('withCheckbox')}
               />
             </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              Set <code>selectable</code> to add the selection column. The <strong>whole column</strong> is the hit area — clicking anywhere in it, over its full width and height, toggles the selection without firing the row's <code>onClick</code>.
+            </p>
             <div className="example-container">
               <div className="study-row-demo">
                 <StudyRow
@@ -764,7 +773,7 @@ const allSelected = selectedIds.length === studies.length;
                 <td><code>onSelectionChange</code></td>
                 <td><code>(selected: boolean) =&gt; void</code></td>
                 <td>-</td>
-                <td>Callback when selection changes</td>
+                <td>Callback when selection changes. Fired by a click anywhere in the selection column, not only on the checkbox.</td>
               </tr>
               <tr>
                 <td><code>selectionMode</code></td>
@@ -794,7 +803,7 @@ const allSelected = selectedIds.length === studies.length;
                 <td><code>onClick</code></td>
                 <td><code>(e: MouseEvent) =&gt; void</code></td>
                 <td>-</td>
-                <td>Row click handler. Not fired by clicks on the selection checkbox or the more-options button — those stop at their own control.</td>
+                <td>Row click handler. Not fired by clicks on the selection column or the more-options button — those stop at their own control.</td>
               </tr>
               <tr>
                 <td><code>className</code></td>

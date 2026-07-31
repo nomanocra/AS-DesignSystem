@@ -92,7 +92,7 @@ export interface StudyRowProps {
    */
   onMoreOptionsClick?: (e: React.MouseEvent) => void;
   /**
-   * Click handler for the row. Not fired by clicks on the selection checkbox or
+   * Click handler for the row. Not fired by clicks on the selection column or
    * on the more-options button — those stop at their own control.
    */
   onClick?: (e: React.MouseEvent) => void;
@@ -164,12 +164,16 @@ export function StudyRow({
     onMoreOptionsClick?.(e);
   };
 
-  // Selecting a row must not also fire the row's `onClick` (typically opening
-  // the study). Scoped to the checkbox itself, not the whole 48px cell, so the
-  // rest of the column keeps behaving like the rest of the row — same rule as
-  // the more-options button, which stops at the button.
-  const handleCheckboxClick = (e: React.MouseEvent) => {
+  // The whole checkbox column is the selection hit area: aiming at the 16px
+  // checkbox alone was too easy to miss, and every near-miss fired the row's
+  // `onClick` (typically opening the study) instead of selecting. Clicking
+  // anywhere in the cell toggles the selection and stops there.
+  const handleCheckboxCellClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // A click landing on the checkbox is already handled by the checkbox
+    // itself; toggling again here would cancel it out.
+    if ((e.target as HTMLElement).closest('.study-row__checkbox')) return;
+    onSelectionChange?.(!selected);
   };
 
   // In hover mode the checkbox stays hidden until the row is hovered/focused —
@@ -196,8 +200,11 @@ export function StudyRow({
     >
       {/* Checkbox column */}
       {selectable && (
-        <div className="study-row__cell study-row__cell--checkbox">
-          <div className="study-row__checkbox" onClick={handleCheckboxClick}>
+        <div
+          className="study-row__cell study-row__cell--checkbox"
+          onClick={handleCheckboxCellClick}
+        >
+          <div className="study-row__checkbox">
             <Checkbox
               checked={selected}
               onCheckedChange={handleCheckboxChange}

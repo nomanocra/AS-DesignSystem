@@ -58,20 +58,30 @@
 }
 
 /* Checkbox column */
+/* The whole column is the selection hit area — full width, full row height, so
+   the click never has to land on the 16px checkbox itself. See StudyRow.tsx. */
 .study-row__cell--checkbox {
   flex-shrink: 0;
   width: 48px;
+  align-self: stretch;
   justify-content: center;
   padding: 0;
-  transition: opacity 150ms ease;
+  cursor: pointer;
+  transition: opacity 150ms ease, background-color 150ms ease;
   /* The cell hugs the 16px checkbox, so the inherited `overflow: hidden` (there
      for the text columns' ellipsis) would clip the focus outline top and bottom
      and leave only its two vertical segments showing. */
   overflow: visible;
 }
 
-/* Hit area that swallows the click so selecting a row never triggers its
-   `onClick`. Hugs the checkbox — see StudyRow.tsx. */
+/* One step darker than the row's own hover, so the column reads as its own
+   target while the pointer is over it. */
+.study-row__cell--checkbox:hover {
+  background-color: var(--primary-t-active, rgba(0, 45, 128, 0.2));
+}
+
+/* Marks the checkbox's own hit area: clicks landing here are handled by the
+   checkbox, so the cell handler skips them — see StudyRow.tsx. */
 .study-row__checkbox {
   display: flex;
   align-items: center;
