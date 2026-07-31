@@ -33,6 +33,9 @@
   justify-content: center;
   padding: 0;
   transition: opacity 150ms ease;
+  /* See the note in StudyRow.css — keeps the focus outline from being clipped
+     into two vertical brackets. */
+  overflow: visible;
 }
 
 /*
@@ -44,8 +47,15 @@
   pointer-events: none;
 }
 
-.study-table-header--select-hover:hover .study-table-header__cell--checkbox,
-.study-table-header--select-hover:focus-within .study-table-header__cell--checkbox {
+/* :focus-visible, never :focus-within — see the note in StudyRow.css */
+.study-table-header--select-hover:hover .study-table-header__cell--checkbox {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Kept in its own rule so an unsupported :has() cannot invalidate the hover
+   selector above. */
+.study-table-header--select-hover:has(:focus-visible) .study-table-header__cell--checkbox {
   opacity: 1;
   pointer-events: auto;
 }

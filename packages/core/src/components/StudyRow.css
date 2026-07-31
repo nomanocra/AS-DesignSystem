@@ -64,6 +64,10 @@
   justify-content: center;
   padding: 0;
   transition: opacity 150ms ease;
+  /* The cell hugs the 16px checkbox, so the inherited `overflow: hidden` (there
+     for the text columns' ellipsis) would clip the focus outline top and bottom
+     and leave only its two vertical segments showing. */
+  overflow: visible;
 }
 
 /*
@@ -76,8 +80,21 @@
   pointer-events: none;
 }
 
+/*
+ * :focus-visible, never :focus-within — a mouse click leaves DOM focus on the
+ * checkbox, which would pin it visible after the pointer has left the row.
+ * :focus-visible matches keyboard focus only, which is the case that actually
+ * needs covering so the checkbox is never hidden-but-tabbable.
+ */
 .study-row--select-hover:hover .study-row__cell--checkbox,
-.study-row--select-hover:focus-within .study-row__cell--checkbox {
+.study-row--select-hover:focus-visible .study-row__cell--checkbox {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Kept in its own rule: where :has() is unsupported it must not invalidate the
+   hover selector above, which would kill the reveal entirely. */
+.study-row--select-hover:has(:focus-visible) .study-row__cell--checkbox {
   opacity: 1;
   pointer-events: auto;
 }
