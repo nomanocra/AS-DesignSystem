@@ -602,6 +602,8 @@ import photoCameraIcon from '../assets/svg/icons/photo_camera.svg?raw';
 import photoLibraryIcon from '../assets/svg/icons/photo_library.svg?raw';
 import pictureAsPdfIcon from '../assets/svg/icons/picture_as_pdf.svg?raw';
 import pieChartIcon from '../assets/svg/icons/pie_chart.svg?raw';
+import pinOffIcon from '../assets/svg/icons/pin_off.svg?raw';
+import pinOffOutlineIcon from '../assets/svg/icons/pin_off_outline.svg?raw';
 import placeIcon from '../assets/svg/icons/place.svg?raw';
 import playIcon from '../assets/svg/icons/play.svg?raw';
 import playArrowIcon from '../assets/svg/icons/play_arrow.svg?raw';
@@ -625,6 +627,8 @@ import privacyTipIcon from '../assets/svg/icons/privacy_tip.svg?raw';
 import psychologyIcon from '../assets/svg/icons/psychology.svg?raw';
 import publicIcon from '../assets/svg/icons/public.svg?raw';
 import publicOffIcon from '../assets/svg/icons/public_off.svg?raw';
+import pushPinIcon from '../assets/svg/icons/push_pin.svg?raw';
+import pushPinOutlineIcon from '../assets/svg/icons/push_pin_outline.svg?raw';
 import qrCodeIcon from '../assets/svg/icons/qr_code.svg?raw';
 import qrCode2Icon from '../assets/svg/icons/qr_code_2.svg?raw';
 import qrCodeScannerIcon from '../assets/svg/icons/qr_code_scanner.svg?raw';
@@ -1464,6 +1468,8 @@ const iconMap: Record<string, string> = {
   'photo_library': photoLibraryIcon,
   'picture_as_pdf': pictureAsPdfIcon,
   'pie_chart': pieChartIcon,
+  'pin_off': pinOffIcon,
+  'pin_off_outline': pinOffOutlineIcon,
   'place': placeIcon,
   'play': playIcon,
   'play_arrow': playArrowIcon,
@@ -1487,6 +1493,8 @@ const iconMap: Record<string, string> = {
   'psychology': psychologyIcon,
   'public': publicIcon,
   'public_off': publicOffIcon,
+  'push_pin': pushPinIcon,
+  'push_pin_outline': pushPinOutlineIcon,
   'qr_code': qrCodeIcon,
   'qr_code_2': qrCode2Icon,
   'qr_code_scanner': qrCodeScannerIcon,
@@ -2326,6 +2334,8 @@ export const availableIcons = [
   'photo_library',
   'picture_as_pdf',
   'pie_chart',
+  'pin_off',
+  'pin_off_outline',
   'place',
   'play',
   'play_arrow',
@@ -2349,6 +2359,8 @@ export const availableIcons = [
   'psychology',
   'public',
   'public_off',
+  'push_pin',
+  'push_pin_outline',
   'qr_code',
   'qr_code_2',
   'qr_code_scanner',

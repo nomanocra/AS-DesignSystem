@@ -17,7 +17,7 @@ export const components: RegistryItem[] = [
         target: 'components/Icon.css',
         type: 'style',
       },
-      // SVG icon assets (859 icons)
+      // SVG icon assets (863 icons)
       { path: 'templates/assets/svg/icons/123.svg', target: 'assets/svg/icons/123.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/AIR_AC_twin_engine.svg', target: 'assets/svg/icons/AIR_AC_twin_engine.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/AIR_APU.svg', target: 'assets/svg/icons/AIR_APU.svg', type: 'component' },
@@ -621,6 +621,8 @@ export const components: RegistryItem[] = [
       { path: 'templates/assets/svg/icons/photo_library.svg', target: 'assets/svg/icons/photo_library.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/picture_as_pdf.svg', target: 'assets/svg/icons/picture_as_pdf.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/pie_chart.svg', target: 'assets/svg/icons/pie_chart.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/pin_off.svg', target: 'assets/svg/icons/pin_off.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/pin_off_outline.svg', target: 'assets/svg/icons/pin_off_outline.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/place.svg', target: 'assets/svg/icons/place.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/play.svg', target: 'assets/svg/icons/play.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/play_arrow.svg', target: 'assets/svg/icons/play_arrow.svg', type: 'component' },
@@ -644,6 +646,8 @@ export const components: RegistryItem[] = [
       { path: 'templates/assets/svg/icons/psychology.svg', target: 'assets/svg/icons/psychology.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/public.svg', target: 'assets/svg/icons/public.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/public_off.svg', target: 'assets/svg/icons/public_off.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/push_pin.svg', target: 'assets/svg/icons/push_pin.svg', type: 'component' },
+      { path: 'templates/assets/svg/icons/push_pin_outline.svg', target: 'assets/svg/icons/push_pin_outline.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/qr_code.svg', target: 'assets/svg/icons/qr_code.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/qr_code_2.svg', target: 'assets/svg/icons/qr_code_2.svg', type: 'component' },
       { path: 'templates/assets/svg/icons/qr_code_scanner.svg', target: 'assets/svg/icons/qr_code_scanner.svg', type: 'component' },
