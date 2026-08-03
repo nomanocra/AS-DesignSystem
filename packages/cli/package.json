@@ -1,6 +1,6 @@
 {
   "name": "@as-designsystem/cli",
-  "version": "0.82.1",
+  "version": "0.83.0",
   "description": "CLI tool to add AS Design System components to your project",
   "type": "module",
   "bin": {
