@@ -91,6 +91,7 @@ import attachFileIcon from '../assets/svg/icons/attach_file.svg?raw';
 import attachMoneyIcon from '../assets/svg/icons/attach_money.svg?raw';
 import attachmentIcon from '../assets/svg/icons/attachment.svg?raw';
 import autoFixHighIcon from '../assets/svg/icons/auto_fix_high.svg?raw';
+import autoplayIcon from '../assets/svg/icons/autoplay.svg?raw';
 import autorenewIcon from '../assets/svg/icons/autorenew.svg?raw';
 import avTimerIcon from '../assets/svg/icons/av_timer.svg?raw';
 import backspaceIcon from '../assets/svg/icons/backspace.svg?raw';
@@ -707,6 +708,7 @@ import signalWifiOffIcon from '../assets/svg/icons/signal_wifi_off.svg?raw';
 import simCardIcon from '../assets/svg/icons/sim_card.svg?raw';
 import skipNextIcon from '../assets/svg/icons/skip_next.svg?raw';
 import skipPreviousIcon from '../assets/svg/icons/skip_previous.svg?raw';
+import slowMotionVideoIcon from '../assets/svg/icons/slow_motion_video.svg?raw';
 import smartDisplayIcon from '../assets/svg/icons/smart_display.svg?raw';
 import smartphoneIcon from '../assets/svg/icons/smartphone.svg?raw';
 import smsIcon from '../assets/svg/icons/sms.svg?raw';
@@ -957,6 +959,7 @@ const iconMap: Record<string, string> = {
   'attach_money': attachMoneyIcon,
   'attachment': attachmentIcon,
   'auto_fix_high': autoFixHighIcon,
+  'autoplay': autoplayIcon,
   'autorenew': autorenewIcon,
   'av_timer': avTimerIcon,
   'backspace': backspaceIcon,
@@ -1573,6 +1576,7 @@ const iconMap: Record<string, string> = {
   'sim_card': simCardIcon,
   'skip_next': skipNextIcon,
   'skip_previous': skipPreviousIcon,
+  'slow_motion_video': slowMotionVideoIcon,
   'smart_display': smartDisplayIcon,
   'smartphone': smartphoneIcon,
   'sms': smsIcon,
@@ -1823,6 +1827,7 @@ export const availableIcons = [
   'attach_money',
   'attachment',
   'auto_fix_high',
+  'autoplay',
   'autorenew',
   'av_timer',
   'backspace',
@@ -2439,6 +2444,7 @@ export const availableIcons = [
   'sim_card',
   'skip_next',
   'skip_previous',
+  'slow_motion_video',
   'smart_display',
   'smartphone',
   'sms',
