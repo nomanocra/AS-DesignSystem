@@ -353,6 +353,9 @@ Normalize fetched SVGs to `viewBox="0 0 24 24"` with `fill="currentColor"` (see 
 
 > If `{name}/baseline.svg` returns HTTP 404 on the CDN, that icon exists only in Material Symbols (not classic) — flag it rather than silently substituting a Symbols version. (The CDN does carry many newer icons in classic form, e.g. `oil_barrel`, `more_time`, `tag`.)
 
+**Documented Symbols exceptions** — the rule above was waived explicitly, case by case. Do not extend this list without asking:
+- `autoplay.svg` — no classic equivalent exists. Taken from `@material-symbols/svg-400/outlined`, path re-projected numerically from viewBox `0 -960 960 960` to `0 0 24 24` (scale 0.025, translate y +24) so the file is structurally identical to the rest of the set. Its stroke is lighter than classic Filled; pair it with `slow_motion_video` (classic) when weight consistency matters.
+
 ---
 
 ## CLI Commands
