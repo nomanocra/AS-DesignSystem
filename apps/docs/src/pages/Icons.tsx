@@ -335,16 +335,9 @@ export default function Icons() {
               </pre>
             </div>
 
-            {/* Share & downloads */}
+            {/* Downloads */}
             <div className="icons-modal-downloads">
               <div className="icons-modal-downloads-buttons">
-                <Button
-                  label={copiedCode === window.location.href ? 'Link copied' : 'Copy link'}
-                  variant="Outlined"
-                  size="M"
-                  leftIcon={copiedCode === window.location.href ? 'check' : 'link'}
-                  onClick={() => copyToClipboard(window.location.href)}
-                />
                 <Button
                   label="Download SVG"
                   variant="Outlined"
