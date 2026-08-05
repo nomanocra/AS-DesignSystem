@@ -23,7 +23,13 @@ const colorOptions = [
   { label: 'Warning', value: 'var(--feedback-warning-default, #ffc929)', isDefault: false },
   { label: 'Success', value: 'var(--feedback-success-default, #08875b)', isDefault: false },
 ] as const;
-type ColorOption = (typeof colorOptions)[number];
+
+// Extra choice revealing a native color picker (its popup already provides a hex field)
+const CUSTOM_COLOR_LABEL = 'Custom';
+const DEFAULT_CUSTOM_COLOR = '#00205b';
+
+// PNG is exported at 4x the previewed size so it stays usable outside the docs
+const PNG_SCALE = 4;
 
 // ButtonGroup options for sizes
 const sizeOptions = sizes.map((size) => ({
@@ -32,33 +38,75 @@ const sizeOptions = sizes.map((size) => ({
 }));
 
 // ButtonGroup options for colors
-const colorButtonOptions = colorOptions.map((color) => ({
-  value: color.label,
-  label: color.label,
-}));
+const colorButtonOptions = [
+  ...colorOptions.map((color) => ({ value: color.label, label: color.label })),
+  { value: CUSTOM_COLOR_LABEL, label: CUSTOM_COLOR_LABEL },
+];
+
+const triggerDownload = (blob: Blob, filename: string) => {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+};
 
 export default function Icons() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<IconSize>(DEFAULT_SIZE);
-  const [selectedColor, setSelectedColor] = useState<ColorOption>(colorOptions[0]);
+  const [selectedColorLabel, setSelectedColorLabel] = useState<string>(colorOptions[0].label);
+  const [customColor, setCustomColor] = useState(DEFAULT_CUSTOM_COLOR);
+
+  const isCustomColor = selectedColorLabel === CUSTOM_COLOR_LABEL;
+  const presetColor =
+    colorOptions.find((color) => color.label === selectedColorLabel) ?? colorOptions[0];
+
+  const activeColor = isCustomColor ? customColor : presetColor.value;
+  const isDefaultColor = !isCustomColor && presetColor.isDefault;
 
   const filteredIcons = iconNames.filter((iconName) =>
     iconName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // The modal preview is the reference render: it always exists while the buttons are visible,
+  // unlike the grid item which the search box can filter out mid-download.
+  const getPreviewSvg = () =>
+    document.querySelector<SVGSVGElement>('.icons-modal-preview-icon svg');
+
   const downloadSvg = (iconName: string) => {
-    const iconEl = document.querySelector(`.icon-${iconName} svg`);
-    if (!iconEl) return;
-    const svgContent = iconEl.outerHTML;
-    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${iconName}.svg`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const svg = getPreviewSvg();
+    if (!svg) return;
+    triggerDownload(new Blob([svg.outerHTML], { type: 'image/svg+xml' }), `${iconName}.svg`);
+  };
+
+  const downloadPng = (iconName: string) => {
+    const svg = getPreviewSvg();
+    if (!svg) return;
+
+    // A PNG cannot inherit currentColor, so bake the resolved color into the clone
+    const clone = svg.cloneNode(true) as SVGSVGElement;
+    const px = selectedSize * PNG_SCALE;
+    clone.setAttribute('width', String(px));
+    clone.setAttribute('height', String(px));
+    clone.style.color = getComputedStyle(svg).color;
+
+    const source = new XMLSerializer().serializeToString(clone);
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = px;
+      canvas.height = px;
+      const context = canvas.getContext('2d');
+      if (!context) return;
+      context.drawImage(image, 0, 0, px, px);
+      canvas.toBlob((blob) => {
+        if (blob) triggerDownload(blob, `${iconName}-${px}.png`);
+      }, 'image/png');
+    };
+    image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(source)}`;
   };
 
   // Generate code string based on selected settings, omitting default values
@@ -69,8 +117,8 @@ export default function Icons() {
       props.push(`size={${selectedSize}}`);
     }
 
-    if (!selectedColor.isDefault) {
-      props.push(`color="${selectedColor.value}"`);
+    if (!isDefaultColor) {
+      props.push(`color="${activeColor}"`);
     }
 
     return `<Icon ${props.join(' ')} />`;
@@ -134,13 +182,21 @@ export default function Icons() {
             <span className="icons-setting-label">Color</span>
             <ButtonGroup
               options={colorButtonOptions}
-              value={selectedColor.label}
-              onChange={(value) => {
-                const color = colorOptions.find((c) => c.label === value);
-                if (color) setSelectedColor(color);
-              }}
+              value={selectedColorLabel}
+              onChange={setSelectedColorLabel}
               size="S"
             />
+
+            {isCustomColor && (
+              <input
+                type="color"
+                className="icons-custom-color-swatch"
+                value={customColor}
+                onChange={(e) => setCustomColor(e.target.value)}
+                title={customColor}
+                aria-label="Pick a custom icon color"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -156,7 +212,7 @@ export default function Icons() {
               title="Click to see usage"
             >
               <div className="icon-preview">
-                <Icon name={iconName} size={selectedSize} color={selectedColor.value} />
+                <Icon name={iconName} size={selectedSize} color={activeColor} />
               </div>
               <code className="icon-name">{iconName}</code>
             </div>
@@ -181,7 +237,12 @@ export default function Icons() {
                   borderRadius: '8px',
                 }}
               >
-                <Icon name={selectedIcon} size={selectedSize} color={selectedColor.value} />
+                <Icon
+                  name={selectedIcon}
+                  size={selectedSize}
+                  color={activeColor}
+                  className="icons-modal-preview-icon"
+                />
               </div>
             </div>
 
@@ -225,15 +286,28 @@ export default function Icons() {
               </pre>
             </div>
 
-            {/* Download SVG */}
-            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
-              <Button
-                label="Download SVG"
-                variant="Outlined"
-                size="M"
-                leftIcon="download"
-                onClick={() => downloadSvg(selectedIcon)}
-              />
+            {/* Downloads */}
+            <div className="icons-modal-downloads">
+              <div className="icons-modal-downloads-buttons">
+                <Button
+                  label="Download SVG"
+                  variant="Outlined"
+                  size="M"
+                  leftIcon="download"
+                  onClick={() => downloadSvg(selectedIcon)}
+                />
+                <Button
+                  label="Download PNG"
+                  variant="Outlined"
+                  size="M"
+                  leftIcon="download"
+                  onClick={() => downloadPng(selectedIcon)}
+                />
+              </div>
+              <p className="icons-modal-downloads-hint">
+                SVG keeps <code>currentColor</code> so it stays themeable. PNG is exported at{' '}
+                {selectedSize * PNG_SCALE}px with the selected color baked in.
+              </p>
             </div>
           </div>
         )}

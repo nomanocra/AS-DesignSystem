@@ -76,6 +76,37 @@
   border: 2px solid var(--text-negative, #ffffff);
 }
 
+/* Custom color picker — the native popup already exposes a hex field */
+.icons-custom-color-swatch {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--border-moderate, #ced5dd);
+  border-radius: 4px;
+  background-color: var(--background-main, #ffffff);
+  cursor: pointer;
+}
+
+.icons-custom-color-swatch:hover {
+  border-color: var(--primary-default, #063b9e);
+}
+
+/* Strip the native chrome so the swatch reads as a flat color chip */
+.icons-custom-color-swatch::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+
+.icons-custom-color-swatch::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.icons-custom-color-swatch::-moz-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
 /* ============================================================================
    ICONS PAGE - Modal Code Blocks
    ============================================================================ */
@@ -121,4 +152,37 @@
   margin-bottom: 8px;
   color: var(--text-secondary);
   font-weight: 600;
+}
+
+/* ============================================================================
+   ICONS PAGE - Modal Downloads
+   ============================================================================ */
+
+.icons-modal-downloads {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.icons-modal-downloads-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.icons-modal-downloads-hint {
+  margin: 0;
+  max-width: 420px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary, #63728a);
+}
+
+.icons-modal-downloads-hint code {
+  font-family: 'Courier New', monospace;
 }
