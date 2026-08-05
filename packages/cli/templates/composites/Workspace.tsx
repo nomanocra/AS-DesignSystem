@@ -17,6 +17,16 @@ export interface WorkspaceProps {
    */
   title: string;
   /**
+   * Interactive slot rendered inline, right after the title text.
+   * Typically one or more `IconButton`s (pin, rename, …).
+   *
+   * The nodes live above the header hit area, so they receive their own
+   * clicks without toggling the workspace. Products can target the stable
+   * `.workspace__title-actions` class to reveal them on hover:
+   * `.workspace__header:hover .workspace__title-actions { opacity: 1 }`
+   */
+  titleActions?: React.ReactNode;
+  /**
    * Number of studies — renders "N Studies" chip
    */
   studyCount?: number;
@@ -71,6 +81,10 @@ export interface WorkspaceProps {
  * A collapsible card for workspace folders. Displays title, study count,
  * computing state, last modified date, and user avatars.
  *
+ * Clicking anywhere on the header toggles the workspace. `titleActions`
+ * renders interactive nodes right after the title, which keep their own
+ * clicks.
+ *
  * @example
  * ```tsx
  * <Workspace
@@ -86,6 +100,7 @@ export interface WorkspaceProps {
  */
 export function Workspace({
   title,
+  titleActions,
   studyCount,
   computingText,
   isComputing = false,
@@ -117,11 +132,21 @@ export function Workspace({
 
   return (
     <div className={containerClasses}>
-      <button
-        className="workspace__header"
-        onClick={handleToggle}
-        aria-expanded={isOpen}
-      >
+      <div className="workspace__header">
+        {/*
+          The toggle is a transparent hit area covering the whole header instead of
+          the header itself being a <button>: a button may not contain interactive
+          content, and the title actions slot needs to sit inside the title line.
+          Islands that need their own pointer events (title actions, avatars) are
+          lifted above it with z-index.
+        */}
+        <button
+          type="button"
+          className="workspace__header-hit"
+          onClick={handleToggle}
+          aria-expanded={isOpen}
+          aria-label={title}
+        />
         <span className="workspace__toggle-icon">
           <Icon
             name="dropdown"
@@ -139,7 +164,12 @@ export function Workspace({
           />
         )}
         <div className="workspace__title-block">
-          <span className="workspace__title label-regular-xs">{title}</span>
+          <div className="workspace__title-line">
+            <span className="workspace__title label-regular-xs">{title}</span>
+            {titleActions && (
+              <span className="workspace__title-actions">{titleActions}</span>
+            )}
+          </div>
           <div className="workspace__title-row">
             {studyCount !== undefined && (
               <span className="workspace__study-chip legend-medium-m">
@@ -164,7 +194,9 @@ export function Workspace({
             side="top"
             delayDuration={0}
           >
-            <div>
+            {/* Lifted above the hit area so the tooltip still gets its hover;
+                the toggle is re-attached so clicking avatars keeps toggling. */}
+            <div className="workspace__avatars" onClick={handleToggle}>
               <AvatarStack max={maxAvatars} size="M">
                 {users.map((user, i) => (
                   <Avatar
@@ -179,7 +211,7 @@ export function Workspace({
             </div>
           </SimpleTooltip>
         )}
-      </button>
+      </div>
       <div className="workspace__body">
         <div className="workspace__content">
           <div className="workspace__table-wrapper">

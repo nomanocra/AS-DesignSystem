@@ -6,6 +6,21 @@
   overflow: visible;
 }
 
+/* Title actions demo: the pin is revealed on header hover, and stays visible
+   once the workspace is pinned. Products own this rule, not the design system. */
+.workspace-demo--actions .is-pinnable .workspace__title-actions {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}
+
+.workspace-demo--actions .is-pinnable .workspace__header:hover .workspace__title-actions,
+.workspace-demo--actions .is-pinnable .workspace__title-actions:focus-within,
+.workspace-demo--actions .is-pinnable.is-pinned .workspace__title-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .workspace-demo__study-item {
   font-family: 'Inter', sans-serif;
   font-size: 13px;

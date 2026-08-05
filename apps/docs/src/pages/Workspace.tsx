@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Workspace, Tab, Button, StudyTableHeader, StudyRow } from '@as-designsystem/core';
+import { Workspace, Tab, Button, IconButton, StudyTableHeader, StudyRow } from '@as-designsystem/core';
 import '@as-designsystem/core/Workspace.css';
 import '@as-designsystem/core/Avatar.css';
 import '@as-designsystem/core/Spinner.css';
@@ -125,6 +125,45 @@ const allSelected = selectedCount === studies.length;
     />
   ))}
 </Workspace>`;
+
+  const titleActionsCode = `import { useState } from 'react';
+import { Workspace } from '@/design-system/composites/Workspace';
+import { IconButton } from '@/design-system/components/IconButton';
+
+const [pinned, setPinned] = useState(false);
+
+<Workspace
+  title="AirFrance 2026"
+  studyCount={4}
+  lastModified="Feb 3, 2025"
+  className={pinned ? 'is-pinned' : ''}
+  titleActions={
+    <IconButton
+      icon={pinned ? 'push_pin' : 'push_pin_outline'}
+      size="XS"
+      variant="Ghost"
+      alt={pinned ? 'Unpin workspace' : 'Pin workspace'}
+      onClick={() => setPinned(!pinned)}
+    />
+  }
+>
+  <p>Folder content here...</p>
+</Workspace>`;
+
+  const titleActionsCssCode = `/* Actions are always rendered — the product decides when they show.
+   Here: revealed on header hover, kept visible once pinned. */
+.workspace .workspace__title-actions {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}
+
+.workspace__header:hover .workspace__title-actions,
+.workspace__title-actions:focus-within,
+.workspace.is-pinned .workspace__title-actions {
+  opacity: 1;
+  pointer-events: auto;
+}`;
 
   const computingCode = `import { Workspace } from '@/design-system/composites/Workspace';
 import { StudyTableHeader } from '@/design-system/components/StudyTableHeader';
@@ -401,6 +440,48 @@ const [isOpen, setIsOpen] = useState(false);
             </div>
           </section>
 
+          {/* Title Actions */}
+          <section className="component-section">
+            <div className="section-header">
+              <h2
+                className="heading-6"
+                style={{
+                  marginTop: '32px',
+                  marginBottom: '16px',
+                  color: 'var(--text-corporate, var(--sea-blue-90, #00205b))',
+                }}
+              >
+                Title Actions
+              </h2>
+              <Button
+                label="Code"
+                leftIcon="code"
+                size="S"
+                variant="Outlined"
+                onClick={() => setOpenModal('titleActions')}
+              />
+            </div>
+            <p
+              className="label-regular-s"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--text-secondary, var(--cool-grey-70, #63728a))',
+              }}
+            >
+              <code>titleActions</code> renders interactive nodes right after the title text.
+              They sit above the header hit area, so clicking them does not toggle the
+              workspace — everywhere else on the header still does. The slot is always
+              rendered: use the stable <code>.workspace__title-actions</code> class to control
+              when it shows. The first example below reveals the pin on hover and keeps it
+              visible once pinned, the second always shows its actions.
+            </p>
+            <div className="example-container">
+              <div className="workspace-demo workspace-demo--actions">
+                <TitleActionsExample />
+              </div>
+            </div>
+          </section>
+
           {/* Computing State */}
           <section className="component-section">
             <div className="section-header">
@@ -528,6 +609,17 @@ const [isOpen, setIsOpen] = useState(false);
                   <td>Workspace title</td>
                 </tr>
                 <tr>
+                  <td><code>titleActions</code></td>
+                  <td><code>ReactNode</code></td>
+                  <td>-</td>
+                  <td>
+                    Interactive slot rendered inline, right after the title text. Clicks stay
+                    on the actions instead of toggling the workspace. Target the stable
+                    <code>.workspace__title-actions</code> class to control visibility
+                    (e.g. reveal on <code>.workspace__header:hover</code>).
+                  </td>
+                </tr>
+                <tr>
                   <td><code>studyCount</code></td>
                   <td><code>number</code></td>
                   <td>-</td>
@@ -619,6 +711,15 @@ const [isOpen, setIsOpen] = useState(false);
         sections={[{ title: 'Workspace.tsx', language: 'tsx', code: selectionCode }]}
       />
       <CodeModal
+        isOpen={openModal === 'titleActions'}
+        onClose={() => setOpenModal(null)}
+        title="Workspace — Title Actions"
+        sections={[
+          { title: 'Workspace.tsx', language: 'tsx', code: titleActionsCode },
+          { title: 'Workspace.css', language: 'css', code: titleActionsCssCode },
+        ]}
+      />
+      <CodeModal
         isOpen={openModal === 'computing'}
         onClose={() => setOpenModal(null)}
         title="Workspace — Computing State"
@@ -630,6 +731,50 @@ const [isOpen, setIsOpen] = useState(false);
         title="Workspace — Controlled"
         sections={[{ title: 'Workspace.tsx', language: 'tsx', code: controlledCode }]}
       />
+    </div>
+  );
+}
+
+function TitleActionsExample() {
+  const [pinned, setPinned] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Workspace
+        title="AirFrance 2026"
+        studyCount={4}
+        lastModified="Feb 3, 2025"
+        users={[{ initials: 'MT', name: 'Mark Thompson' }]}
+        className={`is-pinnable${pinned ? ' is-pinned' : ''}`}
+        titleActions={
+          <IconButton
+            icon={pinned ? 'push_pin' : 'push_pin_outline'}
+            size="XS"
+            variant="Ghost"
+            alt={pinned ? 'Unpin workspace' : 'Pin workspace'}
+            onClick={() => setPinned(!pinned)}
+          />
+        }
+      >
+        <StudyTableHeader columns={[{ key: 'name', label: 'Name' }]} />
+        <StudyRow status="Computed" columns={[{ key: 'name', value: 'A320 Fleet Analysis' }]} />
+      </Workspace>
+
+      <Workspace
+        title="Lufthansa 2026"
+        studyCount={2}
+        lastModified="Jan 9, 2025"
+        users={[{ initials: 'JD', name: 'Jane Doe' }]}
+        titleActions={
+          <>
+            <IconButton icon="edit" size="XS" variant="Ghost" alt="Rename workspace" />
+            <IconButton icon="delete_outline" size="XS" variant="Ghost" alt="Delete workspace" />
+          </>
+        }
+      >
+        <StudyTableHeader columns={[{ key: 'name', label: 'Name' }]} />
+        <StudyRow status="Draft" columns={[{ key: 'name', value: 'Maintenance Forecast' }]} />
+      </Workspace>
     </div>
   );
 }

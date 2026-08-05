@@ -19,6 +19,7 @@
    ============================================================================ */
 
 .workspace__header {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -35,7 +36,23 @@
   background-color: var(--background-secondary, #fafafa);
 }
 
-.workspace__header:focus-visible {
+/* Transparent toggle covering the whole header. Header content stays
+   unpositioned so it sits underneath and every click reaches the toggle. */
+.workspace__header-hit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.workspace__header-hit:focus-visible {
   outline: 2px solid var(--primary-default, #063b9e);
   outline-offset: -2px;
 }
@@ -66,6 +83,14 @@
   min-width: 0;
 }
 
+/* Title text + optional actions slot, on the same baseline */
+.workspace__title-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
 .workspace__title {
   font-family: 'Inter', sans-serif;
   color: var(--text-main, #14171d);
@@ -73,6 +98,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* ============================================================================
+   TITLE ACTIONS (consumer slot, e.g. pin / rename icon buttons)
+   ============================================================================ */
+
+.workspace__title-actions {
+  position: relative; /* paints above .workspace__header-hit */
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
 }
 
 .workspace__title-row {
@@ -140,7 +179,17 @@
   white-space: nowrap;
 }
 
-/* Avatars removed - now using individual Avatar tooltips via Radix UI */
+/* ============================================================================
+   AVATARS
+   ============================================================================ */
+
+/* Above the hit area so the tooltip keeps receiving hover */
+.workspace__avatars {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
 
 /* ============================================================================
    CONTENT (animated collapse)
