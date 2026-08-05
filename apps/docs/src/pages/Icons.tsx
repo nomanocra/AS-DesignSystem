@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './Tokens.css';
 import './Icons.css';
 import { Button, Icon, IconButton, availableIcons, ButtonGroup, Modal, TextInput } from '@as-designsystem/core';
@@ -53,19 +54,53 @@ const triggerDownload = (blob: Blob, filename: string) => {
 };
 
 export default function Icons() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  // The URL is the single source of truth for the view, so any state worth sharing
+  // survives a reload, a Back/Forward, and a link pasted into a chat.
+  const [searchParams, setSearchParams] = useSearchParams();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<IconSize>(DEFAULT_SIZE);
-  const [selectedColorLabel, setSelectedColorLabel] = useState<string>(colorOptions[0].label);
-  const [customColor, setCustomColor] = useState(DEFAULT_CUSTOM_COLOR);
 
-  const isCustomColor = selectedColorLabel === CUSTOM_COLOR_LABEL;
-  const presetColor =
-    colorOptions.find((color) => color.label === selectedColorLabel) ?? colorOptions[0];
+  const searchQuery = searchParams.get('q') ?? '';
+
+  // Guard against a hand-edited or stale ?icon= pointing at an icon that no longer exists
+  const iconParam = searchParams.get('icon');
+  const selectedIcon =
+    iconParam && (iconNames as readonly string[]).includes(iconParam) ? iconParam : null;
+
+  const sizeParam = Number(searchParams.get('size'));
+  const selectedSize = (sizes as readonly number[]).includes(sizeParam)
+    ? (sizeParam as IconSize)
+    : DEFAULT_SIZE;
+
+  // A preset is stored by label ("Error"), a custom color by its hex ("#643563")
+  const colorParam = searchParams.get('color') ?? '';
+  const isCustomColor = colorParam.startsWith('#');
+  const customColor = isCustomColor ? colorParam : DEFAULT_CUSTOM_COLOR;
+  const presetColor = colorOptions.find((color) => color.label === colorParam) ?? colorOptions[0];
+  const selectedColorLabel = isCustomColor ? CUSTOM_COLOR_LABEL : presetColor.label;
 
   const activeColor = isCustomColor ? customColor : presetColor.value;
   const isDefaultColor = !isCustomColor && presetColor.isDefault;
+
+  /**
+   * Writes params, dropping any that fall back to their default so shared links stay short.
+   *
+   * `replace` is the default because filters change on every keystroke and would otherwise
+   * bury the Back button under one entry per character. Discrete actions — opening or
+   * closing an icon — pass `replace: false` so Back closes the modal.
+   */
+  const updateParams = (changes: Record<string, string | null>, replace = true) => {
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current);
+        Object.entries(changes).forEach(([key, value]) => {
+          if (value === null || value === '') next.delete(key);
+          else next.set(key, value);
+        });
+        return next;
+      },
+      { replace }
+    );
+  };
 
   const filteredIcons = iconNames.filter((iconName) =>
     iconName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -149,14 +184,14 @@ export default function Icons() {
           <TextInput
             placeholder="Search an icon..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => updateParams({ q: e.target.value })}
             size="S"
             showLabel={false}
             showLeftIcon
             leftIcon="search"
             showRightIconButton={searchQuery.length > 0}
             rightIconButton="close"
-            onRightIconButtonClick={() => setSearchQuery('')}
+            onRightIconButtonClick={() => updateParams({ q: null })}
             className="icon-search-input"
             showLegend
             legend={
@@ -172,7 +207,9 @@ export default function Icons() {
             <ButtonGroup
               options={sizeOptions}
               value={String(selectedSize)}
-              onChange={(value) => setSelectedSize(Number(value) as IconSize)}
+              onChange={(value) =>
+                updateParams({ size: Number(value) === DEFAULT_SIZE ? null : value })
+              }
               size="S"
             />
           </div>
@@ -183,7 +220,17 @@ export default function Icons() {
             <ButtonGroup
               options={colorButtonOptions}
               value={selectedColorLabel}
-              onChange={setSelectedColorLabel}
+              onChange={(value) =>
+                updateParams({
+                  // Switching to Custom seeds the picker with a concrete hex
+                  color:
+                    value === CUSTOM_COLOR_LABEL
+                      ? DEFAULT_CUSTOM_COLOR
+                      : value === colorOptions[0].label
+                        ? null
+                        : value,
+                })
+              }
               size="S"
             />
 
@@ -192,7 +239,7 @@ export default function Icons() {
                 type="color"
                 className="icons-custom-color-swatch"
                 value={customColor}
-                onChange={(e) => setCustomColor(e.target.value)}
+                onChange={(e) => updateParams({ color: e.target.value })}
                 title={customColor}
                 aria-label="Pick a custom icon color"
               />
@@ -207,7 +254,7 @@ export default function Icons() {
             <div
               key={iconName}
               className="icon-item clickable"
-              onClick={() => setSelectedIcon(iconName)}
+              onClick={() => updateParams({ icon: iconName }, false)}
               style={{ cursor: 'pointer' }}
               title="Click to see usage"
             >
@@ -223,7 +270,9 @@ export default function Icons() {
       {/* Icon Code Modal */}
       <Modal
         isOpen={selectedIcon !== null}
-        onClose={() => setSelectedIcon(null)}
+        // Closing replaces instead of pushing: opening already added an entry, so Back
+        // closes the modal. Pushing here too would make Back re-open what was just closed.
+        onClose={() => updateParams({ icon: null })}
         title={`Icon: ${selectedIcon}`}
       >
         {selectedIcon && (
@@ -286,9 +335,16 @@ export default function Icons() {
               </pre>
             </div>
 
-            {/* Downloads */}
+            {/* Share & downloads */}
             <div className="icons-modal-downloads">
               <div className="icons-modal-downloads-buttons">
+                <Button
+                  label={copiedCode === window.location.href ? 'Link copied' : 'Copy link'}
+                  variant="Outlined"
+                  size="M"
+                  leftIcon={copiedCode === window.location.href ? 'check' : 'link'}
+                  onClick={() => copyToClipboard(window.location.href)}
+                />
                 <Button
                   label="Download SVG"
                   variant="Outlined"
