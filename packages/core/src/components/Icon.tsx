@@ -577,6 +577,7 @@ import paletteIcon from '../assets/svg/icons/palette.svg?raw';
 import pauseIcon from '../assets/svg/icons/pause.svg?raw';
 import pauseCircleIcon from '../assets/svg/icons/pause_circle.svg?raw';
 import paymentIcon from '../assets/svg/icons/payment.svg?raw';
+import paymentsIcon from '../assets/svg/icons/payments.svg?raw';
 import pendingIcon from '../assets/svg/icons/pending.svg?raw';
 import pendingActionsIcon from '../assets/svg/icons/pending_actions.svg?raw';
 import peopleIcon from '../assets/svg/icons/people.svg?raw';
@@ -1445,6 +1446,7 @@ const iconMap: Record<string, string> = {
   'pause': pauseIcon,
   'pause_circle': pauseCircleIcon,
   'payment': paymentIcon,
+  'payments': paymentsIcon,
   'pending': pendingIcon,
   'pending_actions': pendingActionsIcon,
   'people': peopleIcon,
@@ -2313,6 +2315,7 @@ export const availableIcons = [
   'pause',
   'pause_circle',
   'payment',
+  'payments',
   'pending',
   'pending_actions',
   'people',
